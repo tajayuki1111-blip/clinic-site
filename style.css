@@ -402,18 +402,20 @@ smartphone
         margin-left:-18px;
     }
 
-    /* pc電話消す */
+    /* PC電話を消す */
 
     .header-tel{
         display:none;
     }
 
-    /* hamburger */
+    /* ハンバーガー */
 
     .menu-btn{
         display:block;
         margin-left:auto;
     }
+
+    /* メニュー */
 
     nav{
         display:none;
@@ -429,48 +431,94 @@ smartphone
         z-index:9998;
     }
 
+    /* 開いた時 */
+
     body.menu-open nav{
         display:flex;
     }
 
+    /* メニュー文字 */
+
     nav a{
+        width:100%;
         padding:18px;
         text-align:center;
         font-size:18px;
         border-bottom:1px solid #eef5fb;
+        color:#2c79b9;
+        text-decoration:none;
+        font-weight:bold;
     }
 
-    /* smartphone tel */
+    /* ======================
+    スマホ電話
+    ====================== */
 
     .sp-tel-link{
-        display:flex;
+
+        display:none;
+
         align-items:center;
+
         justify-content:center;
+
         gap:10px;
+
         margin-top:auto;
+
         margin-left:20px;
+
         margin-right:20px;
+
         margin-bottom:24px;
+
         background:white;
+
         color:#2c79b9;
+
         font-size:20px;
+
         font-weight:bold;
+
         text-decoration:none;
+
         border:2px solid #2c79b9;
+
         border-radius:999px;
+
         padding:14px 20px;
+
+        flex-shrink:0;
     }
 
-    .sp-tel-icon{
-        width:38px;
-        height:38px;
-        border-radius:50%;
-        background:#2c79b9;
-        color:white;
+    /* ハンバーガー開いた時だけ出す */
+
+    body.menu-open .sp-tel-link{
         display:flex;
+    }
+
+    /* 丸電話 */
+
+    .sp-tel-icon{
+
+        width:38px;
+
+        height:38px;
+
+        border-radius:50%;
+
+        background:#2c79b9;
+
+        color:white;
+
+        display:flex;
+
         justify-content:center;
+
         align-items:center;
+
         font-size:18px;
+
         font-weight:bold;
     }
 
