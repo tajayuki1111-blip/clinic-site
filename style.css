@@ -1,3 +1,71 @@
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    padding-top:80px;
+    padding-bottom:80px;
+    font-family:"Hiragino Sans","Yu Gothic",sans-serif;
+    background:#f5f9fd;
+    color:#333;
+    line-height:1.8;
+    overflow-x:hidden;
+}
+
+img{
+    max-width:100%;
+    display:block;
+}
+
+/* =====================
+   HEADER
+===================== */
+
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    background:white;
+    border-bottom:1px solid #dfeaf5;
+    z-index:9999;
+}
+
+.header-inner{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:14px 0;
+    position:relative;
+}
+
+/* LOGO */
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo-img{
+    width:48px;
+    height:48px;
+    object-fit:contain;
+}
+
+.logo strong{
+    font-size:18px;
+}
+
+.logo small{
+    font-size:12px;
+    color:#666;
+}
+
+/* =====================
+   HAMBURGER MENU
+===================== */
+
 .menu-toggle{
     display:none;
     font-size:28px;
@@ -8,7 +76,6 @@
     top:18px;
 }
 
-/* メニュー */
 .mobile-menu{
     display:none;
     flex-direction:column;
@@ -24,15 +91,211 @@
     font-weight:bold;
 }
 
-/* スマホだけ表示 */
+/* =====================
+   HERO
+===================== */
+
+.hero{
+    position:relative;
+}
+
+.hero img{
+    width:100%;
+    height:420px;
+    object-fit:cover;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.25);
+}
+
+.hero-text{
+    position:absolute;
+    left:8%;
+    bottom:12%;
+    color:white;
+    font-size:38px;
+    font-weight:bold;
+}
+
+/* =====================
+   MAIN
+===================== */
+
+main{
+    background:white;
+    margin:24px auto 100px;
+    padding:30px;
+    border-radius:18px;
+    max-width:1200px;
+}
+
+h2{
+    color:#2c79b9;
+    border-left:6px solid #2c79b9;
+    padding-left:12px;
+    margin-top:40px;
+}
+
+/* =====================
+   CARD
+===================== */
+
+.card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:20px;
+}
+
+.card-link{
+    background:#f5f9fd;
+    padding:24px;
+    border-radius:16px;
+}
+
+/* =====================
+   TABLE (PC)
+===================== */
+
+.schedule-wrap{
+    overflow-x:auto;
+}
+
+.schedule-table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:520px;
+    text-align:center;
+}
+
+.schedule-table th{
+    background:#2c79b9;
+    color:white;
+    padding:12px;
+}
+
+.schedule-table td{
+    padding:12px;
+    border-bottom:1px solid #dfeaf5;
+    font-size:18px;
+}
+
+.schedule-table .open{
+    color:#2c79b9;
+    font-weight:bold;
+}
+
+.schedule-table .close{
+    color:#ccc;
+}
+
+/* =====================
+   TABLE (SP CARD)
+===================== */
+
+.schedule-card{
+    display:none;
+}
+
+.schedule-item{
+    background:#f5f9fd;
+    margin-bottom:10px;
+    padding:12px;
+    border-radius:12px;
+}
+
+.schedule-item .time{
+    font-weight:bold;
+    color:#2c79b9;
+    margin-bottom:6px;
+}
+
+.schedule-row{
+    display:flex;
+    justify-content:space-between;
+    font-size:14px;
+}
+
+.schedule-note{
+    margin-top:10px;
+    color:#e60012;
+    font-weight:bold;
+}
+
+/* =====================
+   FOOTER
+===================== */
+
+footer{
+    background:#2c79b9;
+    color:white;
+    text-align:center;
+    padding:30px 0 90px;
+}
+
+/* =====================
+   FIXED CALL BUTTON
+===================== */
+
+.fixed-call{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    background:#2c79b9;
+}
+
+.fixed-call a{
+    display:block;
+    text-align:center;
+    color:white;
+    text-decoration:none;
+    padding:16px;
+    font-weight:bold;
+    font-size:18px;
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+
 @media(max-width:768px){
 
+    body{
+        padding-top:100px;
+    }
+
+    .hero img{
+        height:220px;
+    }
+
+    .hero-text{
+        font-size:22px;
+    }
+
+    .card-grid{
+        grid-template-columns:1fr;
+    }
+
+    /* hamburger */
     .menu-toggle{
         display:block;
     }
 
+    /* center header */
     .header-inner{
         justify-content:center;
     }
 
+    /* switch table */
+    .schedule-table{
+        display:none;
+    }
+
+    .schedule-card{
+        display:block;
+    }
 }
