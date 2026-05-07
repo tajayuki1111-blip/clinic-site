@@ -1,4 +1,3 @@
-
 *{
     box-sizing:border-box;
 }
@@ -123,10 +122,6 @@ nav a:hover{
     opacity:0.7;
 }
 
-.sp-tel-link{
-    display:none;
-}
-
 /* ======================
 hamburger
 ====================== */
@@ -201,8 +196,6 @@ hero
     border-bottom-right-radius:70px;
 }
 
-/* hero文字 */
-
 .hero-message{
     position:absolute;
     right:-120px;
@@ -214,23 +207,16 @@ hero
     display:inline-block;
     background:#2c79b9;
     color:white;
-
     font-family:
     "Hiragino Mincho ProN",
     "Yu Mincho",
     serif;
-
     font-size:30px;
     font-weight:bold;
-
     padding:14px 48px;
-
     margin-top:14px;
-
     letter-spacing:3px;
-
     line-height:1.5;
-
     white-space:nowrap;
 }
 
@@ -247,9 +233,7 @@ main{
     box-shadow:0 8px 30px rgba(0,0,0,0.04);
 }
 
-/* ======================
-title
-====================== */
+/* title */
 
 h2{
     text-align:center;
@@ -277,9 +261,7 @@ h2::after{
     transform:translateX(-50%);
 }
 
-/* ======================
-box
-====================== */
+/* box */
 
 .top-box,
 .news-box{
@@ -288,9 +270,7 @@ box
     padding:24px;
 }
 
-/* ======================
-covid
-====================== */
+/* covid */
 
 .covid-box{
     background:#eaf4fc;
@@ -315,9 +295,7 @@ covid
     font-weight:500;
 }
 
-/* ======================
-院内紹介
-====================== */
+/* 院内紹介 */
 
 .clinic-gallery{
     display:grid;
@@ -346,17 +324,9 @@ covid
     text-decoration:none;
     padding:16px 70px;
     font-weight:bold;
-    transition:0.25s;
 }
 
-.more-btn:hover{
-    opacity:0.85;
-    transform:translateY(-2px);
-}
-
-/* ======================
-schedule
-====================== */
+/* schedule */
 
 .schedule-wrap{
     width:100%;
@@ -384,193 +354,118 @@ schedule
 }
 
 /* ======================
-doctor profile
+doctor
 ====================== */
 
 .doctor-profile{
-
     display:flex;
-
     align-items:flex-start;
-
     gap:60px;
-
     max-width:1100px;
-
     margin:50px auto 80px;
-
     background:#eaf4fc;
-
     padding:50px;
-
     border-radius:24px;
-
     border:1px solid #c8dff1;
 }
 
-/* 写真 */
-
 .doctor-photo{
-
     width:250px;
-
     flex-shrink:0;
 }
 
 .doctor-photo img{
-
     width:100%;
-
     height:340px;
-
     object-fit:cover;
-
     border-radius:10px;
 }
 
-/* 文章 */
-
 .doctor-message{
-
     flex:1;
-
     font-size:17px;
-
     line-height:2.4;
-
     color:#333;
 }
 
 .doctor-message p{
-
     margin-top:0;
-
     margin-bottom:28px;
 }
 
-/* 名前 */
-
 .doctor-name{
-
     margin-top:40px;
-
     text-align:right;
 }
 
 .doctor-name p{
-
     margin:0 0 8px;
-
     font-size:15px;
-
     color:#555;
 }
 
 .doctor-name strong{
-
     display:block;
-
     font-size:30px;
-
     font-weight:500;
-
     letter-spacing:1px;
-
     color:#222;
-
     line-height:1.4;
 }
 
 .doctor-name span{
-
     display:block;
-
     color:#2c79b9;
-
     font-size:15px;
-
     margin-top:8px;
-
     letter-spacing:1px;
 }
 
-/* ======================
-doctor box
-====================== */
+/* doctor box */
 
 .doctor-box{
-
     background:#eaf4fc;
-
     border-radius:22px;
-
     padding:34px 40px;
-
     max-width:1100px;
-
     margin:40px auto;
-
     border:1px solid #c8dff1;
-
     box-shadow:0 6px 24px rgba(0,0,0,0.04);
 }
 
 /* 見出し */
 
 .doctor-box h3{
-
     position:relative;
-
     color:#2c79b9;
-
     font-size:30px;
-
     font-weight:bold;
-
     margin-top:0;
-
     margin-bottom:34px;
-
     padding-bottom:18px;
-
     border-bottom:2px solid #cfe2f3;
 }
 
 .doctor-box h3::before{
-
     content:"";
-
     position:absolute;
-
     left:-12px;
-
     top:-10px;
-
     width:calc(100% + 24px);
-
     height:calc(100% + 18px);
-
     background:white;
-
     border-radius:14px;
-
     z-index:-1;
 }
 
 .doctor-box h3 span{
-
     font-size:14px;
-
     margin-left:10px;
-
     letter-spacing:2px;
-
     color:#6b87a3;
 }
 
-/* ======================
-history
-====================== */
+/* history */
 
 .history-list{
     border-top:1px solid #d4e6f5;
@@ -593,9 +488,7 @@ history
     font-weight:normal;
 }
 
-/* ======================
-membership
-====================== */
+/* membership */
 
 .doctor-box ul{
     margin:0;
@@ -610,12 +503,9 @@ membership
     font-size:17px;
     color:#333;
     border-bottom:1px solid #d4e6f5;
-    font-weight:normal;
 }
 
-/* ======================
-footer
-====================== */
+/* footer */
 
 footer{
     background:#2c79b9;
@@ -624,9 +514,7 @@ footer{
     padding:30px 0 90px;
 }
 
-/* ======================
-fixed tel
-====================== */
+/* 下電話 */
 
 .fixed-call{
     position:fixed;
@@ -700,15 +588,64 @@ smartphone
         border-bottom:1px solid #eef5fb;
     }
 
+    /* スマホ電話 */
+
     .sp-tel-link{
-        display:block;
+
+        display:flex;
+
+        align-items:center;
+
+        justify-content:center;
+
+        gap:10px;
+
         margin-top:auto;
-        background:#2c79b9;
-        color:white;
+
+        margin-left:20px;
+
+        margin-right:20px;
+
+        margin-bottom:24px;
+
+        background:white;
+
+        color:#2c79b9;
+
         font-size:20px;
+
         font-weight:bold;
-        border-bottom:none;
-        padding:20px;
+
+        text-decoration:none;
+
+        border:2px solid #2c79b9;
+
+        border-radius:999px;
+
+        padding:14px 20px;
+    }
+
+    .sp-tel-icon{
+
+        width:38px;
+
+        height:38px;
+
+        border-radius:50%;
+
+        background:#2c79b9;
+
+        color:white;
+
+        display:flex;
+
+        justify-content:center;
+
+        align-items:center;
+
+        font-size:18px;
+
+        font-weight:bold;
     }
 
     .hero{
@@ -782,78 +719,58 @@ smartphone
     }
 
     .doctor-profile{
-
         flex-direction:column;
-
         gap:28px;
-
         padding:26px;
-
         margin:30px auto 50px;
     }
 
     .doctor-photo{
-
         width:100%;
     }
 
     .doctor-photo img{
-
         height:auto;
     }
 
     .doctor-message{
-
         font-size:15px;
-
         line-height:2;
     }
 
     .doctor-name{
-
         text-align:left;
-
         margin-top:30px;
     }
 
     .doctor-name strong{
-
         font-size:26px;
     }
 
     .doctor-name span{
-
         font-size:14px;
     }
 
     .doctor-box{
-
         padding:24px;
     }
 
     .doctor-box h3{
-
         font-size:24px;
     }
 
     .history-list p{
-
         font-size:15px;
     }
 
     .history-list strong{
-
         display:block;
-
         width:auto;
-
         margin-bottom:4px;
-
         color:#2c79b9;
     }
 
     .doctor-box li{
-
         font-size:15px;
     }
 
@@ -867,4 +784,3 @@ smartphone
     }
 
 }
-
