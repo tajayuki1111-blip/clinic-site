@@ -402,20 +402,18 @@ smartphone
         margin-left:-18px;
     }
 
-    /* PC電話を消す */
+    /* pc電話消す */
 
     .header-tel{
         display:none;
     }
 
-    /* ハンバーガー */
+    /* hamburger */
 
     .menu-btn{
         display:block;
         margin-left:auto;
     }
-
-    /* メニュー */
 
     nav{
         display:none;
@@ -431,13 +429,9 @@ smartphone
         z-index:9998;
     }
 
-    /* 開いた時 */
-
     body.menu-open nav{
         display:flex;
     }
-
-    /* メニュー文字 */
 
     nav a{
         width:100%;
@@ -450,9 +444,7 @@ smartphone
         font-weight:bold;
     }
 
-    /* ======================
-    スマホ電話
-    ====================== */
+    /* smartphone tel */
 
     .sp-tel-link{
 
@@ -491,13 +483,9 @@ smartphone
         flex-shrink:0;
     }
 
-    /* ハンバーガー開いた時だけ出す */
-
     body.menu-open .sp-tel-link{
         display:flex;
     }
-
-    /* 丸電話 */
 
     .sp-tel-icon{
 
