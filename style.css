@@ -1,3 +1,5 @@
+/* style.css 完全版 */
+
 *{
     box-sizing:border-box;
 }
@@ -47,26 +49,21 @@ header{
     padding:14px 0;
 }
 
-.logo{
+/* ロゴ */
+
+.logo-link{
     display:flex;
     align-items:center;
-    gap:10px;
+    text-decoration:none;
 }
 
-.logo-img{
-    width:48px;
+.header-logo{
     height:48px;
-    object-fit:contain;
+    width:auto;
+    display:block;
 }
 
-.logo strong{
-    font-size:18px;
-}
-
-.logo small{
-    font-size:12px;
-    color:#666;
-}
+/* nav */
 
 nav{
     display:flex;
@@ -158,9 +155,7 @@ h2{
     margin-bottom:20px;
 }
 
-/* ======================
-boxes
-====================== */
+/* boxes */
 
 .top-box,
 .news-box,
@@ -187,9 +182,7 @@ boxes
     color:#2c79b9;
 }
 
-/* ======================
-schedule
-====================== */
+/* schedule */
 
 .schedule-wrap{
     width:100%;
@@ -200,7 +193,6 @@ schedule
     width:100%;
     border-collapse:collapse;
     table-layout:fixed;
-    min-width:0;
 }
 
 .schedule th{
@@ -223,24 +215,7 @@ schedule
     font-size:14px;
 }
 
-/* ======================
-map
-====================== */
-
-.map{
-    margin-top:20px;
-}
-
-.map iframe{
-    width:100%;
-    height:520px;
-    border:none;
-    border-radius:16px;
-}
-
-/* ======================
-footer
-====================== */
+/* footer */
 
 footer{
     background:#2c79b9;
@@ -249,9 +224,7 @@ footer{
     padding:30px 0 90px;
 }
 
-/* ======================
-phone button
-====================== */
+/* phone */
 
 .fixed-call{
     position:fixed;
@@ -272,9 +245,7 @@ phone button
     font-size:18px;
 }
 
-/* ======================
-smartphone
-====================== */
+/* smartphone */
 
 @media(max-width:768px){
 
@@ -288,16 +259,7 @@ smartphone
         align-items:center;
     }
 
-    .logo strong{
-        font-size:14px;
-    }
-
-    .logo small{
-        font-size:10px;
-    }
-
-    .logo-img{
-        width:40px;
+    .header-logo{
         height:40px;
     }
 
@@ -350,10 +312,6 @@ smartphone
     .schedule td{
         font-size:11px;
         padding:6px 2px;
-    }
-
-    .map iframe{
-        height:350px;
     }
 
 }
