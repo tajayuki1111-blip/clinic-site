@@ -1,11 +1,10 @@
-
 *{
     box-sizing:border-box;
 }
 
 body{
     margin:0;
-    padding-top:84px;
+    padding-top:105px;
     font-family:
     "Hiragino Sans",
     "Yu Gothic",
@@ -22,14 +21,12 @@ img{
 }
 
 .container{
-    width:92%;
+    width:94%;
     max-width:1200px;
     margin:auto;
 }
 
-/* ======================
-header
-====================== */
+/* header */
 
 header{
     position:fixed;
@@ -45,28 +42,26 @@ header{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:10px 0;
+    padding:8px 0;
 }
-
-/* ロゴ */
 
 .logo-link{
     display:flex;
     align-items:center;
-    margin-left:-10px;
+    margin-left:-28px;
 }
 
 .header-logo{
-    height:64px;
+    height:70px;
     width:auto;
-    display:block;
 }
 
-/* 電話 */
-
-.header-tel{
+.header-right{
     margin-left:auto;
-    margin-right:20px;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:8px;
 }
 
 .header-tel a{
@@ -80,28 +75,25 @@ header{
     font-weight:bold;
     border:2px solid #2c79b9;
     border-radius:999px;
-    padding:8px 18px;
+    padding:6px 18px;
 }
 
 .tel-icon{
-    width:42px;
-    height:42px;
+    width:34px;
+    height:34px;
     border-radius:50%;
     background:#2c79b9;
     color:white;
-    border:2px solid #2c79b9;
     display:flex;
     justify-content:center;
     align-items:center;
-    font-size:20px;
+    font-size:18px;
     font-weight:bold;
 }
 
-/* nav */
-
 nav{
     display:flex;
-    gap:16px;
+    gap:18px;
 }
 
 nav a{
@@ -110,6 +102,10 @@ nav a{
     font-weight:bold;
     font-size:14px;
     white-space:nowrap;
+}
+
+.sp-tel-link{
+    display:none;
 }
 
 /* hamburger */
@@ -161,9 +157,7 @@ body.menu-open .menu-btn span:nth-child(3){
     top:19px;
 }
 
-/* ======================
-hero
-====================== */
+/* hero */
 
 .hero{
     position:relative;
@@ -207,9 +201,7 @@ hero
     white-space:nowrap;
 }
 
-/* ======================
-main
-====================== */
+/* main */
 
 main{
     background:white;
@@ -219,7 +211,7 @@ main{
     border-radius:18px;
 }
 
-/* 見出し */
+/* title */
 
 h2{
     text-align:center;
@@ -251,7 +243,7 @@ h2::after{
     padding:24px;
 }
 
-/* コロナ */
+/* covid */
 
 .covid-box{
     background:#eaf4fc;
@@ -333,11 +325,6 @@ h2::after{
     font-size:14px;
 }
 
-.schedule-note{
-    margin-top:10px;
-    font-size:14px;
-}
-
 /* footer */
 
 footer{
@@ -368,9 +355,7 @@ footer{
     font-size:18px;
 }
 
-/* ======================
-smartphone
-====================== */
+/* smartphone */
 
 @media(max-width:768px){
 
@@ -378,12 +363,20 @@ smartphone
         padding-top:72px;
     }
 
+    .header-inner{
+        padding:10px 0;
+    }
+
+    .logo-link{
+        margin-left:-18px;
+    }
+
     .header-logo{
         height:52px;
     }
 
-    .logo-link{
-        margin-left:-6px;
+    .header-right{
+        display:block;
     }
 
     .header-tel{
@@ -392,6 +385,7 @@ smartphone
 
     .menu-btn{
         display:block;
+        margin-left:auto;
     }
 
     nav{
@@ -403,6 +397,7 @@ smartphone
         background:white;
         flex-direction:column;
         border-top:1px solid #dfeaf5;
+        box-shadow:0 6px 16px rgba(0,0,0,0.08);
     }
 
     body.menu-open nav{
@@ -413,6 +408,14 @@ smartphone
         padding:14px;
         text-align:center;
         font-size:15px;
+        border-bottom:1px solid #eef5fb;
+    }
+
+    .sp-tel-link{
+        display:block;
+        background:#2c79b9;
+        color:white;
+        font-size:18px;
     }
 
     .hero{
