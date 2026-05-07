@@ -1,352 +1,152 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>
-なかい内科血管外科クリニック
-</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>なかい内科血管外科クリニック</title>
 <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
 
 <header>
+  <div class="header-inner">
 
-<div class="container header-inner">
+    <div class="logo">
+      <img src="logo.png" class="logo-img">
+      <div>
+        <strong>なかい内科血管外科クリニック</strong><br>
+        <small>内科・血管外科</small>
+      </div>
+    </div>
 
-<div class="logo">
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
-<img src="logo.png" class="logo-img">
+  </div>
 
-<div>
-
-<strong>
-なかい内科血管外科クリニック
-</strong>
-
-<br>
-
-<small>
-Nakai Vascular Clinic
-</small>
-
-</div>
-
-</div>
-
-<nav>
-
-<a href="index.html">
-ホーム
-</a>
-
-<a href="medical.html">
-診療内容
-</a>
-
-<a href="news.html">
-お知らせ
-</a>
-
-<a href="access.html">
-アクセス
-</a>
-
-</nav>
-
-</div>
-
+  <nav id="mobileMenu" class="mobile-menu">
+    <a href="#top">トップ</a>
+    <a href="#services">診療内容</a>
+    <a href="#schedule">診療時間</a>
+    <a href="#access">アクセス</a>
+  </nav>
 </header>
 
-<section class="hero">
-
-<img src="clinic.jpg">
-
-<div class="hero-text">
-
-地域に寄り添う<br>
-内科・血管外科クリニック
-
-</div>
-
+<!-- HERO -->
+<section class="hero" id="top">
+  <img src="hero.jpg">
+  <div class="hero-text">
+    地域の皆さまの健康を支える
+  </div>
 </section>
 
-<main class="container">
-
-<h2>
-お知らせ
-</h2>
-
-<div class="news-box">
-
-<p>
-現在、お知らせはありません。
-</p>
-
-</div>
-
-<h2>
-当院について
-</h2>
-
-<div class="top-box">
-
-<p>
-
-院長は循環器専門医です。<br>
-
-循環器疾患（高血圧や不整脈など）、
-一般内科診療のほかに、
-
-特定健康診査（特定健診）、
-各種がん検診
-（大腸がん・肺がん・前立腺がん）、
-肝炎ウイルス検査を
-実施しております。
-
-</p>
-
-<p>
-
-各種ワクチン
-（新型コロナ、日本脳炎、
-肝炎、麻しん風疹、
-インフルエンザ等）
-にも対応しております。
-
-</p>
-
-</div>
-
-<div class="button-area">
-
-<a href="tel:0728732700"
-class="btn primary">
-
-電話する
-
-</a>
-
-<a href="medical.html"
-class="btn secondary">
-
-診療内容
-
-</a>
-
-<a href="access.html"
-class="btn secondary">
-
-アクセス
-
-</a>
-
-</div>
-
-<h2>
-ページ案内
-</h2>
-
-<div class="card-grid">
-
-<a href="medical.html"
-class="card-link">
-
-<h3>
-診療内容
-</h3>
-
-<p>
-循環器・内科・下肢静脈瘤等
-</p>
-
-</a>
-
-<a href="news.html"
-class="card-link">
-
-<h3>
-お知らせ
-</h3>
-
-<p>
-休診情報など
-</p>
-
-</a>
-
-<a href="access.html"
-class="card-link">
-
-<h3>
-アクセス
-</h3>
-
-<p>
-地図・アクセスはこちら
-</p>
-
-</a>
-
-</div>
-
-<h2>
-診療時間
-</h2>
-
-<div class="schedule-wrap">
-
-<table class="schedule">
-
-<tr>
-
-<th>
-診療時間
-</th>
-
-<th>
-月
-</th>
-
-<th>
-火
-</th>
-
-<th>
-水
-</th>
-
-<th>
-木
-</th>
-
-<th>
-金
-</th>
-
-<th>
-土
-</th>
-
-<th>
-日
-</th>
-
-</tr>
-
-<tr>
-
-<td>
-9:00〜12:00
-</td>
-
-<td>
-●
-</td>
-
-<td>
-●
-</td>
-
-<td>
-●
-</td>
-
-<td>
-●
-</td>
-
-<td>
-●
-</td>
-
-<td>
-●
-</td>
-
-<td>
--
-</td>
-
-</tr>
-
-<tr>
-
-<td>
-16:30〜19:00
-</td>
-
-<td>
-●
-</td>
-
-<td>
-●
-</td>
-
-<td>
--
-</td>
-
-<td>
-●
-</td>
-
-<td>
-●
-</td>
-
-<td>
--
-</td>
-
-<td>
--
-</td>
-
-</tr>
-
-</table>
-
-</div>
-
-<p class="schedule-note">
-
-休診：
-水曜午後・土曜午後・日祝
-
-</p>
+<main>
+
+  <h2 id="services">診療内容</h2>
+
+  <div class="card-grid">
+    <div class="card-link">
+      <h3>内科</h3>
+      <p>一般内科診療</p>
+    </div>
+
+    <div class="card-link">
+      <h3>血管外科</h3>
+      <p>下肢静脈瘤など</p>
+    </div>
+  </div>
+
+  <h2 id="schedule">診療時間</h2>
+
+  <!-- PC用テーブル -->
+  <div class="schedule-wrap">
+    <table class="schedule-table">
+
+      <tr>
+        <th>時間</th>
+        <th>月</th>
+        <th>火</th>
+        <th>水</th>
+        <th>木</th>
+        <th>金</th>
+        <th>土</th>
+        <th>日</th>
+      </tr>
+
+      <tr>
+        <td>9:00〜12:00</td>
+        <td class="open">●</td>
+        <td class="open">●</td>
+        <td class="open">●</td>
+        <td class="close">-</td>
+        <td class="open">●</td>
+        <td class="open">●</td>
+        <td class="close">-</td>
+      </tr>
+
+      <tr>
+        <td>16:30〜19:00</td>
+        <td class="open">●</td>
+        <td class="open">●</td>
+        <td class="close">-</td>
+        <td class="open">●</td>
+        <td class="open">●</td>
+        <td class="close">-</td>
+        <td class="close">-</td>
+      </tr>
+
+    </table>
+  </div>
+
+  <!-- スマホ用カード -->
+  <div class="schedule-card">
+
+    <div class="schedule-item">
+      <div class="time">9:00〜12:00</div>
+      <div class="schedule-row">
+        <span>月 火 水 木 金 土 日</span>
+      </div>
+      <div class="schedule-row">
+        <span class="open">● ● ● - ● ● -</span>
+      </div>
+    </div>
+
+    <div class="schedule-item">
+      <div class="time">16:30〜19:00</div>
+      <div class="schedule-row">
+        <span>月 火 水 木 金 土 日</span>
+      </div>
+      <div class="schedule-row">
+        <span class="open">● ● - ● ● - -</span>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="schedule-note">
+    休診：水曜午後・土曜午後・日祝
+  </p>
+
+  <h2 id="access">アクセス</h2>
+  <p>大阪府〇〇市〇〇町</p>
 
 </main>
 
 <footer>
-
-<div class="container">
-
-<p>
-© なかい内科血管外科クリニック
-</p>
-
-</div>
-
+  © なかい内科血管外科クリニック
 </footer>
 
 <div class="fixed-call">
-
-<a href="tel:0728732700">
-
-📞 072-873-2700
-
-</a>
-
+  <a href="tel:0728732700">電話する</a>
 </div>
+
+<script>
+function toggleMenu(){
+  const menu = document.getElementById("mobileMenu");
+  menu.style.display =
+    menu.style.display === "flex" ? "none" : "flex";
+}
+</script>
 
 </body>
 </html>
