@@ -89,8 +89,9 @@ PC電話
     width:42px;
     height:42px;
     border-radius:50%;
-    background:#2c79b9;
-    color:white;
+    background:white;
+    color:#2c79b9;
+    border:2px solid #2c79b9;
     display:flex;
     justify-content:center;
     align-items:center;
