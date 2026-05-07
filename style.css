@@ -61,11 +61,12 @@ header{
     display:flex;
     flex-direction:column;
     align-items:flex-end;
-    gap:8px;
+    gap:6px;
+    width:auto;
 }
 
 .header-tel a{
-    display:flex;
+    display:inline-flex;
     align-items:center;
     gap:10px;
     color:#2c79b9;
@@ -75,7 +76,8 @@ header{
     font-weight:bold;
     border:2px solid #2c79b9;
     border-radius:999px;
-    padding:6px 18px;
+    padding:6px 16px;
+    white-space:nowrap;
 }
 
 .tel-icon{
@@ -100,7 +102,7 @@ nav a{
     color:#2c79b9;
     text-decoration:none;
     font-weight:bold;
-    font-size:14px;
+    font-size:16px;
     white-space:nowrap;
 }
 
@@ -407,7 +409,7 @@ footer{
     nav a{
         padding:14px;
         text-align:center;
-        font-size:15px;
+        font-size:17px;
         border-bottom:1px solid #eef5fb;
     }
 
