@@ -88,15 +88,46 @@ hamburger
     background:#2c79b9;
     border-radius:8px;
     cursor:pointer;
+    position:relative;
+    padding:0;
 }
 
 .menu-btn span{
-    display:block;
+    position:absolute;
+    left:9px;
     width:24px;
     height:3px;
     background:white;
-    margin:5px auto;
     border-radius:3px;
+    transition:0.3s;
+}
+
+.menu-btn span:nth-child(1){
+    top:11px;
+}
+
+.menu-btn span:nth-child(2){
+    top:19px;
+}
+
+.menu-btn span:nth-child(3){
+    top:27px;
+}
+
+/* 開いた時 */
+
+body.menu-open .menu-btn span:nth-child(1){
+    transform:rotate(45deg);
+    top:19px;
+}
+
+body.menu-open .menu-btn span:nth-child(2){
+    opacity:0;
+}
+
+body.menu-open .menu-btn span:nth-child(3){
+    transform:rotate(-45deg);
+    top:19px;
 }
 
 /* ======================
@@ -213,6 +244,19 @@ h2{
     font-size:14px;
 }
 
+/* map */
+
+.map{
+    margin-top:20px;
+}
+
+.map iframe{
+    width:100%;
+    height:520px;
+    border:none;
+    border-radius:16px;
+}
+
 /* footer */
 
 footer{
@@ -310,6 +354,10 @@ footer{
     .schedule td{
         font-size:11px;
         padding:6px 2px;
+    }
+
+    .map iframe{
+        height:350px;
     }
 
 }
