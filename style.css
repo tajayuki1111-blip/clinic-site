@@ -224,6 +224,21 @@ schedule
 }
 
 /* ======================
+map
+====================== */
+
+.map{
+    margin-top:20px;
+}
+
+.map iframe{
+    width:100%;
+    height:520px;
+    border:none;
+    border-radius:16px;
+}
+
+/* ======================
 footer
 ====================== */
 
@@ -335,6 +350,10 @@ smartphone
     .schedule td{
         font-size:11px;
         padding:6px 2px;
+    }
+
+    .map iframe{
+        height:350px;
     }
 
 }
