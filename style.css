@@ -1,3 +1,6 @@
+```css
+/* style.css */
+
 body{
     margin:0;
     font-family:
@@ -183,24 +186,32 @@ h2{
 /* Schedule */
 
 .schedule-wrap{
+    width:100%;
     overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    margin-top:20px;
 }
 
 .schedule{
     width:100%;
     border-collapse:collapse;
-    min-width:600px;
+    table-layout:fixed;
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
 }
 
 .schedule th{
     background:#0d5ea8;
     color:white;
-    padding:14px;
+    padding:12px 6px;
+    font-size:14px;
 }
 
 .schedule td{
     text-align:center;
-    padding:14px;
+    padding:12px 6px;
+    font-size:14px;
     border-bottom:
     1px solid #e5eef5;
 }
@@ -208,6 +219,7 @@ h2{
 .schedule-note{
     margin-top:12px;
     color:#666;
+    font-size:14px;
 }
 
 /* Doctor */
@@ -224,6 +236,46 @@ h2{
     height:140px;
     object-fit:cover;
     border-radius:50%;
+}
+
+/* Career */
+
+.career{
+    margin-top:20px;
+}
+
+.career-item{
+    display:flex;
+    gap:20px;
+    padding:18px 0;
+    border-bottom:
+    1px solid #e5eef5;
+}
+
+.career-item span{
+    min-width:140px;
+    font-weight:bold;
+    color:#0d5ea8;
+}
+
+.career-item p{
+    margin:0;
+}
+
+/* Society */
+
+.society-list{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(240px,1fr));
+    gap:16px;
+    margin-top:20px;
+}
+
+.society-list div{
+    background:#f3f8fd;
+    padding:18px;
+    border-radius:12px;
 }
 
 /* Medical */
@@ -371,9 +423,25 @@ footer{
         margin:auto;
     }
 
+    .career-item{
+        flex-direction:column;
+        gap:6px;
+    }
+
+    .career-item span{
+        min-width:auto;
+    }
+
+    .schedule th,
+    .schedule td{
+        font-size:12px;
+        padding:10px 4px;
+    }
+
     .fixed-call a{
         font-size:16px;
         padding:14px;
     }
 
 }
+```
