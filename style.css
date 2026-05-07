@@ -9,8 +9,6 @@ body{
     line-height:1.8;
 }
 
-/* 共通 */
-
 .container{
     width:90%;
     max-width:1100px;
@@ -74,6 +72,7 @@ nav a:hover{
 
 .hero{
     position:relative;
+    overflow:hidden;
 }
 
 .hero::after{
@@ -81,25 +80,28 @@ nav a:hover{
     position:absolute;
     inset:0;
     background:rgba(0,0,0,0.25);
+    z-index:1;
 }
 
 .hero img{
     width:100%;
-    height:auto;
+    height:420px;
+    object-fit:cover;
     display:block;
 }
 
 .hero-text{
     position:absolute;
     left:8%;
-    bottom:15%;
+    bottom:12%;
     color:white;
-    font-size:42px;
+    font-size:38px;
     font-weight:bold;
     text-shadow:
     0 3px 12px rgba(0,0,0,0.45);
-    line-height:1.5;
+    line-height:1.4;
     z-index:2;
+    max-width:80%;
 }
 
 /* Main */
@@ -183,6 +185,47 @@ p{
     margin-top:0;
 }
 
+/* Schedule */
+
+.schedule-wrap{
+    overflow-x:auto;
+    margin-top:20px;
+}
+
+.schedule{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:
+    0 2px 10px rgba(0,0,0,0.06);
+}
+
+.schedule th{
+    background:#0d5ea8;
+    color:white;
+    padding:14px;
+    font-weight:bold;
+}
+
+.schedule td{
+    text-align:center;
+    padding:14px;
+    border-bottom:
+    1px solid #e5eef5;
+}
+
+.schedule tr:nth-child(even){
+    background:#f8fbfe;
+}
+
+.schedule-note{
+    margin-top:12px;
+    color:#666;
+    font-size:14px;
+}
+
 /* Doctor */
 
 .doctor{
@@ -216,6 +259,26 @@ p{
     border-radius:12px;
 }
 
+/* News */
+
+.news-list{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.news-item{
+    background:#f3f8fd;
+    padding:24px;
+    border-radius:14px;
+}
+
+.news-date{
+    color:#0d5ea8;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
 /* Footer */
 
 footer{
@@ -233,7 +296,7 @@ footer{
     bottom:0;
     left:0;
     width:100%;
-    background:#e53935;
+    background:#0d5ea8;
     text-align:center;
     z-index:999;
     box-shadow:
@@ -247,6 +310,10 @@ footer{
     text-decoration:none;
     font-size:18px;
     font-weight:bold;
+}
+
+.fixed-call a:hover{
+    background:#084b86;
 }
 
 /* Responsive */
@@ -265,10 +332,16 @@ footer{
         justify-content:center;
     }
 
+    .hero img{
+        height:240px;
+    }
+
     .hero-text{
-        font-size:26px;
-        left:6%;
-        bottom:10%;
+        font-size:22px;
+        left:5%;
+        bottom:8%;
+        line-height:1.5;
+        max-width:90%;
     }
 
     .button-area{
