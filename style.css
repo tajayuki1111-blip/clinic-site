@@ -485,5 +485,128 @@ footer{
         font-size:11px;
         padding:6px 2px;
     }
+    /* ======================
+医師紹介ページ
+====================== */
+
+.doctor-profile{
+    display:grid;
+    grid-template-columns:360px 1fr;
+    gap:50px;
+    align-items:center;
+    max-width:1000px;
+    margin:30px auto 70px;
+}
+
+.doctor-photo img{
+    width:100%;
+    height:430px;
+    object-fit:cover;
+}
+
+.doctor-message{
+    font-size:17px;
+    line-height:2.1;
+}
+
+.doctor-name{
+    margin-top:30px;
+    text-align:right;
+}
+
+.doctor-name p{
+    margin:0 0 6px;
+    font-size:14px;
+}
+
+.doctor-name strong{
+    display:block;
+    font-size:24px;
+    color:#333;
+}
+
+.doctor-name span{
+    display:block;
+    color:#2c79b9;
+    font-size:13px;
+    letter-spacing:1px;
+}
+
+.doctor-box{
+    background:white;
+    border-radius:18px;
+    padding:28px;
+    max-width:1000px;
+    margin:40px auto;
+    box-shadow:0 4px 16px rgba(0,0,0,0.04);
+}
+
+.doctor-box h3{
+    color:#2c79b9;
+    font-size:22px;
+    border-bottom:1px solid #2c79b9;
+    padding-bottom:12px;
+    margin-top:0;
+}
+
+.doctor-box h3 span{
+    font-size:13px;
+    margin-left:10px;
+    letter-spacing:2px;
+    color:#666;
+}
+
+.history-list p{
+    margin:10px 0;
+}
+
+.history-list strong{
+    display:inline-block;
+    min-width:120px;
+    color:#333;
+}
+
+.doctor-box ul{
+    padding-left:20px;
+    margin-bottom:0;
+}
+
+.doctor-box li{
+    margin:10px 0;
+}
+
+/* スマホ */
+
+@media(max-width:768px){
+
+    .doctor-profile{
+        grid-template-columns:1fr;
+        gap:25px;
+    }
+
+    .doctor-photo img{
+        height:auto;
+    }
+
+    .doctor-message{
+        font-size:15px;
+    }
+
+    .doctor-name{
+        text-align:left;
+    }
+
+    .doctor-box{
+        padding:22px;
+    }
+
+    .history-list strong{
+        display:block;
+        min-width:auto;
+        margin-bottom:2px;
+        color:#2c79b9;
+    }
+
+}
 
 }
