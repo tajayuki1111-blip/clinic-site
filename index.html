@@ -9,7 +9,6 @@
 
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="header-inner">
 
@@ -21,21 +20,31 @@
       </div>
     </div>
 
+    <!-- 🍔 ハンバーガー（スマホのみ） -->
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
   </div>
+
+  <!-- メニュー -->
+  <nav id="mobileMenu" class="mobile-menu">
+    <a href="#top">トップ</a>
+    <a href="#services">診療内容</a>
+    <a href="#schedule">診療時間</a>
+    <a href="#access">アクセス</a>
+  </nav>
 </header>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="top">
   <img src="hero.jpg">
   <div class="hero-text">
     地域の皆さまの健康を支える
   </div>
 </section>
 
-<!-- MAIN -->
 <main>
 
-  <h2>診療内容</h2>
+  <h2 id="services">診療内容</h2>
 
   <div class="card-grid">
     <div class="card-link">
@@ -49,9 +58,9 @@
     </div>
   </div>
 
-  <h2>診療時間</h2>
+  <h2 id="schedule">診療時間</h2>
 
-  <!-- PC用 -->
+  <!-- PC -->
   <div class="schedule-wrap">
     <table class="schedule-table">
 
@@ -91,7 +100,7 @@
     </table>
   </div>
 
-  <!-- スマホ用 -->
+  <!-- SP -->
   <div class="schedule-card">
 
     <div class="schedule-item">
@@ -120,20 +129,32 @@
     休診：水曜午後・土曜午後・日祝
   </p>
 
-  <h2>アクセス</h2>
+  <h2 id="access">アクセス</h2>
   <p>大阪府〇〇市〇〇町</p>
 
 </main>
 
-<!-- FOOTER -->
 <footer>
   © なかい内科血管外科クリニック
 </footer>
 
-<!-- FIXED CALL（中央ボタン） -->
+<!-- 📞 固定電話 -->
 <div class="fixed-call">
   <a href="tel:0728732700">電話する</a>
 </div>
+
+<!-- JS -->
+<script>
+function toggleMenu(){
+  const menu = document.getElementById("mobileMenu");
+
+  if(menu.style.display === "flex"){
+    menu.style.display = "none";
+  }else{
+    menu.style.display = "flex";
+  }
+}
+</script>
 
 </body>
 </html>
