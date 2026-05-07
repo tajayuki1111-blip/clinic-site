@@ -7,6 +7,7 @@ body{
     background:#f7fbfe;
     color:#333;
     line-height:1.8;
+    overflow-x:hidden;
 }
 
 .container{
@@ -14,6 +15,8 @@ body{
     max-width:1100px;
     margin:auto;
 }
+
+/* Header */
 
 header{
     background:
@@ -46,10 +49,13 @@ header{
     font-weight:bold;
 }
 
+/* Navigation */
+
 nav{
     margin-left:auto;
     display:flex;
     gap:24px;
+    flex-wrap:wrap;
 }
 
 nav a{
@@ -57,6 +63,8 @@ nav a{
     text-decoration:none;
     font-weight:bold;
 }
+
+/* Hero */
 
 .hero{
     position:relative;
@@ -85,7 +93,11 @@ nav a{
     font-size:38px;
     font-weight:bold;
     z-index:2;
+    line-height:1.4;
+    max-width:80%;
 }
+
+/* Main */
 
 main{
     background:white;
@@ -100,13 +112,18 @@ h2{
     border-left:6px solid #0d5ea8;
     padding-left:14px;
     margin-top:45px;
+    margin-bottom:22px;
+    font-size:28px;
 }
+
+/* Buttons */
 
 .button-area{
     display:flex;
     gap:14px;
     margin:30px 0;
     width:100%;
+    flex-wrap:wrap;
 }
 
 .btn{
@@ -130,11 +147,15 @@ h2{
     color:#0d5ea8;
 }
 
+/* Top Message */
+
 .top-message{
     background:#f3f8fd;
     padding:28px;
     border-radius:16px;
 }
+
+/* Home Cards */
 
 .home-grid{
     display:grid;
@@ -159,6 +180,8 @@ h2{
     margin-top:0;
 }
 
+/* Schedule */
+
 .schedule-wrap{
     overflow-x:auto;
 }
@@ -166,6 +189,7 @@ h2{
 .schedule{
     width:100%;
     border-collapse:collapse;
+    min-width:600px;
 }
 
 .schedule th{
@@ -181,10 +205,18 @@ h2{
     1px solid #e5eef5;
 }
 
+.schedule-note{
+    margin-top:12px;
+    color:#666;
+}
+
+/* Doctor */
+
 .doctor{
     display:flex;
     gap:20px;
     flex-wrap:wrap;
+    align-items:center;
 }
 
 .doctor img{
@@ -193,6 +225,8 @@ h2{
     object-fit:cover;
     border-radius:50%;
 }
+
+/* Medical */
 
 .medical-grid{
     display:grid;
@@ -207,11 +241,15 @@ h2{
     border-radius:16px;
 }
 
+/* News */
+
 .news-empty{
     background:#f3f8fd;
     padding:30px;
     border-radius:14px;
 }
+
+/* Access */
 
 .info-box{
     background:#f3f8fd;
@@ -227,6 +265,8 @@ h2{
     border-radius:12px;
 }
 
+/* Footer */
+
 footer{
     background:#0d5ea8;
     color:white;
@@ -235,6 +275,8 @@ footer{
     margin-top:60px;
 }
 
+/* Fixed Call */
+
 .fixed-call{
     position:fixed;
     bottom:0;
@@ -242,6 +284,7 @@ footer{
     width:100%;
     background:#0d5ea8;
     text-align:center;
+    z-index:999;
 }
 
 .fixed-call a{
@@ -253,28 +296,53 @@ footer{
     font-weight:bold;
 }
 
+/* Responsive */
+
 @media(max-width:768px){
+
+    body{
+        overflow-x:hidden;
+    }
+
+    .container{
+        width:92%;
+    }
 
     .header-inner{
         flex-direction:column;
-        gap:16px;
+        gap:14px;
+        text-align:center;
     }
 
     nav{
         margin-left:0;
-        gap:16px;
-        flex-wrap:wrap;
+        gap:12px;
         justify-content:center;
     }
 
+    nav a{
+        font-size:14px;
+    }
+
     .hero img{
-        height:240px;
+        height:220px;
     }
 
     .hero-text{
         font-size:22px;
         left:5%;
         bottom:8%;
+        line-height:1.5;
+        max-width:90%;
+    }
+
+    main{
+        padding:20px;
+        margin-top:20px;
+    }
+
+    h2{
+        font-size:24px;
     }
 
     .button-area{
@@ -286,8 +354,26 @@ footer{
         display:block;
     }
 
-    main{
-        padding:22px;
+    .home-grid{
+        grid-template-columns:1fr;
+    }
+
+    .medical-grid{
+        grid-template-columns:1fr;
+    }
+
+    .doctor{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .doctor img{
+        margin:auto;
+    }
+
+    .fixed-call a{
+        font-size:16px;
+        padding:14px;
     }
 
 }
