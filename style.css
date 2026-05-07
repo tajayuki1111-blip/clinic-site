@@ -1,4 +1,3 @@
-
 *{
     box-sizing:border-box;
 }
@@ -61,7 +60,9 @@ header{
     width:auto;
 }
 
-/* PC電話 */
+/* ======================
+PC電話
+====================== */
 
 .header-tel{
     margin-left:auto;
@@ -82,6 +83,8 @@ header{
     padding:8px 18px;
 }
 
+/* 電話アイコン */
+
 .tel-icon{
     width:42px;
     height:42px;
@@ -94,7 +97,9 @@ header{
     font-size:20px;
 }
 
-/* nav */
+/* ======================
+nav
+====================== */
 
 nav{
     display:flex;
@@ -213,7 +218,9 @@ main{
     border-radius:18px;
 }
 
-/* 見出し */
+/* ======================
+見出し
+====================== */
 
 h2{
     text-align:center;
@@ -236,7 +243,9 @@ h2::after{
     transform:translateX(-50%);
 }
 
-/* boxes */
+/* ======================
+boxes
+====================== */
 
 .top-box,
 .news-box,
@@ -246,7 +255,9 @@ h2::after{
     padding:24px;
 }
 
-/* コロナ */
+/* ======================
+コロナ
+====================== */
 
 .covid-box{
     background:#eaf4fc;
@@ -299,7 +310,7 @@ h2::after{
 
 .more-btn{
     display:inline-block;
-    background:#d89a16;
+    background:#2c79b9;
     color:white;
     text-decoration:none;
     padding:16px 70px;
@@ -308,7 +319,9 @@ h2::after{
     border-radius:2px;
 }
 
-/* ページ案内 */
+/* ======================
+ページ案内
+====================== */
 
 .card-grid{
     display:grid;
@@ -327,7 +340,9 @@ h2::after{
     color:#2c79b9;
 }
 
-/* schedule */
+/* ======================
+schedule
+====================== */
 
 .schedule-wrap{
     width:100%;
@@ -360,7 +375,9 @@ h2::after{
     font-size:14px;
 }
 
-/* map */
+/* ======================
+map
+====================== */
 
 .map{
     margin-top:20px;
@@ -373,7 +390,9 @@ h2::after{
     border-radius:16px;
 }
 
-/* footer */
+/* ======================
+footer
+====================== */
 
 footer{
     background:#2c79b9;
@@ -382,7 +401,9 @@ footer{
     padding:30px 0 90px;
 }
 
-/* 下固定電話 */
+/* ======================
+下固定電話
+====================== */
 
 .fixed-call{
     position:fixed;
