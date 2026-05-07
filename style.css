@@ -26,7 +26,9 @@ img{
     margin:auto;
 }
 
-/* header */
+/* ======================
+header
+====================== */
 
 header{
     position:fixed;
@@ -78,6 +80,11 @@ header{
     border-radius:999px;
     padding:6px 16px;
     white-space:nowrap;
+    transition:0.25s;
+}
+
+.header-tel a:hover{
+    background:#f0f8ff;
 }
 
 .tel-icon{
@@ -104,13 +111,20 @@ nav a{
     font-weight:bold;
     font-size:16px;
     white-space:nowrap;
+    transition:0.25s;
+}
+
+nav a:hover{
+    opacity:0.7;
 }
 
 .sp-tel-link{
     display:none;
 }
 
-/* hamburger */
+/* ======================
+hamburger
+====================== */
 
 .menu-btn{
     display:none;
@@ -159,75 +173,41 @@ body.menu-open .menu-btn span:nth-child(3){
     top:19px;
 }
 
-/* hero */
-
-.hero{
-    position:relative;
-    width:84%;
-    margin-left:0;
-    margin-right:auto;
-    overflow:visible;
-    border-top-right-radius:70px;
-    border-bottom-right-radius:70px;
-}
-
-.hero img{
-    width:100%;
-    height:720px;
-    object-fit:cover;
-    object-position:center;
-    border-top-right-radius:70px;
-    border-bottom-right-radius:70px;
-}
-
-.hero-message{
-    position:absolute;
-    right:-120px;
-    bottom:110px;
-    z-index:2;
-}
-
-.hero-box{
-    background:#2c79b9;
-    color:white;
-    font-family:
-    "Hiragino Mincho ProN",
-    "Yu Mincho",
-    serif;
-    font-size:30px;
-    font-weight:bold;
-    padding:14px 48px;
-    margin-top:14px;
-    letter-spacing:3px;
-    line-height:1.5;
-    white-space:nowrap;
-}
-
-/* main */
+/* ======================
+main
+====================== */
 
 main{
     background:white;
-    margin-top:24px;
+    margin-top:30px;
     margin-bottom:100px;
-    padding:30px;
-    border-radius:18px;
+    padding:40px;
+    border-radius:24px;
+    box-shadow:0 8px 30px rgba(0,0,0,0.04);
 }
 
-/* title */
+/* ======================
+title
+====================== */
 
 h2{
     text-align:center;
     color:#2c79b9;
     font-size:42px;
-    font-weight:bold;
-    margin-top:60px;
-    margin-bottom:40px;
+    font-weight:700;
+    letter-spacing:4px;
+    margin-top:70px;
+    margin-bottom:50px;
     position:relative;
+    font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    serif;
 }
 
 h2::after{
     content:"";
-    width:60px;
+    width:70px;
     height:2px;
     background:#2c79b9;
     position:absolute;
@@ -236,98 +216,263 @@ h2::after{
     transform:translateX(-50%);
 }
 
-/* box */
+/* ======================
+doctor profile
+====================== */
 
-.top-box,
-.news-box{
-    background:#f5f9fd;
-    border-radius:16px;
-    padding:24px;
+.doctor-profile{
+
+    display:flex;
+
+    flex-direction:row-reverse;
+
+    align-items:flex-start;
+
+    gap:80px;
+
+    max-width:1100px;
+
+    margin:50px auto 80px;
+
+    background:#f6fbff;
+
+    padding:60px;
+
+    border-radius:24px;
+
+    border:1px solid #d9eaf7;
 }
 
-/* covid */
+/* 写真 */
 
-.covid-box{
-    background:#eaf4fc;
-    border:2px solid #b9d8f3;
-    border-radius:18px;
-    padding:34px 40px;
-    margin-top:30px;
+.doctor-photo{
+
+    width:320px;
+
+    flex-shrink:0;
 }
 
-.covid-text h3{
-    margin-top:0;
-    margin-bottom:12px;
-    color:#2c79b9;
-    font-size:34px;
-}
+.doctor-photo img{
 
-.covid-text p{
-    margin:0;
-    color:#4d6f8c;
-    font-size:22px;
-    line-height:2;
-    font-weight:500;
-}
-
-/* 院内紹介 */
-
-.clinic-gallery{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
-    max-width:900px;
-    margin:30px auto;
-}
-
-.clinic-gallery img{
     width:100%;
-    height:180px;
+
+    height:430px;
+
     object-fit:cover;
+
+    border-radius:10px;
 }
 
-.more-btn-area{
-    text-align:center;
-    margin-top:30px;
+/* 文章 */
+
+.doctor-message{
+
+    flex:1;
+
+    font-size:17px;
+
+    line-height:2.4;
+
+    color:#333;
 }
 
-.more-btn{
-    display:inline-block;
-    background:#2c79b9;
-    color:white;
-    text-decoration:none;
-    padding:16px 70px;
+.doctor-message p{
+
+    margin-top:0;
+
+    margin-bottom:28px;
+}
+
+/* 名前 */
+
+.doctor-name{
+
+    margin-top:45px;
+
+    text-align:right;
+}
+
+.doctor-name p{
+
+    margin:0 0 10px;
+
+    font-size:15px;
+
+    color:#555;
+}
+
+.doctor-name strong{
+
+    display:block;
+
+    font-size:52px;
+
+    font-weight:900;
+
+    letter-spacing:3px;
+
+    color:#222;
+
+    line-height:1.2;
+}
+
+.doctor-name span{
+
+    display:block;
+
+    color:#d49b2a;
+
+    font-size:16px;
+
+    margin-top:10px;
+
+    letter-spacing:2px;
+}
+
+/* ======================
+box
+====================== */
+
+.doctor-box{
+
+    background:#f6fbff;
+
+    border-radius:22px;
+
+    padding:34px 40px;
+
+    max-width:1100px;
+
+    margin:40px auto;
+
+    border:1px solid #d9eaf7;
+
+    box-shadow:0 6px 24px rgba(0,0,0,0.04);
+}
+
+/* 見出し */
+
+.doctor-box h3{
+
+    position:relative;
+
+    color:#2c79b9;
+
+    font-size:30px;
+
     font-weight:bold;
+
+    margin-top:0;
+
+    margin-bottom:34px;
+
+    padding-bottom:18px;
+
+    border-bottom:2px solid #cfe2f3;
 }
 
-/* schedule */
+.doctor-box h3::before{
 
-.schedule-wrap{
-    width:100%;
-    overflow-x:hidden;
+    content:"";
+
+    position:absolute;
+
+    left:-12px;
+
+    top:-10px;
+
+    width:calc(100% + 24px);
+
+    height:calc(100% + 18px);
+
+    background:white;
+
+    border-radius:14px;
+
+    z-index:-1;
 }
 
-.schedule{
-    width:100%;
-    border-collapse:collapse;
-    table-layout:fixed;
-}
+.doctor-box h3 span{
 
-.schedule th{
-    background:#2c79b9;
-    color:white;
-    padding:10px 4px;
     font-size:14px;
+
+    margin-left:10px;
+
+    letter-spacing:2px;
+
+    color:#6b87a3;
 }
 
-.schedule td{
-    text-align:center;
-    padding:10px 4px;
-    border-bottom:1px solid #dfeaf5;
-    font-size:14px;
+/* ======================
+history
+====================== */
+
+.history-list{
+
+    border-top:1px solid #e4edf5;
 }
 
-/* footer */
+.history-list p{
+
+    margin:0;
+
+    padding:18px 0;
+
+    font-size:17px;
+
+    line-height:2;
+
+    color:#333;
+
+    border-bottom:1px solid #e4edf5;
+
+    font-weight:normal;
+}
+
+.history-list strong{
+
+    display:inline-block;
+
+    width:170px;
+
+    color:#333;
+
+    font-weight:normal;
+}
+
+/* ======================
+membership
+====================== */
+
+.doctor-box ul{
+
+    margin:0;
+
+    padding:0;
+
+    list-style:none;
+
+    border-top:1px solid #e4edf5;
+}
+
+.doctor-box li{
+
+    margin:0;
+
+    padding:18px 0;
+
+    font-size:17px;
+
+    color:#333;
+
+    border-bottom:1px solid #e4edf5;
+
+    font-weight:normal;
+}
+
+/* ======================
+footer
+====================== */
 
 footer{
     background:#2c79b9;
@@ -336,7 +481,9 @@ footer{
     padding:30px 0 90px;
 }
 
-/* 下電話 */
+/* ======================
+fixed tel
+====================== */
 
 .fixed-call{
     position:fixed;
@@ -357,28 +504,23 @@ footer{
     font-size:18px;
 }
 
-/* smartphone */
+/* ======================
+smartphone
+====================== */
 
 @media(max-width:768px){
 
     body{
         padding-top:72px;
-    }
-
-    .header-inner{
-        padding:10px 0;
-    }
-
-    .logo-link{
-        margin-left:-18px;
+        padding-bottom:60px;
     }
 
     .header-logo{
         height:52px;
     }
 
-    .header-right{
-        display:block;
+    .logo-link{
+        margin-left:-18px;
     }
 
     .header-tel{
@@ -392,14 +534,16 @@ footer{
 
     nav{
         display:none;
-        position:absolute;
+        position:fixed;
         top:72px;
         left:0;
         width:100%;
+        height:calc(100vh - 72px);
         background:white;
         flex-direction:column;
-        border-top:1px solid #dfeaf5;
-        box-shadow:0 6px 16px rgba(0,0,0,0.08);
+        justify-content:flex-start;
+        padding-top:25px;
+        z-index:9998;
     }
 
     body.menu-open nav{
@@ -407,277 +551,34 @@ footer{
     }
 
     nav a{
-        padding:14px;
+        padding:18px;
         text-align:center;
-        font-size:17px;
+        font-size:18px;
         border-bottom:1px solid #eef5fb;
     }
 
     .sp-tel-link{
         display:block;
+        margin-top:auto;
         background:#2c79b9;
         color:white;
-        font-size:18px;
-    }
-
-    .hero{
-        width:100%;
-        overflow:hidden;
-        border-top-right-radius:35px;
-        border-bottom-right-radius:35px;
-    }
-
-    .hero img{
-        height:260px;
-        border-top-right-radius:35px;
-        border-bottom-right-radius:35px;
-    }
-
-    .hero-message{
-        right:14px;
-        bottom:18px;
-    }
-
-    .hero-box{
-        font-size:15px;
-        padding:8px 14px;
-        margin-top:8px;
-        letter-spacing:1px;
+        font-size:20px;
+        font-weight:bold;
+        border-bottom:none;
+        padding:20px;
     }
 
     main{
-        padding:20px;
+        padding:22px;
+        border-radius:18px;
     }
 
     h2{
         font-size:30px;
+        letter-spacing:2px;
+        margin-top:50px;
+        margin-bottom:35px;
     }
-
-    .covid-box{
-        padding:24px;
-    }
-
-    .covid-text h3{
-        font-size:22px;
-    }
-
-    .covid-text p{
-        font-size:16px;
-    }
-
-    .clinic-gallery{
-        grid-template-columns:repeat(2,1fr);
-        gap:8px;
-    }
-
-    .clinic-gallery img{
-        height:120px;
-    }
-
-    .more-btn{
-        width:100%;
-        padding:14px;
-        font-size:15px;
-    }
-
-    .schedule th,
-    .schedule td{
-        font-size:11px;
-        padding:6px 2px;
-    }
-/* ======================
-医師紹介ページ
-====================== */
-
-.doctor-profile{
-
-    display:flex;
-
-    align-items:flex-start;
-
-    gap:70px;
-
-    max-width:1100px;
-
-    margin:50px auto 80px;
-
-    background:#f4f8fc;
-
-    padding:60px;
-
-    border-radius:24px;
-}
-
-/* 写真 */
-
-.doctor-photo{
-
-    width:320px;
-
-    flex-shrink:0;
-}
-
-.doctor-photo img{
-
-    width:100%;
-
-    height:430px;
-
-    object-fit:cover;
-}
-
-/* 文章 */
-
-.doctor-message{
-
-    flex:1;
-
-    font-size:17px;
-
-    line-height:2.3;
-
-    color:#333;
-}
-
-.doctor-message p{
-
-    margin-top:0;
-
-    margin-bottom:28px;
-}
-
-/* 名前 */
-
-.doctor-name{
-
-    margin-top:40px;
-
-    text-align:right;
-}
-
-.doctor-name p{
-
-    margin:0 0 8px;
-
-    font-size:15px;
-
-    color:#555;
-}
-
-.doctor-name strong{
-
-    display:block;
-
-    font-size:44px;
-
-    font-weight:800;
-
-    letter-spacing:2px;
-
-    color:#222;
-
-    line-height:1.4;
-}
-
-.doctor-name span{
-
-    display:block;
-
-    color:#d49b2a;
-
-    font-size:14px;
-
-    margin-top:6px;
-
-    letter-spacing:1px;
-}
-
-/* box */
-
-.doctor-box{
-
-    background:#f4f8fc;
-
-    border-radius:22px;
-
-    padding:34px 40px;
-
-    max-width:1100px;
-
-    margin:40px auto;
-}
-
-/* 見出し */
-
-.doctor-box h3{
-
-    color:#2c79b9;
-
-    font-size:30px;
-
-    font-weight:bold;
-
-    border-bottom:1px solid #c8dff1;
-
-    padding-bottom:14px;
-
-    margin-top:0;
-
-    margin-bottom:26px;
-}
-
-.doctor-box h3 span{
-
-    font-size:14px;
-
-    margin-left:10px;
-
-    letter-spacing:2px;
-
-    color:#777;
-}
-
-/* 略歴 */
-
-.history-list p{
-
-    margin:12px 0;
-
-    font-size:17px;
-
-    line-height:2;
-}
-
-.history-list strong{
-
-    display:inline-block;
-
-    width:170px;
-
-    color:#333;
-}
-
-/* 所属 */
-
-.doctor-box ul{
-
-    margin:0;
-
-    padding-left:22px;
-}
-
-.doctor-box li{
-
-    margin:12px 0;
-
-    font-size:17px;
-}
-
-/* ======================
-スマホ
-====================== */
-
-@media(max-width:768px){
 
     .doctor-profile{
 
@@ -716,7 +617,12 @@ footer{
 
     .doctor-name strong{
 
-        font-size:32px;
+        font-size:38px;
+    }
+
+    .doctor-name span{
+
+        font-size:14px;
     }
 
     .doctor-box{
@@ -750,5 +656,13 @@ footer{
         font-size:15px;
     }
 
-}
+    .fixed-call{
+        height:56px;
+    }
+
+    .fixed-call a{
+        padding:14px;
+        font-size:17px;
+    }
+
 }
