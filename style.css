@@ -1,47 +1,213 @@
-body {
-margin:0;
-font-family:Arial;
-background:#f7fbfe;
+body{
+    margin:0;
+    font-family:
+    "Hiragino Sans",
+    "Yu Gothic",
+    sans-serif;
+    background:#f7fbfe;
+    color:#333;
+    line-height:1.8;
 }
 
-header {
-background:#5fa8d3;
-color:white;
-padding:10px;
+/* 共通 */
+
+.container{
+    width:90%;
+    max-width:1100px;
+    margin:auto;
 }
 
-.button-area {
-display:flex;
-gap:10px;
-margin:15px 0;
+/* Header */
+
+header{
+    background:linear-gradient(90deg,#4da3d9,#0d5ea8);
+    color:white;
+    padding:18px 0;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
 }
 
-.btn {
-padding:12px;
-border-radius:20px;
-text-decoration:none;
+.header-inner{
+    display:flex;
+    align-items:center;
 }
 
-.primary {
-background:#3a8ec1;
-color:white;
+.logo{
+    display:flex;
+    align-items:center;
+    gap:14px;
 }
 
-.secondary {
-background:#e3f2fb;
-color:#5fa8d3;
+.logo-icon{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    background:white;
+    color:#0d5ea8;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:26px;
+    font-weight:bold;
 }
 
-.fixed-call {
-position:fixed;
-bottom:0;
-width:100%;
-background:#3a8ec1;
-text-align:center;
+/* Hero */
+
+.hero{
+    position:relative;
 }
 
-.fixed-call a {
-color:white;
-padding:15px;
-display:block;
+.hero img{
+    width:100%;
+    height:auto;
+    display:block;
+}
+
+.hero-text{
+    position:absolute;
+    left:8%;
+    bottom:15%;
+    color:white;
+    font-size:42px;
+    font-weight:bold;
+    text-shadow:0 3px 12px rgba(0,0,0,0.45);
+    line-height:1.5;
+}
+
+/* Main */
+
+main{
+    background:white;
+    padding:35px;
+    border-radius:14px;
+    margin-top:30px;
+    margin-bottom:100px;
+    box-shadow:0 2px 12px rgba(0,0,0,0.08);
+}
+
+h2{
+    color:#0d5ea8;
+    border-left:6px solid #0d5ea8;
+    padding-left:14px;
+    margin-top:45px;
+    margin-bottom:22px;
+    font-size:28px;
+}
+
+p{
+    margin-bottom:20px;
+}
+
+/* Button */
+
+.button-area{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    margin:30px 0;
+}
+
+.btn{
+    flex:1;
+    min-width:180px;
+    text-align:center;
+    padding:15px 24px;
+    border-radius:999px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+    opacity:0.9;
+}
+
+.primary{
+    background:#0d5ea8;
+    color:white;
+}
+
+.secondary{
+    background:#e3f2fb;
+    color:#0d5ea8;
+}
+
+/* Doctor */
+
+.doctor{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.doctor img{
+    width:140px;
+    border-radius:12px;
+}
+
+/* Access */
+
+.info-box{
+    background:#f3f8fd;
+    padding:24px;
+    border-radius:12px;
+    margin-bottom:24px;
+}
+
+.map iframe{
+    width:100%;
+    height:350px;
+    border:none;
+    border-radius:12px;
+}
+
+/* Fixed Call */
+
+.fixed-call{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    background:#e53935;
+    text-align:center;
+    z-index:999;
+    box-shadow:0 -2px 10px rgba(0,0,0,0.15);
+}
+
+.fixed-call a{
+    color:white;
+    padding:16px;
+    display:block;
+    text-decoration:none;
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+    .hero-text{
+        font-size:26px;
+        left:6%;
+        bottom:10%;
+    }
+
+    .button-area{
+        flex-direction:column;
+    }
+
+    .btn{
+        width:100%;
+    }
+
+    main{
+        padding:22px;
+    }
+
+    h2{
+        font-size:24px;
+    }
+
 }
