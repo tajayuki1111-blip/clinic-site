@@ -1003,4 +1003,22 @@ smartphone
         font-size:17px;
     }
 
+}/* ======================
+文字サイズ 微調整
+====================== */
+
+/* PC */
+
+h2{
+    font-size:34px;
+}
+
+/* smartphone */
+
+@media(max-width:768px){
+
+    h2{
+        font-size:26px;
+    }
+
 }
