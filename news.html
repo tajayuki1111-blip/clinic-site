@@ -38,8 +38,6 @@ alt="なかい内科血管外科クリニック">
 
 <div class="header-right">
 
-<!-- pc tel -->
-
 <div class="header-tel">
 
 <a href="tel:0728732700">
@@ -53,8 +51,6 @@ alt="なかい内科血管外科クリニック">
 </a>
 
 </div>
-
-<!-- menu -->
 
 <nav>
 
@@ -82,8 +78,6 @@ alt="なかい内科血管外科クリニック">
 アクセス
 </a>
 
-<!-- smartphone tel -->
-
 <a href="tel:0728732700"
 class="sp-tel-link">
 
@@ -98,8 +92,6 @@ class="sp-tel-link">
 </nav>
 
 </div>
-
-<!-- hamburger -->
 
 <button class="menu-btn"
 onclick="document.body.classList.toggle('menu-open')">
@@ -120,16 +112,13 @@ onclick="document.body.classList.toggle('menu-open')">
 お知らせ
 </h2>
 
-<div class="news-page-box">
+<div class="news-page-box"
+id="news-list">
 
 <div class="news-item">
 
-<div class="news-date">
-2026.05.08
-</div>
-
 <div class="news-content">
-現在、お知らせはありません。
+読み込み中...
 </div>
 
 </div>
@@ -159,6 +148,76 @@ onclick="document.body.classList.toggle('menu-open')">
 </a>
 
 </div>
+
+<script>
+
+const SERVICE_ID = "nakai-clinic";
+const API_KEY = "xpk3ljGXAT8e6dyDK7jRVIOZqdrRKG7sjb2H";
+
+fetch(
+`https://${SERVICE_ID}.microcms.io/api/v1/news`,
+{
+headers:{
+"X-MICROCMS-API-KEY": API_KEY
+}
+}
+)
+.then(res => res.json())
+.then(data => {
+
+const newsList =
+document.getElementById("news-list");
+
+if(!data.contents || data.contents.length === 0){
+
+newsList.innerHTML =
+`
+<div class="news-item">
+<div class="news-content">
+現在、お知らせはありません。
+</div>
+</div>
+`;
+
+return;
+}
+
+newsList.innerHTML =
+data.contents.map(news => `
+
+<div class="news-item">
+
+<div class="news-date">
+${new Date(news.publishedAt).toLocaleDateString("ja-JP")}
+</div>
+
+<h3>
+${news.title}
+</h3>
+
+<div class="news-content">
+${news.body}
+</div>
+
+</div>
+
+`).join("");
+
+})
+.catch(error => {
+
+document.getElementById("news-list").innerHTML =
+`
+<div class="news-item">
+<div class="news-content">
+現在、お知らせを読み込めません。
+</div>
+</div>
+`;
+
+});
+
+</script>
 
 </body>
 
