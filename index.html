@@ -160,10 +160,11 @@ main
 お知らせ
 </h2>
 
-<div class="news-box">
+<div class="news-box"
+id="top-news-list">
 
 <p>
-現在、お知らせはありません。
+読み込み中...
 </p>
 
 </div>
@@ -220,7 +221,6 @@ main
 
 </p>
 
-  
 </div>
 
 <!-- gallery -->
@@ -246,7 +246,7 @@ main
 <a href="gallery.html"
 class="more-btn">
 
-詳しく見る 
+詳しく見る
 
 </a>
 
@@ -416,6 +416,68 @@ JR住道駅から近鉄バス
 </a>
 
 </div>
+
+<script>
+
+const SERVICE_ID = "nakai-clinic";
+const API_KEY = "xpk3ljGXAT8e6dyDK7jRVIOZqdrRKG7sjb2H";
+
+fetch(
+`https://${SERVICE_ID}.microcms.io/api/v1/news?limit=3`,
+{
+headers:{
+"X-MICROCMS-API-KEY": API_KEY
+}
+}
+)
+.then(res => res.json())
+.then(data => {
+
+const topNewsList =
+document.getElementById("top-news-list");
+
+if(!data.contents || data.contents.length === 0){
+
+topNewsList.innerHTML =
+`
+<p>
+現在、お知らせはありません。
+</p>
+`;
+
+return;
+}
+
+topNewsList.innerHTML =
+data.contents.map(news => `
+
+<div class="top-news-item">
+
+<div class="news-date">
+${new Date(news.publishedAt).toLocaleDateString("ja-JP")}
+</div>
+
+<div>
+${news.title}
+</div>
+
+</div>
+
+`).join("");
+
+})
+.catch(error => {
+
+document.getElementById("top-news-list").innerHTML =
+`
+<p>
+現在、お知らせを読み込めません。
+</p>
+`;
+
+});
+
+</script>
 
 </body>
 
