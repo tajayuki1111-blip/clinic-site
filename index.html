@@ -451,25 +451,17 @@ return;
 topNewsList.innerHTML =
 data.contents.map(news => `
 
-<details class="top-news-item">
+<div class="top-news-item">
 
-<summary>
-
-<span class="news-date">
+<div class="news-date">
 ${new Date(news.publishedAt).toLocaleDateString("ja-JP")}
-</span>
-
-<span>
-${news.title}
-</span>
-
-</summary>
-
-<div class="news-content">
-${news.body}
 </div>
 
-</details>
+<div>
+${news.title}
+</div>
+
+</div>
 
 `).join("");
 
