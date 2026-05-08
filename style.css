@@ -574,7 +574,7 @@ smartphone
         padding:6px 2px;
     }
 /* ======================
-医師紹介ページ 修正版
+医師紹介ページ
 ====================== */
 
 .doctor-profile{
@@ -605,12 +605,6 @@ smartphone
     flex:1;
     font-size:17px;
     line-height:2.4;
-    color:#333;
-}
-
-.doctor-message p{
-    margin-top:0;
-    margin-bottom:28px;
 }
 
 .doctor-name{
@@ -618,27 +612,17 @@ smartphone
     text-align:right;
 }
 
-.doctor-name p{
-    margin:0 0 8px;
-    font-size:15px;
-    color:#555;
-}
-
 .doctor-name strong{
     display:block;
     font-size:30px;
     font-weight:500;
-    letter-spacing:1px;
     color:#222;
-    line-height:1.4;
 }
 
 .doctor-name span{
     display:block;
     color:#2c79b9;
-    font-size:15px;
     margin-top:8px;
-    letter-spacing:1px;
 }
 
 .doctor-box{
@@ -648,13 +632,11 @@ smartphone
     max-width:1100px;
     margin:40px auto;
     border:1px solid #c8dff1;
-    box-shadow:0 6px 24px rgba(0,0,0,0.04);
 }
 
 .doctor-box h3{
     color:#2c79b9;
     font-size:30px;
-    font-weight:bold;
     margin-top:0;
     margin-bottom:34px;
     padding:16px 18px;
@@ -666,7 +648,6 @@ smartphone
 .doctor-box h3 span{
     font-size:14px;
     margin-left:10px;
-    letter-spacing:2px;
     color:#6b87a3;
 }
 
@@ -676,89 +657,14 @@ smartphone
     border-radius:10px;
     padding:16px;
     margin-bottom:10px;
-    font-size:17px;
     line-height:2;
-    border-bottom:none;
-    font-weight:normal;
-}
-
-.history-list strong{
-    display:inline-block;
-    width:170px;
-    color:#333;
-    font-weight:normal;
-}
-
-.doctor-box ul{
-    margin:0;
-    padding:0;
     list-style:none;
 }
 
-/* ======================
-スマホ
-====================== */
-
-@media(max-width:768px){
-
-    .doctor-profile{
-        flex-direction:column;
-        gap:24px;
-        padding:22px;
-        margin:25px auto 35px;
-        border-radius:18px;
-    }
-
-    .doctor-photo{
-        width:100%;
-    }
-
-    .doctor-photo img{
-        height:auto;
-    }
-
-    .doctor-message{
-        font-size:15px;
-        line-height:2;
-    }
-
-    .doctor-name{
-        text-align:left;
-        margin-top:30px;
-    }
-
-    .doctor-name strong{
-        font-size:26px;
-    }
-
-    .doctor-name span{
-        font-size:14px;
-    }
-
-    .doctor-box{
-        padding:22px;
-        margin:28px auto;
-        border-radius:18px;
-    }
-
-    .doctor-box h3{
-        font-size:24px;
-        padding:14px;
-        margin-bottom:22px;
-    }
-
-    .history-list p,
-    .doctor-box li{
-        font-size:15px;
-        padding:14px;
-    }
-
-    .history-list strong{
-        display:block;
-        width:auto;
-        margin-bottom:4px;
-        color:#2c79b9;
-    }
+.doctor-box ul{
+    padding:0;
+    margin:0;
+}
 
 /* ======================
 medical page
@@ -777,7 +683,6 @@ medical page
     border:1px solid #c8dff1;
     border-radius:20px;
     padding:30px;
-    box-shadow:0 6px 24px rgba(0,0,0,0.04);
 }
 
 .medical-box h3{
@@ -791,30 +696,8 @@ medical page
 
 .medical-box p{
     margin:0;
-    font-size:17px;
     line-height:2;
 }
-
-@media(max-width:768px){
-
-    .medical-grid{
-        grid-template-columns:1fr;
-        gap:16px;
-        margin:30px auto;
-    }
-
-    .medical-box{
-        padding:22px;
-        border-radius:18px;
-    }
-
-    .medical-box h3{
-        font-size:21px;
-    }
-
-    .medical-box p{
-        font-size:15px;
-    }
 
 /* ======================
 news page
@@ -831,43 +714,13 @@ news page
     border-radius:20px;
     padding:28px 34px;
     margin-bottom:20px;
-    box-shadow:0 6px 24px rgba(0,0,0,0.04);
 }
 
 .news-date{
     color:#2c79b9;
-    font-size:15px;
     font-weight:bold;
     margin-bottom:14px;
 }
-
-.news-content{
-    font-size:17px;
-    line-height:2;
-}
-
-@media(max-width:768px){
-
-    .news-page-box{
-        margin:30px auto;
-    }
-
-    .news-item{
-        padding:22px;
-        border-radius:18px;
-    }
-
-    .news-date{
-        font-size:14px;
-    }
-
-    .news-content{
-        font-size:15px;
-    }
-
-}
-}
-    }
 
 /* ======================
 access page
@@ -886,9 +739,7 @@ access page
     border-radius:18px;
     padding:34px 28px;
     text-align:center;
-    box-shadow:0 6px 24px rgba(0,0,0,0.05);
     border:1px solid #e1edf7;
-    min-height:260px;
 }
 
 .access-icon{
@@ -897,18 +748,14 @@ access page
 }
 
 .access-card h3{
-    color:#333;
     font-size:24px;
-    margin-top:0;
     margin-bottom:20px;
     padding-bottom:14px;
     border-bottom:1px solid #d9eaf7;
 }
 
 .access-card p{
-    font-size:16px;
     line-height:2;
-    margin:14px 0;
 }
 
 .access-photo{
@@ -923,35 +770,62 @@ access page
     border-radius:12px;
 }
 
-/* smartphone */
+/* ======================
+smartphone
+====================== */
 
 @media(max-width:768px){
 
+    nav{
+        overflow-y:auto;
+        padding-bottom:120px;
+    }
+
+    .sp-tel-link{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+
+        margin-top:30px;
+        margin-left:20px;
+        margin-right:20px;
+        margin-bottom:90px;
+
+        background:white;
+        color:#2c79b9;
+
+        font-size:20px;
+        font-weight:bold;
+        text-decoration:none;
+
+        border:2px solid #2c79b9;
+        border-radius:999px;
+
+        padding:12px 20px;
+    }
+
+    .doctor-profile{
+        flex-direction:column;
+        padding:22px;
+        gap:24px;
+    }
+
+    .doctor-photo{
+        width:100%;
+    }
+
+    .doctor-photo img{
+        height:auto;
+    }
+
+    .doctor-name{
+        text-align:left;
+    }
+
+    .medical-grid,
     .access-grid{
         grid-template-columns:1fr;
-        gap:18px;
-        margin:30px auto;
-    }
-
-    .access-card{
-        padding:24px 20px;
-        min-height:auto;
-    }
-
-    .access-icon{
-        font-size:36px;
-    }
-
-    .access-card h3{
-        font-size:21px;
-    }
-
-    .access-card p{
-        font-size:15px;
-    }
-
-    .access-photo img{
-        min-height:220px;
     }
 
 }
