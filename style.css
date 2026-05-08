@@ -1102,3 +1102,24 @@ top news
 .top-news-item:last-child{
     border-bottom:none;
 }
+/* トップお知らせ 開閉 */
+
+.top-news-item summary{
+    cursor:pointer;
+    list-style:none;
+}
+
+.top-news-item summary::-webkit-details-marker{
+    display:none;
+}
+
+.top-news-item summary::after{
+    content:"＋";
+    float:right;
+    color:#2c79b9;
+    font-weight:bold;
+}
+
+.top-news-item[open] summary::after{
+    content:"－";
+}
