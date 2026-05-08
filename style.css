@@ -736,10 +736,11 @@ access page
 
 .access-card{
     background:white;
-    border-radius:18px;
+    border-radius:20px;
     padding:34px 28px;
     text-align:center;
-    border:1px solid #e1edf7;
+    border:1px solid #dceaf7;
+    box-shadow:0 6px 24px rgba(0,0,0,0.04);
 }
 
 .access-icon{
@@ -749,13 +750,17 @@ access page
 
 .access-card h3{
     font-size:24px;
+    margin-top:0;
     margin-bottom:20px;
     padding-bottom:14px;
     border-bottom:1px solid #d9eaf7;
+    color:#333;
 }
 
 .access-card p{
+    font-size:16px;
     line-height:2;
+    margin:14px 0;
 }
 
 .access-photo{
@@ -767,65 +772,29 @@ access page
     height:100%;
     min-height:260px;
     object-fit:cover;
-    border-radius:12px;
+    border-radius:14px;
 }
 
-/* ======================
-smartphone
-====================== */
+/* smartphone */
 
 @media(max-width:768px){
 
-    nav{
-        overflow-y:auto;
-        padding-bottom:120px;
-    }
-
-    .sp-tel-link{
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        gap:10px;
-
-        margin-top:30px;
-        margin-left:20px;
-        margin-right:20px;
-        margin-bottom:90px;
-
-        background:white;
-        color:#2c79b9;
-
-        font-size:20px;
-        font-weight:bold;
-        text-decoration:none;
-
-        border:2px solid #2c79b9;
-        border-radius:999px;
-
-        padding:12px 20px;
-    }
-
-    .doctor-profile{
-        flex-direction:column;
-        padding:22px;
-        gap:24px;
-    }
-
-    .doctor-photo{
-        width:100%;
-    }
-
-    .doctor-photo img{
-        height:auto;
-    }
-
-    .doctor-name{
-        text-align:left;
-    }
-
-    .medical-grid,
     .access-grid{
         grid-template-columns:1fr;
+        gap:18px;
     }
 
+    .access-card{
+        padding:24px 20px;
+    }
+
+    .access-card h3{
+        font-size:21px;
+    }
+
+    .access-card p{
+        font-size:15px;
+    }
+
+}
 }
