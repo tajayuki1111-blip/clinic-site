@@ -1075,3 +1075,34 @@ home access
     }
 
 }
+/* ======================
+home access map 調整
+====================== */
+
+.home-access{
+    max-width:1100px;
+    margin:50px auto 0;
+}
+
+.home-map{
+    display:flex;
+    justify-content:center;
+}
+
+.home-map iframe{
+    width:100%;
+    max-width:1000px;
+    height:430px;
+    border:none;
+    border-radius:20px;
+}
+
+/* smartphone */
+
+@media(max-width:768px){
+
+    .home-map iframe{
+        height:300px;
+    }
+
+}
