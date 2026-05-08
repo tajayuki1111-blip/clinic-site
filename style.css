@@ -1047,14 +1047,15 @@ gallery page PC 調整
         margin:50px auto;
     }
 
-    .gallery-card{
-        background:white;
-        border-radius:24px;
-        overflow:hidden;
-        border:1px solid #dfeaf5;
-        box-shadow:0 8px 26px rgba(0,0,0,0.06);
-        transition:0.25s;
-    }
+   .gallery-card{
+    background:#eaf4fc;
+    border-radius:24px;
+    overflow:hidden;
+    border:1px solid #cfe2f3;
+    box-shadow:0 8px 26px rgba(0,0,0,0.05);
+    transition:0.25s;
+    padding:12px;
+}
 
     .gallery-card:hover{
         transform:translateY(-4px);
@@ -1069,9 +1070,12 @@ gallery page PC 調整
         border-bottom:1px solid #eef4fa;
     }
 
-    .gallery-text{
-        padding:26px;
-    }
+   .gallery-text{
+    background:white;
+    margin:0 12px 12px;
+    border-radius:18px;
+    padding:24px;
+}
 
     .gallery-text h3{
         font-size:24px;
