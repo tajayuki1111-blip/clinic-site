@@ -573,5 +573,192 @@ smartphone
         font-size:11px;
         padding:6px 2px;
     }
+/* ======================
+医師紹介ページ 修正版
+====================== */
 
+.doctor-profile{
+    display:flex;
+    align-items:flex-start;
+    gap:60px;
+    max-width:1100px;
+    margin:50px auto 80px;
+    background:#eaf4fc;
+    padding:50px;
+    border-radius:24px;
+    border:1px solid #c8dff1;
+}
+
+.doctor-photo{
+    width:250px;
+    flex-shrink:0;
+}
+
+.doctor-photo img{
+    width:100%;
+    height:340px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.doctor-message{
+    flex:1;
+    font-size:17px;
+    line-height:2.4;
+    color:#333;
+}
+
+.doctor-message p{
+    margin-top:0;
+    margin-bottom:28px;
+}
+
+.doctor-name{
+    margin-top:40px;
+    text-align:right;
+}
+
+.doctor-name p{
+    margin:0 0 8px;
+    font-size:15px;
+    color:#555;
+}
+
+.doctor-name strong{
+    display:block;
+    font-size:30px;
+    font-weight:500;
+    letter-spacing:1px;
+    color:#222;
+    line-height:1.4;
+}
+
+.doctor-name span{
+    display:block;
+    color:#2c79b9;
+    font-size:15px;
+    margin-top:8px;
+    letter-spacing:1px;
+}
+
+.doctor-box{
+    background:#eaf4fc;
+    border-radius:22px;
+    padding:34px 40px;
+    max-width:1100px;
+    margin:40px auto;
+    border:1px solid #c8dff1;
+    box-shadow:0 6px 24px rgba(0,0,0,0.04);
+}
+
+.doctor-box h3{
+    color:#2c79b9;
+    font-size:30px;
+    font-weight:bold;
+    margin-top:0;
+    margin-bottom:34px;
+    padding:16px 18px;
+    background:white;
+    border-radius:14px;
+    border-bottom:2px solid #cfe2f3;
+}
+
+.doctor-box h3 span{
+    font-size:14px;
+    margin-left:10px;
+    letter-spacing:2px;
+    color:#6b87a3;
+}
+
+.history-list p,
+.doctor-box li{
+    background:white;
+    border-radius:10px;
+    padding:16px;
+    margin-bottom:10px;
+    font-size:17px;
+    line-height:2;
+    border-bottom:none;
+    font-weight:normal;
+}
+
+.history-list strong{
+    display:inline-block;
+    width:170px;
+    color:#333;
+    font-weight:normal;
+}
+
+.doctor-box ul{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+
+/* ======================
+スマホ
+====================== */
+
+@media(max-width:768px){
+
+    .doctor-profile{
+        flex-direction:column;
+        gap:24px;
+        padding:22px;
+        margin:25px auto 35px;
+        border-radius:18px;
+    }
+
+    .doctor-photo{
+        width:100%;
+    }
+
+    .doctor-photo img{
+        height:auto;
+    }
+
+    .doctor-message{
+        font-size:15px;
+        line-height:2;
+    }
+
+    .doctor-name{
+        text-align:left;
+        margin-top:30px;
+    }
+
+    .doctor-name strong{
+        font-size:26px;
+    }
+
+    .doctor-name span{
+        font-size:14px;
+    }
+
+    .doctor-box{
+        padding:22px;
+        margin:28px auto;
+        border-radius:18px;
+    }
+
+    .doctor-box h3{
+        font-size:24px;
+        padding:14px;
+        margin-bottom:22px;
+    }
+
+    .history-list p,
+    .doctor-box li{
+        font-size:15px;
+        padding:14px;
+    }
+
+    .history-list strong{
+        display:block;
+        width:auto;
+        margin-bottom:4px;
+        color:#2c79b9;
+    }
+
+}
 }
