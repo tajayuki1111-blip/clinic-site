@@ -1164,3 +1164,88 @@ news list / detail
     }
 
 }
+/* ======================
+news pagination list
+====================== */
+
+.news-row{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:14px 18px;
+    border-radius:10px;
+    margin-bottom:6px;
+}
+
+.news-row-blue{
+    background:#eaf4fc;
+}
+
+.news-row-white{
+    background:white;
+    border:1px solid #e1edf7;
+}
+
+.news-row .news-date{
+    min-width:100px;
+    color:#2c79b9;
+    font-weight:bold;
+    font-size:14px;
+}
+
+.news-row .news-title{
+    font-size:15px;
+    font-weight:bold;
+    color:#333;
+}
+
+.news-list-link{
+    text-decoration:none;
+    color:inherit;
+}
+
+.news-pagination{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin-top:28px;
+}
+
+.news-pagination a{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    background:white;
+    color:#2c79b9;
+    text-decoration:none;
+    border:1px solid #cfe2f3;
+    font-weight:bold;
+}
+
+.news-pagination a.active{
+    background:#2c79b9;
+    color:white;
+}
+
+@media(max-width:768px){
+
+    .news-row{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:4px;
+        padding:12px 14px;
+    }
+
+    .news-row .news-date{
+        min-width:auto;
+        font-size:13px;
+    }
+
+    .news-row .news-title{
+        font-size:14px;
+    }
+
+}
