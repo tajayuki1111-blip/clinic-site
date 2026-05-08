@@ -993,3 +993,43 @@ gallery page
     }
 
 }
+/* ======================
+gallery page 調整
+====================== */
+
+@media(min-width:769px){
+
+    .gallery-page{
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+        gap:24px;
+        max-width:1000px;
+        margin:40px auto;
+    }
+
+    .gallery-card{
+        margin-bottom:0;
+    }
+
+    .gallery-card img{
+        width:100%;
+        height:220px;
+        object-fit:contain;
+        background:white;
+        padding:8px;
+    }
+
+    .gallery-text{
+        padding:22px;
+    }
+
+    .gallery-text h3{
+        font-size:22px;
+    }
+
+    .gallery-text p{
+        font-size:14px;
+        line-height:1.9;
+    }
+
+}
