@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+
+<title>お知らせ詳細 | なかい内科血管外科クリニック</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+
+<div class="container header-inner">
+
+<a href="index.html" class="logo-link">
+<img src="logo.png" class="header-logo" alt="なかい内科血管外科クリニック">
+</a>
+
+<div class="header-right">
+
+<div class="header-tel">
+<a href="tel:0728732700">
+<span class="tel-icon">☎</span>
+072-873-2700
+</a>
+</div>
+
+<nav>
+
+<a href="index.html">ホーム</a>
+<a href="medical.html">診療内容</a>
+<a href="doctor.html">医師紹介</a>
+<a href="gallery.html">院内紹介</a>
+<a href="news.html">お知らせ</a>
+<a href="access.html">アクセス</a>
+
+<a href="tel:0728732700" class="sp-tel-link">
+<span class="sp-tel-icon">☎</span>
+072-873-2700
+</a>
+
+</nav>
+
+</div>
+
+<button class="menu-btn" onclick="document.body.classList.toggle('menu-open')">
+<span></span>
+<span></span>
+<span></span>
+</button>
+
+</div>
+
+</header>
+
+<main class="container">
+
+<h2>お知らせ</h2>
+
+<div class="news-page-box" id="news-detail">
+
+<div class="news-item">
+<div class="news-content">
+読み込み中...
+</div>
+</div>
+
+</div>
+
+</main>
+
+<footer>
+<div class="container">
+<p>© なかい内科血管外科クリニック</p>
+</div>
+</footer>
+
+<div class="fixed-call">
+<a href="tel:0728732700">☎ 072-873-2700</a>
+</div>
+
+<script>
+
+const SERVICE_ID = "ここにサービスID";
+const API_KEY = "ここにAPIキー";
+
+const params = new URLSearchParams(window.location.search);
+const newsId = params.get("id");
+
+fetch(
+`https://${SERVICE_ID}.microcms.io/api/v1/news/${newsId}`,
+{
+headers:{
+"X-MICROCMS-API-KEY": API_KEY
+}
+}
+)
+.then(res => res.json())
+.then(news => {
+
+document.getElementById("news-detail").innerHTML =
+`
+
+<div class="news-item">
+
+<div class="news-date">
+${new Date(news.publishedAt).toLocaleDateString("ja-JP")}
+</div>
+
+<h3 class="news-detail-title">
+${news.title}
+</h3>
+
+<div class="news-content">
+${news.body}
+</div>
+
+<div class="back-news-area">
+<a href="news.html" class="back-news-btn">
+一覧に戻る
+</a>
+</div>
+
+</div>
+
+`;
+
+})
+.catch(error => {
+
+document.getElementById("news-detail").innerHTML =
+`
+<div class="news-item">
+<div class="news-content">
+お知らせを読み込めません。
+</div>
+
+<div class="back-news-area">
+<a href="news.html" class="back-news-btn">
+一覧に戻る
+</a>
+</div>
+
+</div>
+`;
+
+});
+
+</script>
+
+</body>
+</html>
