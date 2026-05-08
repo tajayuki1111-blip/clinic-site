@@ -885,3 +885,18 @@ smartphone
     }
 
 }
+/* スマホ 院内紹介の白い隙間修正 */
+
+@media(max-width:768px){
+
+    .clinic-gallery img{
+        width:100%;
+        height:120px;
+        object-fit:cover;
+        background:none;
+        padding:0;
+        border:none;
+        border-radius:10px;
+    }
+
+}
