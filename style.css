@@ -918,3 +918,11 @@ smartphone
     }
 
 }
+/* 詳しく見る 三角 */
+
+.more-btn::after{
+    content:"›";
+    margin-left:8px;
+    font-size:18px;
+    font-weight:bold;
+}
