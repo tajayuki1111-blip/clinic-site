@@ -1090,3 +1090,15 @@ gallery page PC 調整
     }
 
 }
+/* ======================
+top news
+====================== */
+
+.top-news-item{
+    padding:12px 0;
+    border-bottom:1px solid #dfeaf5;
+}
+
+.top-news-item:last-child{
+    border-bottom:none;
+}
