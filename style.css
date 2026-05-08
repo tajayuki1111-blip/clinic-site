@@ -1033,3 +1033,56 @@ gallery page 調整
     }
 
 }
+/* ======================
+gallery page PC 調整
+====================== */
+
+@media(min-width:769px){
+
+    .gallery-page{
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+        gap:28px;
+        max-width:1100px;
+        margin:50px auto;
+    }
+
+    .gallery-card{
+        background:white;
+        border-radius:24px;
+        overflow:hidden;
+        border:1px solid #dfeaf5;
+        box-shadow:0 8px 26px rgba(0,0,0,0.06);
+        transition:0.25s;
+    }
+
+    .gallery-card:hover{
+        transform:translateY(-4px);
+    }
+
+    .gallery-card img{
+        width:100%;
+        height:240px;
+        object-fit:contain;
+        background:#fff;
+        padding:10px;
+        border-bottom:1px solid #eef4fa;
+    }
+
+    .gallery-text{
+        padding:26px;
+    }
+
+    .gallery-text h3{
+        font-size:24px;
+        margin-bottom:16px;
+        color:#2c79b9;
+    }
+
+    .gallery-text p{
+        font-size:14px;
+        line-height:2;
+        color:#444;
+    }
+
+}
