@@ -760,5 +760,61 @@ smartphone
         color:#2c79b9;
     }
 
+/* ======================
+medical page
+====================== */
+
+.medical-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:22px;
+    max-width:1000px;
+    margin:40px auto;
+}
+
+.medical-box{
+    background:#eaf4fc;
+    border:1px solid #c8dff1;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 6px 24px rgba(0,0,0,0.04);
+}
+
+.medical-box h3{
+    color:#2c79b9;
+    font-size:24px;
+    margin-top:0;
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:2px solid #cfe2f3;
+}
+
+.medical-box p{
+    margin:0;
+    font-size:17px;
+    line-height:2;
+}
+
+@media(max-width:768px){
+
+    .medical-grid{
+        grid-template-columns:1fr;
+        gap:16px;
+        margin:30px auto;
+    }
+
+    .medical-box{
+        padding:22px;
+        border-radius:18px;
+    }
+
+    .medical-box h3{
+        font-size:21px;
+    }
+
+    .medical-box p{
+        font-size:15px;
+    }
+
 }
 }
