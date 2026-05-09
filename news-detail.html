@@ -181,3 +181,92 @@ document.getElementById("news-list").innerHTML =
 
 </body>
 </html>
+<script>
+
+const SERVICE_ID = "nakai-clinic";
+const API_KEY = "xpk3ljGXAT8e6dyDK7jRVIOZqdrRKG7sjb2H";
+
+const params = new URLSearchParams(window.location.search);
+const newsId = params.get("id");
+
+const newsDetail =
+document.getElementById("news-detail");
+
+if(!newsId){
+
+newsDetail.innerHTML =
+`
+<div class="news-item">
+<div class="news-content">
+お知らせが見つかりません。
+</div>
+
+<div class="back-news-area">
+<a href="news.html" class="back-news-btn">
+一覧に戻る
+</a>
+</div>
+</div>
+`;
+
+}else{
+
+fetch(
+`https://${SERVICE_ID}.microcms.io/api/v1/news/${newsId}`,
+{
+headers:{
+"X-MICROCMS-API-KEY": API_KEY
+}
+}
+)
+.then(res => res.json())
+.then(news => {
+
+newsDetail.innerHTML =
+`
+<div class="news-item">
+
+<div class="news-date">
+${new Date(news.publishedAt).toLocaleDateString("ja-JP")}
+</div>
+
+<h3 class="news-detail-title">
+${news.title}
+</h3>
+
+<div class="news-content">
+${news.body}
+</div>
+
+<div class="back-news-area">
+<a href="news.html" class="back-news-btn">
+一覧に戻る
+</a>
+</div>
+
+</div>
+`;
+
+})
+.catch(error => {
+
+newsDetail.innerHTML =
+`
+<div class="news-item">
+<div class="news-content">
+お知らせを読み込めません。
+</div>
+
+<div class="back-news-area">
+<a href="news.html" class="back-news-btn">
+一覧に戻る
+</a>
+</div>
+</div>
+`;
+
+});
+
+}
+
+</script>
