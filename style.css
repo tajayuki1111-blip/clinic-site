@@ -1426,3 +1426,67 @@ top news 強制反映
     }
 
 }
+/* ======================
+top news 修正
+====================== */
+
+#top-news-list summary{
+    display:grid;
+    grid-template-columns:120px 1fr 24px;
+    align-items:center;
+    gap:12px;
+    padding:16px 0;
+}
+
+#top-news-list .news-date{
+    min-width:0;
+    font-size:15px;
+    line-height:1.5;
+}
+
+#top-news-list .top-news-title{
+    font-size:16px;
+    line-height:1.6;
+}
+
+#top-news-list summary::after{
+    content:"＋";
+    margin-left:0;
+    text-align:right;
+    font-size:18px;
+}
+
+#top-news-list .top-news-item[open] summary::after{
+    content:"－";
+}
+
+#top-news-list .news-content{
+    padding:0 0 18px 132px;
+    font-size:15px;
+    line-height:1.9;
+}
+
+/* スマホ */
+
+@media(max-width:768px){
+
+    #top-news-list summary{
+        grid-template-columns:90px 1fr 22px;
+        gap:8px;
+        padding:14px 0;
+    }
+
+    #top-news-list .news-date{
+        font-size:13px;
+    }
+
+    #top-news-list .top-news-title{
+        font-size:15px;
+    }
+
+    #top-news-list .news-content{
+        padding:0 0 14px 98px;
+        font-size:14px;
+    }
+
+}
