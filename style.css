@@ -1571,3 +1571,72 @@ top news final
     }
 
 }
+/* ======================
+top news fix
+====================== */
+
+.top-news-link{
+    text-decoration:none !important;
+    color:inherit;
+    display:block;
+}
+
+.top-news-item{
+    display:flex !important;
+    align-items:center !important;
+    gap:16px;
+    padding:16px 0;
+    border-bottom:1px solid #e8f0f7;
+}
+
+.top-news-item:last-child{
+    border-bottom:none;
+}
+
+.top-news-item .news-date{
+    width:110px;
+    flex-shrink:0;
+    color:#2c79b9;
+    font-size:15px;
+    font-weight:bold;
+    line-height:1.4;
+}
+
+.top-news-title{
+    flex:1;
+    font-size:17px;
+    font-weight:bold;
+    color:#333;
+    line-height:1.5;
+}
+
+.top-news-arrow{
+    color:#2c79b9;
+    font-size:22px;
+    font-weight:bold;
+    line-height:1;
+}
+
+/* smartphone */
+
+@media(max-width:768px){
+
+    .top-news-item{
+        gap:10px;
+        padding:14px 0;
+    }
+
+    .top-news-item .news-date{
+        width:86px;
+        font-size:13px;
+    }
+
+    .top-news-title{
+        font-size:15px;
+    }
+
+    .top-news-arrow{
+        font-size:18px;
+    }
+
+}
