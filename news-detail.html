@@ -86,105 +86,8 @@
 
 <script>
 
-const SERVICE_ID = "nakai-clinic";
-const API_KEY = "xpk3ljGXAT8e6dyDK7jRVIOZqdrRKG7sjb2H";
-
-const params = new URLSearchParams(window.location.search);
-const currentPage = Number(params.get("page")) || 1;
-const limit = 10;
-const offset = (currentPage - 1) * limit;
-
-fetch(
-`https://${SERVICE_ID}.microcms.io/api/v1/news?limit=${limit}&offset=${offset}`,
-{
-headers:{
-"X-MICROCMS-API-KEY": API_KEY
-}
-}
-)
-.then(res => res.json())
-.then(data => {
-
-const newsList = document.getElementById("news-list");
-
-if(!data.contents || data.contents.length === 0){
-
-newsList.innerHTML =
-`
-<div class="news-item">
-<div class="news-content">
-現在、お知らせはありません。
-</div>
-</div>
-`;
-
-return;
-}
-
-const totalPages = Math.ceil(data.totalCount / limit);
-
-const newsHtml =
-data.contents.map((news,index) => `
-
-<a href="news-detail.html?id=${news.id}" class="news-list-link">
-
-<div class="news-row ${index % 2 === 0 ? "news-row-blue" : "news-row-white"}">
-
-<div class="news-date">
-${new Date(news.publishedAt).toLocaleDateString("ja-JP")}
-</div>
-
-<div class="news-title">
-${news.title}
-</div>
-
-</div>
-
-</a>
-
-`).join("");
-
-let paginationHtml = "";
-
-if(totalPages > 1){
-
-paginationHtml =
-`
-<div class="news-pagination">
-${Array.from({length:totalPages},(_,i) => `
-<a href="news.html?page=${i + 1}" class="${currentPage === i + 1 ? "active" : ""}">
-${i + 1}
-</a>
-`).join("")}
-</div>
-`;
-
-}
-
-newsList.innerHTML = newsHtml + paginationHtml;
-
-})
-.catch(error => {
-
-document.getElementById("news-list").innerHTML =
-`
-<div class="news-item">
-<div class="news-content">
-現在、お知らせを読み込めません。
-</div>
-</div>
-`;
-
-});
-
-</script>
-
-</body>
-</html>
-<script>
-
-const SERVICE_ID = "nakai-clinic";
-const API_KEY = "xpk3ljGXAT8e6dyDK7jRVIOZqdrRKG7sjb2H";
+const SERVICE_ID = "ここにサービスID";
+const API_KEY = "ここにAPIキー";
 
 const params = new URLSearchParams(window.location.search);
 const newsId = params.get("id");
@@ -197,6 +100,7 @@ if(!newsId){
 newsDetail.innerHTML =
 `
 <div class="news-item">
+
 <div class="news-content">
 お知らせが見つかりません。
 </div>
@@ -206,6 +110,7 @@ newsDetail.innerHTML =
 一覧に戻る
 </a>
 </div>
+
 </div>
 `;
 
@@ -219,7 +124,15 @@ headers:{
 }
 }
 )
-.then(res => res.json())
+.then(res => {
+
+if(!res.ok){
+throw new Error("取得失敗");
+}
+
+return res.json();
+
+})
 .then(news => {
 
 newsDetail.innerHTML =
@@ -253,6 +166,7 @@ ${news.body}
 newsDetail.innerHTML =
 `
 <div class="news-item">
+
 <div class="news-content">
 お知らせを読み込めません。
 </div>
@@ -262,6 +176,7 @@ newsDetail.innerHTML =
 一覧に戻る
 </a>
 </div>
+
 </div>
 `;
 
@@ -270,3 +185,6 @@ newsDetail.innerHTML =
 }
 
 </script>
+
+</body>
+</html>
