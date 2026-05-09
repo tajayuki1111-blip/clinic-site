@@ -1894,3 +1894,95 @@ top news more
 .top-news-more-btn span{
     font-size:18px;
 }
+/* ======================
+top news final fix
+====================== */
+
+#top-news-list{
+    background:white;
+    border:none;
+    box-shadow:none;
+    padding:0;
+}
+
+#top-news-list .top-news-link{
+    display:block;
+    text-decoration:none !important;
+    color:inherit;
+}
+
+#top-news-list .top-news-item{
+    display:grid !important;
+    grid-template-columns:135px 1fr 24px;
+    align-items:center !important;
+    gap:18px;
+    padding:18px 0;
+    border-bottom:1px dashed #cfdde8;
+}
+
+#top-news-list .top-news-item:last-child{
+    border-bottom:none;
+}
+
+#top-news-list .news-date{
+    font-size:17px;
+    line-height:1;
+    color:#2c79b9;
+    font-weight:bold;
+    margin:0;
+    padding:0;
+}
+
+#top-news-list .top-news-title{
+    font-size:18px;
+    line-height:1;
+    color:#333;
+    font-weight:bold;
+    margin:0;
+    padding:0;
+}
+
+#top-news-list .top-news-arrow{
+    font-size:24px;
+    line-height:1;
+    color:#2c79b9;
+    font-weight:bold;
+    margin:0;
+    padding:0;
+    text-align:right;
+}
+
+#top-news-list .top-news-link:hover .top-news-item{
+    background:#eaf4fc;
+    padding-left:14px;
+    padding-right:14px;
+    border-radius:8px;
+}
+
+#top-news-list .top-news-link:hover .top-news-title{
+    color:#2c79b9;
+}
+
+/* smartphone */
+
+@media(max-width:768px){
+
+    #top-news-list .top-news-item{
+        grid-template-columns:95px 1fr 18px;
+        gap:10px;
+        padding:15px 0;
+    }
+
+    #top-news-list .news-date{
+        font-size:14px;
+    }
+
+    #top-news-list .top-news-title{
+        font-size:15px;
+    }
+
+    #top-news-list .top-news-arrow{
+        font-size:20px;
+    }
+
+}
