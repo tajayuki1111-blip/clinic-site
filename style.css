@@ -2056,3 +2056,14 @@ top news pc final
     }
 
 }
+/* ======================
+top news smartphone normal
+====================== */
+
+@media(max-width:768px){
+
+    #top-news-list .top-news-title{
+        font-weight:normal !important;
+    }
+
+}
