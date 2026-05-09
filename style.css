@@ -1986,3 +1986,73 @@ top news final fix
     }
 
 }
+/* ======================
+top news smartphone fix
+====================== */
+
+@media(max-width:768px){
+
+    #top-news-list .top-news-item{
+        display:flex !important;
+        align-items:center !important;
+        gap:10px;
+        padding:14px 0;
+    }
+
+    #top-news-list .news-date{
+        width:86px;
+        flex-shrink:0;
+        font-size:13px;
+        line-height:1.4;
+    }
+
+    #top-news-list .top-news-title{
+        flex:1;
+        font-size:14px;
+        line-height:1.5;
+        font-weight:normal;
+    }
+
+    #top-news-list .top-news-arrow{
+        font-size:18px;
+        line-height:1;
+    }
+
+}
+/* ======================
+top news pc final
+====================== */
+
+@media(min-width:769px){
+
+    #top-news-list .top-news-item{
+        border-bottom:2px dashed #b7c9d8;
+        transition:0.2s;
+    }
+
+    #top-news-list .top-news-link:hover .top-news-item{
+        background:#dceefd;
+        padding-left:14px;
+        padding-right:14px;
+        border-radius:8px;
+    }
+
+    #top-news-list .news-date{
+        font-size:16px;
+        font-weight:normal;
+        font-family:
+        "Hiragino Sans",
+        "Yu Gothic",
+        sans-serif;
+    }
+
+    #top-news-list .top-news-title{
+        font-size:17px;
+        font-weight:normal;
+        font-family:
+        "Hiragino Sans",
+        "Yu Gothic",
+        sans-serif;
+    }
+
+}
