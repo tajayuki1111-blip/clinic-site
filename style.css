@@ -1863,3 +1863,34 @@ top news more
 .top-news-more-btn span{
     font-size:18px;
 }
+/* ======================
+top news more
+====================== */
+
+.top-news-more{
+    text-align:center;
+    margin-top:26px;
+}
+
+.top-news-more-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    background:#2c79b9;
+    color:white;
+    text-decoration:none;
+    padding:14px 34px;
+    border-radius:999px;
+    font-size:15px;
+    font-weight:bold;
+    transition:0.2s;
+}
+
+.top-news-more-btn:hover{
+    background:#1f5f96;
+    transform:translateY(-1px);
+}
+
+.top-news-more-btn span{
+    font-size:18px;
+}
