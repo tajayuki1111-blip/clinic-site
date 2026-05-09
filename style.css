@@ -1640,3 +1640,99 @@ top news fix
     }
 
 }
+/* ======================
+top news design final
+====================== */
+
+#top-news-list{
+    background:white;
+    border:none;
+    box-shadow:none;
+    border-radius:0;
+    padding:0;
+    max-width:900px;
+    margin:0 auto;
+}
+
+.top-news-link{
+    text-decoration:none !important;
+    color:inherit;
+    display:block;
+}
+
+.top-news-item{
+    display:flex !important;
+    align-items:center !important;
+    gap:22px;
+    padding:18px 0;
+    border-bottom:1px dashed #cfdde8;
+    transition:0.2s;
+}
+
+.top-news-item:hover{
+    background:#eaf4fc;
+    padding-left:14px;
+    padding-right:14px;
+    border-radius:8px;
+}
+
+.top-news-item .news-date{
+    width:120px;
+    flex-shrink:0;
+    color:#6b5b3e;
+    font-size:16px;
+    font-weight:500;
+    line-height:1.5;
+}
+
+.top-news-title{
+    flex:1;
+    font-size:17px;
+    font-weight:500;
+    color:#333;
+    line-height:1.6;
+}
+
+.top-news-link:hover .top-news-title{
+    color:#2c79b9;
+}
+
+.top-news-arrow{
+    color:#2c79b9;
+    font-size:22px;
+    font-weight:bold;
+    line-height:1;
+}
+
+/* smartphone */
+
+@media(max-width:768px){
+
+    #top-news-list{
+        padding:0;
+    }
+
+    .top-news-item{
+        gap:10px;
+        padding:14px 0;
+    }
+
+    .top-news-item:hover{
+        padding-left:8px;
+        padding-right:8px;
+    }
+
+    .top-news-item .news-date{
+        width:86px;
+        font-size:13px;
+    }
+
+    .top-news-title{
+        font-size:15px;
+    }
+
+    .top-news-arrow{
+        font-size:18px;
+    }
+
+}
