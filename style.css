@@ -960,3 +960,27 @@ gallery text natural fix
     margin:0 !important;
     border-radius:0 0 18px 18px;
 }
+
+/* ======================
+gallery card natural final
+====================== */
+
+.gallery-card{
+    background:white !important;
+    border:1px solid #cfe2f3 !important;
+    box-shadow:0 6px 22px rgba(0,0,0,0.05);
+    padding:0 !important;
+}
+
+.gallery-card img{
+    padding:0 !important;
+    background:none !important;
+    border-bottom:1px solid #e3eef8;
+}
+
+.gallery-text{
+    background:white !important;
+    margin:0 !important;
+    border-radius:0 !important;
+    padding:22px 24px !important;
+}
