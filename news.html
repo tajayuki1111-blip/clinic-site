@@ -48,10 +48,13 @@
 
 </div>
 
-<button class="menu-btn" onclick="document.body.classList.toggle('menu-open')">
+<button class="menu-btn"
+onclick="document.body.classList.toggle('menu-open')">
+
 <span></span>
 <span></span>
 <span></span>
+
 </button>
 
 </div>
@@ -75,9 +78,11 @@
 </main>
 
 <footer>
+
 <div class="container">
 <p>© なかい内科血管外科クリニック</p>
 </div>
+
 </footer>
 
 <div class="fixed-call">
@@ -89,8 +94,14 @@
 const SERVICE_ID = "nakai-clinic";
 const API_KEY = "xpk3ljGXAT8e6dyDK7jRVIOZqdrRKG7sjb2H";
 
+const params = new URLSearchParams(window.location.search);
+const currentPage = Number(params.get("page")) || 1;
+
+const limit = 10;
+const offset = (currentPage - 1) * limit;
+
 fetch(
-`https://${SERVICE_ID}.microcms.io/api/v1/news`,
+`https://${SERVICE_ID}.microcms.io/api/v1/news?limit=${limit}&offset=${offset}`,
 {
 headers:{
 "X-MICROCMS-API-KEY": API_KEY
@@ -100,7 +111,8 @@ headers:{
 .then(res => res.json())
 .then(data => {
 
-const newsList = document.getElementById("news-list");
+const newsList =
+document.getElementById("news-list");
 
 if(!data.contents || data.contents.length === 0){
 
@@ -116,12 +128,17 @@ newsList.innerHTML =
 return;
 }
 
-newsList.innerHTML =
-data.contents.map(news => `
+const totalPages =
+Math.ceil(data.totalCount / limit);
 
-<a href="news-detail.html?id=${news.id}" class="news-list-link">
+const newsHtml =
+data.contents.map((news,index) => `
 
-<div class="news-item">
+<a
+href="news-detail.html?id=${news.id}"
+class="news-list-link">
+
+<div class="news-row ${index % 2 === 0 ? "news-row-blue" : "news-row-white"}">
 
 <div class="news-date">
 ${new Date(news.publishedAt).toLocaleDateString("ja-JP")}
@@ -132,9 +149,42 @@ style="font-weight:normal;">
 ${news.title}
 </div>
 
+</div>
+
 </a>
 
 `).join("");
+
+let paginationHtml = "";
+
+if(totalPages > 1){
+
+paginationHtml =
+`
+<div class="news-pagination">
+
+${Array.from(
+{length:totalPages},
+(_,i) => `
+
+<a
+href="news.html?page=${i + 1}"
+class="${currentPage === i + 1 ? "active" : ""}">
+
+${i + 1}
+
+</a>
+
+`
+).join("")}
+
+</div>
+`;
+
+}
+
+newsList.innerHTML =
+newsHtml + paginationHtml;
 
 })
 .catch(error => {
