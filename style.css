@@ -2065,5 +2065,14 @@ top news smartphone normal
     #top-news-list .top-news-title{
         font-weight:normal !important;
     }
+/* ======================
+news title normal
+====================== */
 
+.news-title{
+    font-weight:normal !important;
+    font-family:
+    "Hiragino Sans",
+    "Yu Gothic",
+    sans-serif;
 }
