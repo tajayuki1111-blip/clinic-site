@@ -2090,3 +2090,18 @@ news page title normal final
     color:#333;
     line-height:1.6;
 }
+/* ======================
+news page no bold final
+====================== */
+
+.news-list-link{
+    font-weight:normal !important;
+}
+
+.news-row .news-title{
+    font-weight:normal !important;
+}
+
+.news-row{
+    font-weight:normal !important;
+}
