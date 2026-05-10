@@ -984,3 +984,128 @@ gallery card natural final
     border-radius:0 !important;
     padding:22px 24px !important;
 }
+/* ======================
+復元：アクセスページ
+====================== */
+
+.access-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+    max-width:920px;
+    margin:30px auto;
+}
+
+.access-card{
+    background:white;
+    border-radius:20px;
+    padding:24px 20px;
+    text-align:center;
+    border:1px solid #dceaf7;
+    box-shadow:0 6px 24px rgba(0,0,0,0.04);
+}
+
+.access-icon{
+    font-size:34px;
+    margin-bottom:12px;
+}
+
+.access-card h3{
+    font-size:20px;
+    margin-top:0;
+    margin-bottom:16px;
+    padding-bottom:14px;
+    border-bottom:1px solid #d9eaf7;
+    color:#333;
+}
+
+.access-card p{
+    font-size:14px;
+    line-height:1.9;
+}
+
+.access-photo img{
+    width:100%;
+    height:100%;
+    min-height:220px;
+    object-fit:cover;
+    border-radius:14px;
+}
+
+.map{
+    max-width:920px;
+    margin:0 auto 30px;
+}
+
+.map iframe{
+    width:100%;
+    height:360px;
+    border:none;
+    border-radius:16px;
+}
+
+/* ======================
+復元：一覧を見るボタン
+====================== */
+
+.top-news-more{
+    text-align:center;
+    margin-top:26px;
+}
+
+.top-news-more-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    background:#2c79b9;
+    color:white;
+    text-decoration:none;
+    padding:14px 34px;
+    border-radius:999px;
+    font-size:15px;
+    font-weight:bold;
+    transition:0.2s;
+}
+
+.top-news-more-btn:hover{
+    background:#1f5f96;
+    transform:translateY(-1px);
+}
+
+.top-news-more-btn span{
+    font-size:18px;
+}
+
+/* ======================
+復元：スマホ調整
+====================== */
+
+@media(max-width:768px){
+
+    nav{
+        overflow-x:hidden;
+    }
+
+    .sp-tel-icon{
+        width:30px;
+        height:30px;
+        border-radius:50%;
+        background:#2c79b9;
+        color:white;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        font-size:15px;
+        font-weight:bold;
+    }
+
+    .access-grid{
+        grid-template-columns:1fr;
+        gap:18px;
+    }
+
+    .map iframe{
+        height:300px;
+    }
+
+}
