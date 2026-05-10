@@ -951,3 +951,12 @@ gallery image white space fix
     padding:0 !important;
     background:none !important;
 }
+/* ======================
+gallery text natural fix
+====================== */
+
+.gallery-text{
+    background:#f5f9fd !important;
+    margin:0 !important;
+    border-radius:0 0 18px 18px;
+}
