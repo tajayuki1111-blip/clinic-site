@@ -2115,3 +2115,28 @@ news title force normal
 .news-row .news-title{
     font-weight:400 !important;
 }
+
+/* ======================
+お知らせページ 太字解除 最終版
+必ずCSSの一番下に貼る
+====================== */
+
+.news-page-box,
+.news-page-box *,
+.news-list-link,
+.news-list-link *,
+.news-row,
+.news-row *,
+.news-title,
+.news-content{
+    font-weight:400 !important;
+}
+
+.news-row .news-title,
+.news-list-link .news-title{
+    font-weight:400 !important;
+    font-family:
+    "Hiragino Sans",
+    "Yu Gothic",
+    sans-serif !important;
+}
