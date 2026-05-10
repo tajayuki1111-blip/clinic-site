@@ -2105,3 +2105,13 @@ news page no bold final
 .news-row{
     font-weight:normal !important;
 }
+/* ======================
+news title force normal
+====================== */
+
+.news-list-link,
+.news-list-link *,
+.news-title,
+.news-row .news-title{
+    font-weight:400 !important;
+}
