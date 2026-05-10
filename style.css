@@ -2140,3 +2140,16 @@ news title force normal
     "Yu Gothic",
     sans-serif !important;
 }
+/* ======================
+pc news title normal
+====================== */
+
+@media(min-width:769px){
+
+    .news-title,
+    .news-row .news-title,
+    .normal-news-title{
+        font-weight:normal !important;
+    }
+
+}
