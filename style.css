@@ -1109,3 +1109,71 @@ gallery card natural final
     }
 
 }
+/* ======================
+追加復元 最終確認
+====================== */
+
+/* PCではfooter下の余白を減らす */
+@media(min-width:769px){
+
+    footer{
+        padding:30px 0;
+    }
+
+}
+
+/* ホームアクセス地図 中央寄せ */
+.home-map{
+    display:flex;
+    justify-content:center;
+}
+
+/* スマホ ハンバーガー電話崩れ防止 */
+@media(max-width:768px){
+
+    .sp-tel-link{
+        flex-shrink:0;
+    }
+
+}
+
+/* access写真 */
+.access-photo{
+    padding:10px;
+}
+
+.access-photo img{
+    min-height:220px;
+    object-fit:cover;
+}
+
+/* 院内紹介ページ：外側を薄青、中身は白 */
+.gallery-card{
+    background:#eaf4fc !important;
+    padding:12px !important;
+}
+
+.gallery-card img{
+    border-radius:14px;
+}
+
+.gallery-text{
+    background:white !important;
+    margin:0 12px 12px !important;
+    border-radius:18px !important;
+    padding:24px !important;
+}
+
+@media(max-width:768px){
+
+    .gallery-card{
+        padding:10px !important;
+    }
+
+    .gallery-text{
+        margin:0 !important;
+        border-radius:0 0 14px 14px !important;
+        padding:20px !important;
+    }
+
+}
