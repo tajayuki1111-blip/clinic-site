@@ -1351,3 +1351,58 @@ gallery card natural final
     }
 
 }
+/* ======================
+news hover effect
+====================== */
+
+.news-list-link{
+    transition:0.2s;
+}
+
+.news-row{
+    transition:0.2s;
+}
+
+.news-list-link:hover .news-row{
+    background:#dceefd !important;
+    padding-left:26px;
+    padding-right:10px;
+}
+
+.news-list-link:hover .news-title{
+    color:#2c79b9;
+}
+/* ======================
+news arrow
+====================== */
+
+.news-row{
+    display:grid;
+    grid-template-columns:120px 1fr 24px;
+    align-items:center;
+}
+
+.news-arrow{
+    color:#2c79b9;
+    font-size:22px;
+    font-weight:bold;
+    text-align:right;
+    line-height:1;
+}
+
+.news-list-link:hover .news-arrow{
+    transform:translateX(4px);
+    transition:0.2s;
+}
+
+@media(max-width:768px){
+
+    .news-row{
+        grid-template-columns:1fr;
+    }
+
+    .news-arrow{
+        display:none;
+    }
+
+}
