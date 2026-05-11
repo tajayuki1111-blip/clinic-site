@@ -1177,3 +1177,41 @@ gallery card natural final
     }
 
 }
+/* ======================
+医師紹介 経歴・所属 復元
+====================== */
+
+.doctor-box h3 span{
+    font-size:14px;
+    margin-left:10px;
+    color:#6b87a3;
+}
+
+.history-list strong{
+    display:inline-block;
+    width:150px;
+    font-weight:normal;
+}
+
+.history-list p,
+.doctor-box li{
+    font-weight:normal;
+}
+
+@media(max-width:768px){
+
+    .history-list strong{
+        display:block;
+        width:auto;
+        margin-bottom:4px;
+        color:#2c79b9;
+        font-weight:normal;
+    }
+
+    .history-list p,
+    .doctor-box li{
+        font-size:15px;
+    }
+
+}
+
