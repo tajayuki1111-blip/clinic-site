@@ -1214,4 +1214,140 @@ gallery card natural final
     }
 
 }
+/* ======================
+不足分まとめて復元
+====================== */
 
+/* 医師紹介 */
+
+.doctor-box h3 span{
+    font-size:14px;
+    margin-left:10px;
+    color:#6b87a3;
+}
+
+.history-list strong{
+    display:inline-block;
+    width:150px;
+    font-weight:normal;
+}
+
+.history-list p,
+.doctor-box li{
+    font-weight:normal;
+}
+
+/* 医師紹介スマホ */
+
+@media(max-width:768px){
+
+    .doctor-message{
+        font-size:15px;
+        line-height:2;
+    }
+
+    .doctor-name{
+        text-align:left;
+    }
+
+    .doctor-name strong{
+        font-size:26px;
+        font-weight:400;
+    }
+
+    .history-list strong{
+        display:block;
+        width:auto;
+        margin-bottom:4px;
+        color:#2c79b9;
+        font-weight:normal;
+    }
+
+    .history-list p,
+    .doctor-box li{
+        font-size:15px;
+        padding:14px;
+    }
+
+}
+
+/* medicalスマホ */
+
+@media(max-width:768px){
+
+    .medical-box,
+    .access-card,
+    .news-item{
+        padding:22px;
+        border-radius:18px;
+    }
+
+    .medical-box h3,
+    .access-card h3{
+        font-size:21px;
+    }
+
+    .medical-box p,
+    .access-card p{
+        font-size:15px;
+    }
+
+}
+
+/* home access */
+
+.home-map{
+    display:flex;
+    justify-content:center;
+}
+
+.home-access-text ul{
+    margin:0;
+    padding-left:20px;
+}
+
+/* access page */
+
+.access-photo{
+    padding:10px;
+}
+
+/* footer PC */
+
+@media(min-width:769px){
+
+    footer{
+        padding:30px 0;
+    }
+
+}
+
+/* スマホ電話アイコン */
+
+.sp-tel-icon{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background:#2c79b9;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:15px;
+    font-weight:bold;
+}
+
+/* ハンバーガー横揺れ防止 */
+
+@media(max-width:768px){
+
+    nav{
+        overflow-x:hidden;
+        padding-bottom:40px;
+    }
+
+    .sp-tel-link{
+        flex-shrink:0;
+    }
+
+}
