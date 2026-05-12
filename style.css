@@ -1444,7 +1444,71 @@ varix
     font-size:15px;
 }
 
-/* smartphone */
+/* ======================
+varix symptoms
+====================== */
+
+.varix-symptoms{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+    max-width:1100px;
+    margin:0 auto 60px;
+}
+
+.varix-symptom{
+    background:white;
+    border:1px solid #d9e8f5;
+    border-radius:18px;
+    padding:18px 20px;
+    font-size:15px;
+    line-height:1.8;
+    box-shadow:0 4px 14px rgba(0,0,0,0.03);
+}
+
+/* ======================
+varix flow
+====================== */
+
+.varix-flow-line{
+    max-width:900px;
+    margin:0 auto 70px;
+}
+
+.varix-flow-box{
+    background:white;
+    border:2px solid #d8e7f4;
+    border-radius:18px;
+    padding:26px 30px;
+    text-align:center;
+    box-shadow:0 6px 20px rgba(0,0,0,0.04);
+}
+
+.varix-flow-box h3{
+    margin-top:0;
+    margin-bottom:16px;
+    color:#2c79b9;
+    font-size:24px;
+    font-weight:700;
+}
+
+.varix-flow-box p{
+    margin:0;
+    line-height:2;
+    font-size:15px;
+}
+
+.varix-flow-arrow{
+    text-align:center;
+    font-size:42px;
+    color:#b8cad9;
+    line-height:1;
+    margin:10px 0;
+}
+
+/* ======================
+smartphone
+====================== */
 
 @media(max-width:768px){
 
@@ -1462,6 +1526,37 @@ varix
     .varix-text p{
         font-size:14px;
         line-height:2;
+    }
+
+    .varix-symptoms{
+        grid-template-columns:repeat(2,1fr);
+        gap:12px;
+    }
+
+    .varix-symptom{
+        padding:14px;
+        font-size:13px;
+        border-radius:14px;
+    }
+
+    .varix-flow-box{
+        padding:20px 18px;
+        border-radius:16px;
+    }
+
+    .varix-flow-box h3{
+        font-size:20px;
+        margin-bottom:12px;
+    }
+
+    .varix-flow-box p{
+        font-size:14px;
+        line-height:1.9;
+    }
+
+    .varix-flow-arrow{
+        font-size:34px;
+        margin:6px 0;
     }
 
 }
