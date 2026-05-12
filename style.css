@@ -1560,3 +1560,62 @@ smartphone
     }
 
 }
+/* ======================
+varix mini contact
+====================== */
+
+.varix-contact-mini{
+    text-align:center;
+    margin-top:34px;
+}
+
+.varix-contact-mini-text{
+    color:#2c79b9;
+    font-size:24px;
+    font-weight:700;
+    margin-bottom:20px !important;
+}
+
+.varix-contact-mini-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    background:white;
+    border:2px solid #2c79b9;
+    border-radius:999px;
+    padding:14px 34px;
+    text-decoration:none;
+    color:#2c79b9;
+    font-size:30px;
+    font-weight:bold;
+}
+
+.varix-contact-mini-icon{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    background:#2c79b9;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+}
+
+/* smartphone */
+
+@media(max-width:768px){
+
+    .varix-contact-mini-text{
+        font-size:19px;
+        margin-bottom:16px !important;
+    }
+
+    .varix-contact-mini-btn{
+        width:100%;
+        justify-content:center;
+        padding:14px;
+        font-size:24px;
+    }
+
+}
