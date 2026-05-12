@@ -1406,3 +1406,62 @@ news arrow
     }
 
 }
+/* ======================
+varix
+====================== */
+
+.varix-about{
+    display:flex;
+    align-items:center;
+    gap:50px;
+    background:white;
+    border:1px solid #d9e8f5;
+    border-radius:24px;
+    padding:40px;
+    box-shadow:0 8px 24px rgba(0,0,0,0.04);
+    max-width:1100px;
+    margin:0 auto 60px;
+}
+
+.varix-image{
+    width:240px;
+    flex-shrink:0;
+}
+
+.varix-image img{
+    width:100%;
+    height:auto;
+    display:block;
+}
+
+.varix-text{
+    flex:1;
+}
+
+.varix-text p{
+    margin:0;
+    line-height:2.1;
+    font-size:15px;
+}
+
+/* smartphone */
+
+@media(max-width:768px){
+
+    .varix-about{
+        display:block;
+        padding:24px;
+        border-radius:18px;
+    }
+
+    .varix-image{
+        width:170px;
+        margin:0 auto 24px;
+    }
+
+    .varix-text p{
+        font-size:14px;
+        line-height:2;
+    }
+
+}
