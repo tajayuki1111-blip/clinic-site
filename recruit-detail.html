@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="favicon.png">
+
+<title>スタッフ募集 | なかい内科血管外科クリニック</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<main class="container">
+
+<h2>
+スタッフ募集
+</h2>
+
+<div class="news-page-box"
+id="recruit-detail">
+
+<div class="news-item">
+<div class="news-content">
+読み込み中...
+</div>
+</div>
+
+</div>
+
+</main>
+
+<script>
+
+const SERVICE_ID = "nakai-clinic";
+const API_KEY = "ここにAPIキー";
+
+const params = new URLSearchParams(window.location.search);
+const recruitId = params.get("id");
+
+fetch(
+`https://${SERVICE_ID}.microcms.io/api/v1/recruit/${recruitId}`,
+{
+headers:{
+"X-MICROCMS-API-KEY": API_KEY
+}
+}
+)
+.then(res => res.json())
+.then(recruit => {
+
+document.getElementById("recruit-detail").innerHTML =
+`
+<div class="news-item">
+
+<h3 class="news-detail-title">
+${recruit.title}
+</h3>
+
+<div class="news-content">
+${recruit.body}
+</div>
+
+<div class="back-news-area">
+<a href="index.html" class="back-news-btn">
+ホームに戻る
+</a>
+</div>
+
+</div>
+`;
+
+})
+.catch(error => {
+
+document.getElementById("recruit-detail").innerHTML =
+`
+<div class="news-item">
+<div class="news-content">
+募集情報を読み込めません。
+</div>
+
+<div class="back-news-area">
+<a href="index.html" class="back-news-btn">
+ホームに戻る
+</a>
+</div>
+
+</div>
+`;
+
+});
+
+</script>
+
+</body>
+</html>
