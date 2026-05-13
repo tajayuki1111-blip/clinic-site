@@ -1929,3 +1929,34 @@ recruit bottom space
 #recruit-list p{
     padding-bottom:10px;
 }
+/* ======================
+pc menu hover
+====================== */
+
+@media(min-width:769px){
+
+    nav a{
+        position:relative;
+        transition:0.2s;
+    }
+
+    nav a::after{
+        content:"";
+        position:absolute;
+        left:0;
+        bottom:-6px;
+        width:0;
+        height:2px;
+        background:#2c79b9;
+        transition:0.2s;
+    }
+
+    nav a:hover{
+        color:#1f5f96;
+    }
+
+    nav a:hover::after{
+        width:100%;
+    }
+
+}
