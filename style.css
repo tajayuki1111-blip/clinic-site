@@ -2084,3 +2084,47 @@ access map size fix
     }
 
 }
+/* ======================
+PC size balance
+====================== */
+
+@media(min-width:769px){
+
+    main{
+        max-width:1050px;
+        padding:34px;
+    }
+
+    h2{
+        font-size:30px;
+        margin-top:50px;
+        margin-bottom:34px;
+    }
+
+    .top-box,
+    .news-box,
+    .medical-box,
+    .doctor-box,
+    .news-item{
+        font-size:14px;
+    }
+
+    .medical-box{
+        padding:24px;
+    }
+
+    .home-map iframe,
+    .map iframe{
+        max-width:860px;
+        height:360px;
+    }
+
+    .gallery-page{
+        max-width:980px;
+    }
+
+    .gallery-card img{
+        height:210px;
+    }
+
+}
