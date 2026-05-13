@@ -2042,3 +2042,24 @@ gallery page final restore
     }
 
 }
+/* ======================
+gallery image no crop
+====================== */
+
+.gallery-card img{
+    height:240px;
+    object-fit:contain !important;
+    background:white !important;
+    padding:8px !important;
+}
+
+@media(max-width:768px){
+
+    .gallery-card img{
+        height:auto;
+        max-height:220px;
+        object-fit:contain !important;
+        padding:0 !important;
+    }
+
+}
