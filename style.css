@@ -2085,46 +2085,109 @@ access map size fix
 
 }
 /* ======================
-PC size balance
+PC compact balance
 ====================== */
 
 @media(min-width:769px){
 
     main{
-        max-width:1050px;
-        padding:34px;
+        max-width:960px;
+        padding:28px;
+        margin-top:24px;
     }
 
     h2{
-        font-size:30px;
-        margin-top:50px;
-        margin-bottom:34px;
+        font-size:27px;
+        margin-top:42px;
+        margin-bottom:28px;
+        letter-spacing:2px;
     }
 
     .top-box,
     .news-box,
     .medical-box,
     .doctor-box,
-    .news-item{
-        font-size:14px;
+    .news-item,
+    .doctor-message,
+    .gallery-text p{
+        font-size:13.5px;
+        line-height:1.9;
+    }
+
+    .medical-grid{
+        gap:16px;
+        max-width:900px;
     }
 
     .medical-box{
+        padding:20px;
+        border-radius:16px;
+    }
+
+    .medical-box h3{
+        font-size:20px;
+        margin-bottom:12px;
+    }
+
+    .doctor-profile{
+        gap:28px;
+        padding:28px;
+        margin:40px auto 60px;
+    }
+
+    .doctor-photo{
+        width:190px;
+    }
+
+    .doctor-photo img{
+        height:260px;
+    }
+
+    .doctor-box{
         padding:24px;
+        border-radius:18px;
+    }
+
+    .gallery-page{
+        max-width:920px;
+        gap:20px;
+    }
+
+    .gallery-card{
+        border-radius:18px !important;
+    }
+
+    .gallery-card img{
+        height:190px;
+    }
+
+    .gallery-text{
+        padding:18px 20px !important;
+    }
+
+    .gallery-text h3{
+        font-size:20px;
+        margin-bottom:12px;
     }
 
     .home-map iframe,
     .map iframe{
-        max-width:860px;
-        height:360px;
+        max-width:820px;
+        height:320px;
     }
 
-    .gallery-page{
-        max-width:980px;
+    .schedule th{
+        font-size:14px;
+        padding:14px 4px;
     }
 
-    .gallery-card img{
-        height:210px;
+    .schedule td{
+        font-size:16px;
+        padding:16px 4px;
+    }
+
+    footer{
+        padding:24px 0 70px;
     }
 
 }
