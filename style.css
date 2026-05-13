@@ -1840,3 +1840,28 @@ schedule all design
 .schedule tr:first-child th{
     border-top:1px solid #e5e5e5;
 }
+/* ======================
+medical link
+====================== */
+
+.medical-link-area{
+    margin-top:20px;
+    text-align:center;
+}
+
+.medical-link-btn{
+    display:inline-block;
+    background:#2c79b9;
+    color:white;
+    text-decoration:none;
+    padding:10px 34px;
+    border-radius:999px;
+    font-size:14px;
+    font-weight:bold;
+    transition:0.2s;
+}
+
+.medical-link-btn:hover{
+    background:#1f5f96;
+    transform:translateY(-1px);
+}
