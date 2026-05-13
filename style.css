@@ -2063,3 +2063,24 @@ gallery image no crop
     }
 
 }
+/* ======================
+access map size fix
+====================== */
+
+.map iframe{
+    width:100%;
+    max-width:900px;
+    height:380px;
+    border:none;
+    border-radius:20px;
+    display:block;
+    margin:0 auto;
+}
+
+@media(max-width:768px){
+
+    .map iframe{
+        height:300px;
+    }
+
+}
