@@ -36,10 +36,32 @@ id="recruit-detail">
 <script>
 
 const SERVICE_ID = "nakai-clinic";
-const API_KEY = "ここにAPIキー";
+const API_KEY = "xpk3ljGXAT8e6dyDK7jRVIOZqdrRKG7sjb2H";
 
 const params = new URLSearchParams(window.location.search);
 const recruitId = params.get("id");
+
+const recruitDetail =
+document.getElementById("recruit-detail");
+
+if(!recruitId){
+
+recruitDetail.innerHTML =
+`
+<div class="news-item">
+<div class="news-content">
+募集情報が見つかりません。
+</div>
+
+<div class="back-news-area">
+<a href="index.html" class="back-news-btn">
+ホームに戻る
+</a>
+</div>
+</div>
+`;
+
+}else{
 
 fetch(
 `https://${SERVICE_ID}.microcms.io/api/v1/recruit/${recruitId}`,
@@ -49,10 +71,18 @@ headers:{
 }
 }
 )
-.then(res => res.json())
+.then(res => {
+
+if(!res.ok){
+throw new Error("取得失敗");
+}
+
+return res.json();
+
+})
 .then(recruit => {
 
-document.getElementById("recruit-detail").innerHTML =
+recruitDetail.innerHTML =
 `
 <div class="news-item">
 
@@ -76,7 +106,7 @@ ${recruit.body}
 })
 .catch(error => {
 
-document.getElementById("recruit-detail").innerHTML =
+recruitDetail.innerHTML =
 `
 <div class="news-item">
 <div class="news-content">
@@ -88,11 +118,12 @@ document.getElementById("recruit-detail").innerHTML =
 ホームに戻る
 </a>
 </div>
-
 </div>
 `;
 
 });
+
+}
 
 </script>
 
