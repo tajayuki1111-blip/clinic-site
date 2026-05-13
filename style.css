@@ -1769,3 +1769,69 @@ schedule smartphone true center
     }
 
 }
+/* ======================
+schedule all design
+====================== */
+
+.schedule-wrap{
+    overflow-x:visible;
+    margin-top:10px;
+}
+
+.schedule{
+    width:100%;
+    background:white;
+    border-collapse:collapse;
+    table-layout:fixed;
+}
+
+.schedule th,
+.schedule td{
+    background:white !important;
+    color:#333 !important;
+    border-bottom:1px solid #e5e5e5;
+    text-align:center !important;
+    vertical-align:middle;
+    white-space:nowrap;
+    padding:18px 4px;
+    font-weight:400;
+}
+
+.schedule th{
+    font-size:16px;
+}
+
+.schedule td{
+    font-size:18px;
+}
+
+.schedule tr th:first-child{
+    width:90px;
+    line-height:1.7;
+}
+
+.schedule-note{
+    margin-top:18px;
+    font-size:15px;
+    color:#444;
+    line-height:1.8;
+}
+
+@media(max-width:768px){
+
+    .schedule tr th:first-child{
+        width:72px !important;
+        font-size:15px;
+    }
+
+    .schedule th{
+        font-size:14px;
+        padding:16px 2px;
+    }
+
+    .schedule td{
+        font-size:17px;
+        padding:20px 2px;
+    }
+
+}
