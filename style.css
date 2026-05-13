@@ -1918,3 +1918,14 @@ recruit hover
 #recruit-list .top-news-link:hover .top-news-title{
     color:#2c79b9;
 }
+/* ======================
+recruit bottom space
+====================== */
+
+#recruit-list{
+    margin-bottom:40px;
+}
+
+#recruit-list p{
+    padding-bottom:10px;
+}
