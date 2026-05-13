@@ -2222,10 +2222,39 @@ doctor white style
     line-height:1.9;
 }
 /* ======================
-doctor line compact
+PC size rebalance
 ====================== */
 
-.history-list p,
-.doctor-box li{
-    line-height:1.45 !important;
+@media(min-width:769px){
+
+    main{
+        max-width:1000px;
+        padding:32px;
+    }
+
+    h2{
+        font-size:28px;
+        margin-top:46px;
+        margin-bottom:30px;
+    }
+
+    .medical-box{
+        padding:22px;
+    }
+
+    .doctor-profile{
+        padding:32px;
+        gap:32px;
+    }
+
+    .gallery-card img{
+        height:205px;
+    }
+
+    .home-map iframe,
+    .map iframe{
+        max-width:850px;
+        height:330px;
+    }
+
 }
