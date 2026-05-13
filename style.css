@@ -1865,3 +1865,56 @@ medical link
     background:#1f5f96;
     transform:translateY(-1px);
 }
+/* ======================
+recruit hover
+====================== */
+
+#recruit-list{
+    background:white;
+    border:none;
+    box-shadow:none;
+    border-radius:0;
+    padding:0;
+    max-width:900px;
+    margin:0 auto;
+}
+
+#recruit-list .top-news-item{
+    display:grid;
+    grid-template-columns:1fr 24px;
+    align-items:center;
+    gap:18px;
+    padding:18px 0;
+    border-bottom:2px dashed #b7c9d8;
+    transition:0.2s;
+}
+
+#recruit-list .top-news-item:last-child{
+    border-bottom:none;
+}
+
+#recruit-list .top-news-title{
+    color:#333;
+    font-size:17px;
+    font-weight:normal;
+    line-height:1.4;
+}
+
+#recruit-list .top-news-arrow{
+    color:#2c79b9;
+    font-size:22px;
+    font-weight:bold;
+    line-height:1;
+    text-align:right;
+}
+
+#recruit-list .top-news-link:hover .top-news-item{
+    background:#dceefd;
+    padding-left:14px;
+    padding-right:14px;
+    border-radius:8px;
+}
+
+#recruit-list .top-news-link:hover .top-news-title{
+    color:#2c79b9;
+}
