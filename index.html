@@ -413,6 +413,20 @@ JR住道駅から近鉄バス
 
 </div>
 
+
+<h2>
+スタッフ募集
+</h2>
+
+<div class="news-box"
+id="recruit-list">
+
+<p>
+読み込み中...
+</p>
+
+</div>
+
 </main>
 
 <footer>
@@ -506,7 +520,66 @@ document.getElementById("top-news-list").innerHTML =
 `;
 
 });
+fetch(
+`https://${SERVICE_ID}.microcms.io/api/v1/recruit?limit=3`,
+{
+headers:{
+"X-MICROCMS-API-KEY": API_KEY
+}
+}
+)
+.then(res => res.json())
+.then(data => {
 
+const recruitList =
+document.getElementById("recruit-list");
+
+if(!data.contents || data.contents.length === 0){
+
+recruitList.innerHTML =
+`
+<p>
+現在募集しておりません。
+</p>
+`;
+
+return;
+}
+
+recruitList.innerHTML =
+data.contents.map(recruit => `
+
+<a
+href="recruit-detail.html?id=${recruit.id}"
+class="top-news-link">
+
+<div class="top-news-item">
+
+<div class="top-news-title">
+${recruit.title}
+</div>
+
+<div class="top-news-arrow">
+›
+</div>
+
+</div>
+
+</a>
+
+`).join("");
+
+})
+.catch(error => {
+
+document.getElementById("recruit-list").innerHTML =
+`
+<p>
+現在募集しておりません。
+</p>
+`;
+
+});
 </script>
 
 </body>
