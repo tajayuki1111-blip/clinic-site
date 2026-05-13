@@ -2221,3 +2221,11 @@ doctor white style
     margin-bottom:10px;
     line-height:1.9;
 }
+/* ======================
+doctor line compact
+====================== */
+
+.history-list p,
+.doctor-box li{
+    line-height:1.45 !important;
+}
