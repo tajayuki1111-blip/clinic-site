@@ -2258,3 +2258,88 @@ PC size rebalance
     }
 
 }
+/* ======================
+PC natural balance
+====================== */
+
+@media(min-width:769px){
+
+    main{
+        max-width:1120px;
+        padding:42px;
+        margin-top:34px;
+    }
+
+    h2{
+        font-size:32px;
+        margin-top:58px;
+        margin-bottom:38px;
+        letter-spacing:3px;
+    }
+
+    .top-box,
+    .news-box,
+    .medical-box,
+    .doctor-box,
+    .news-item{
+        font-size:15px;
+    }
+
+    .medical-grid{
+        gap:22px;
+        max-width:1000px;
+    }
+
+    .medical-box{
+        padding:28px;
+        border-radius:20px;
+    }
+
+    .medical-box h3{
+        font-size:24px;
+        margin-bottom:16px;
+    }
+
+    .doctor-profile{
+        padding:40px;
+        gap:40px;
+        margin:50px auto 80px;
+    }
+
+    .doctor-photo{
+        width:220px;
+    }
+
+    .doctor-photo img{
+        height:300px;
+    }
+
+    .doctor-box{
+        padding:28px;
+        border-radius:22px;
+    }
+
+    .gallery-page{
+        max-width:1100px;
+        gap:28px;
+    }
+
+    .gallery-card img{
+        height:230px;
+    }
+
+    .gallery-text{
+        padding:24px !important;
+    }
+
+    .gallery-text h3{
+        font-size:24px;
+    }
+
+    .home-map iframe,
+    .map iframe{
+        max-width:980px;
+        height:390px;
+    }
+
+}
