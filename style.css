@@ -2191,3 +2191,33 @@ PC compact balance
     }
 
 }
+/* ======================
+doctor white style
+====================== */
+
+.doctor-box{
+    background:white !important;
+    border:1px solid #dbe8f3 !important;
+    border-radius:18px;
+    box-shadow:0 4px 16px rgba(0,0,0,0.04);
+}
+
+.doctor-box h3{
+    background:#f5f9fd !important;
+    border:none !important;
+    border-left:4px solid #2c79b9;
+    border-radius:10px;
+    padding:14px 18px;
+    color:#2c79b9;
+    font-size:22px;
+}
+
+.history-list p,
+.doctor-box li{
+    background:#fafcff !important;
+    border:1px solid #edf3f8;
+    border-radius:10px;
+    padding:14px 16px;
+    margin-bottom:10px;
+    line-height:1.9;
+}
