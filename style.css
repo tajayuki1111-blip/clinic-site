@@ -772,7 +772,7 @@ smartphone
         height:calc(100vh - 72px);
         background:white;
         flex-direction:column;
-        padding-top:25px;
+        padding-top:0;
         overflow-y:auto;
         z-index:9998;
         gap:0;
@@ -1992,21 +1992,4 @@ pc menu hover center line
     }
 
 }
-/* ======================
-hamburger menu gap fix
-====================== */
 
-@media(max-width:768px){
-
-    nav{
-        top:72px !important;
-        height:calc(100vh - 72px) !important;
-        margin-top:0 !important;
-        padding-top:0 !important;
-    }
-
-    nav a:first-child{
-        border-top:1px solid #eef5fb;
-    }
-
-}
