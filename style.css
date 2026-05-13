@@ -1661,3 +1661,30 @@ schedule smartphone redesign
     }
 
 }
+/* 診療時間表 スマホ 日祝ずれ修正 */
+
+@media(max-width:768px){
+
+    .schedule th,
+    .schedule td{
+        white-space:nowrap;
+        text-align:center;
+    }
+
+    .schedule tr th:first-child{
+        width:82px;
+        text-align:center;
+        padding-left:0;
+    }
+
+    .schedule th{
+        font-size:14px;
+        padding:16px 2px;
+    }
+
+    .schedule td{
+        font-size:17px;
+        padding:20px 2px;
+    }
+
+}
