@@ -1688,3 +1688,65 @@ schedule smartphone redesign
     }
 
 }
+/* ======================
+schedule smartphone redesign
+====================== */
+
+@media(max-width:768px){
+
+    .schedule-wrap{
+        overflow-x:visible;
+        margin-top:10px;
+        display:flex;
+        justify-content:center;
+    }
+
+    .schedule{
+        width:100%;
+        margin:0 auto;
+        background:white;
+        border-collapse:collapse;
+        table-layout:fixed;
+    }
+
+    .schedule th,
+    .schedule td{
+        border-bottom:1px solid #e5e5e5;
+        text-align:center !important;
+        vertical-align:middle;
+        padding-left:0 !important;
+        padding-right:0 !important;
+        white-space:nowrap;
+    }
+
+    .schedule th{
+        background:white !important;
+        color:#333 !important;
+        font-size:14px;
+        font-weight:400;
+        padding:16px 2px;
+    }
+
+    .schedule td{
+        background:white;
+        color:#333;
+        font-size:17px;
+        padding:20px 2px;
+    }
+
+    .schedule tr th:first-child{
+        width:72px !important;
+        font-size:15px;
+        line-height:1.7;
+        text-align:center !important;
+        font-weight:400;
+    }
+
+    .schedule-note{
+        margin-top:18px;
+        font-size:15px;
+        color:#444;
+        line-height:1.8;
+    }
+
+}
