@@ -1750,3 +1750,21 @@ schedule smartphone redesign
     }
 
 }
+/* ======================
+schedule smartphone true center
+====================== */
+
+@media(max-width:768px){
+
+    .schedule-wrap{
+        width:100%;
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    .schedule{
+        width:calc(100% + 10px);
+        margin-left:-5px;
+    }
+
+}
