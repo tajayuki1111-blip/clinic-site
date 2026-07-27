@@ -232,7 +232,77 @@ gtag('config', 'G-NK74HRTVZN');
 </header>`;
 }
 
-const siteFooter = `
+const clinicInfo = `
+<section class="clinic-info" aria-labelledby="clinic-info-title">
+<div class="container">
+<div class="clinic-info-heading">
+<div class="clinic-info-brand">
+<img src="/logo.png" alt="${CLINIC_NAME}" width="310" height="65" loading="lazy" decoding="async">
+<div>
+<p class="clinic-info-kicker">大阪府大東市寺川の内科・循環器内科・血管外科</p>
+<h2 id="clinic-info-title">${CLINIC_NAME}</h2>
+<address>〒574-0014 大阪府大東市寺川3丁目9-16</address>
+</div>
+</div>
+<a class="clinic-info-tel" href="tel:0728732700">
+<span>お電話でのお問い合わせ</span>
+<strong>☎ 072-873-2700</strong>
+</a>
+</div>
+
+<div class="clinic-info-grid">
+<div class="clinic-info-details">
+<h3>診療時間</h3>
+<div class="clinic-info-schedule-scroll">
+<table class="clinic-info-schedule">
+<thead>
+<tr>
+<th scope="col">診療時間</th>
+<th scope="col">月</th>
+<th scope="col">火</th>
+<th scope="col">水</th>
+<th scope="col">木</th>
+<th scope="col">金</th>
+<th scope="col">土</th>
+<th scope="col">日・祝</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">9:00〜12:00</th>
+<td>○</td><td>○</td><td>○</td><td>×</td><td>○</td><td>○</td><td>×</td>
+</tr>
+<tr>
+<th scope="row">16:00〜18:00</th>
+<td>○</td><td>○</td><td>○</td><td>×</td><td>○</td><td>×</td><td>×</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="clinic-info-closed">休診日：木曜・土曜午後・日曜・祝日</p>
+<a class="clinic-info-access-button" href="/access.html">診療時間・アクセスを見る</a>
+</div>
+
+<div class="clinic-info-map">
+<iframe
+src="https://www.google.com/maps?q=大阪府大東市寺川3丁目9-16&amp;output=embed"
+loading="lazy"
+title="${CLINIC_NAME}周辺地図"
+referrerpolicy="no-referrer-when-downgrade"
+allowfullscreen>
+</iframe>
+</div>
+</div>
+
+<ul class="clinic-info-route">
+<li><strong>電車</strong> JR野崎駅から徒歩約15分</li>
+<li><strong>バス</strong> 近鉄バス「寺川」バス停から徒歩約2分</li>
+<li><strong>お車</strong> 専用駐車場5台あり</li>
+</ul>
+</div>
+</section>`;
+
+const siteFooter = `${clinicInfo}
 <footer>
 <div class="container">
 <p class="footer-links"><a href="/privacy.html">プライバシーポリシー</a></p>
@@ -308,14 +378,6 @@ function newsArticleHtml(item) {
 <div class="back-news-area"><a href="/news.html" class="back-news-btn">お知らせ一覧に戻る</a></div>
 </div>
 </article>
-<nav class="related-pages" aria-label="関連ページ">
-<h2>関連ページ</h2>
-<ul>
-<li><a href="/medical.html">一般内科・循環器内科・血管外科の診療内容</a></li>
-<li><a href="/access.html">診療時間・アクセス・駐車場</a></li>
-<li><a href="/varix.html">下肢静脈瘤の日帰り手術・レーザー治療</a></li>
-</ul>
-</nav>
 </main>
 ${siteFooter}`;
 }
@@ -418,6 +480,14 @@ await mkdir(OUT, { recursive: true });
 
 for (const file of publishFiles) {
   await cp(path.join(ROOT, file), path.join(OUT, file), { recursive: true });
+}
+
+for (const file of publishFiles.filter((file) => file.endsWith(".html"))) {
+  const destination = path.join(OUT, file);
+  const html = await readFile(destination, "utf8");
+  if (!html.includes('class="clinic-info"')) {
+    await writeFile(destination, html.replace("</main>", `</main>${clinicInfo}`), "utf8");
+  }
 }
 
 const [news, recruits] = await Promise.all([

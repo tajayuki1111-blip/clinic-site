@@ -2703,6 +2703,511 @@ h1.page-title::after{
     }
 }
 
+/* ======================
+Doctor introduction
+====================== */
+
+.doctor-introduction{
+    display:grid;
+    grid-template-columns:minmax(260px,340px) minmax(0,1fr);
+    gap:54px;
+    max-width:960px;
+    margin:54px auto 64px;
+    align-items:start;
+}
+
+.doctor-portrait-panel{
+    padding:22px 22px 26px;
+    border-radius:28px 4px 28px 4px;
+    background:#eaf5fc;
+}
+
+.doctor-portrait-panel img{
+    display:block;
+    width:100%;
+    height:auto;
+    border-radius:20px 4px 20px 4px;
+    box-shadow:0 12px 28px rgba(34,92,136,.14);
+}
+
+.doctor-signature{
+    padding-top:22px;
+    color:#333;
+}
+
+.doctor-signature p{
+    margin:0 0 8px;
+    font-size:13px;
+}
+
+.doctor-signature strong{
+    display:block;
+    color:#245d8d;
+    font-family:"Yu Mincho","Hiragino Mincho ProN",serif;
+    font-size:28px;
+    font-weight:600;
+    letter-spacing:.12em;
+}
+
+.doctor-signature span{
+    display:block;
+    margin-top:5px;
+    color:#72899d;
+    font-size:13px;
+    letter-spacing:.12em;
+}
+
+.doctor-greeting{
+    padding-top:12px;
+}
+
+.doctor-greeting-label{
+    margin:0 0 12px;
+    color:#2c79b9;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:.18em;
+}
+
+.doctor-greeting h2{
+    margin:0 0 28px;
+    padding-bottom:18px;
+    border-bottom:2px solid #d8eaf7;
+    color:#245d8d;
+    font-family:"Yu Mincho","Hiragino Mincho ProN",serif;
+    font-size:27px;
+    line-height:1.65;
+    letter-spacing:.05em;
+    text-align:left;
+}
+
+.doctor-greeting p:not(.doctor-greeting-label){
+    margin:0 0 18px;
+    color:#3f4850;
+    font-size:16px;
+    line-height:2.05;
+}
+
+.doctor-career-grid{
+    display:grid;
+    grid-template-columns:minmax(0,1.45fr) minmax(260px,.8fr);
+    gap:28px;
+    max-width:960px;
+    margin:0 auto 54px;
+    align-items:start;
+}
+
+.doctor-career-panel{
+    padding:28px 30px;
+    border-top:4px solid #2c79b9;
+    border-radius:0 0 16px 16px;
+    background:#f7fbfe;
+}
+
+.doctor-career-panel h2{
+    margin:0 0 22px;
+    color:#245d8d;
+    font-size:24px;
+    letter-spacing:.06em;
+    text-align:left;
+}
+
+.doctor-career-panel h2 span{
+    display:block;
+    margin-top:4px;
+    color:#7a94a9;
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:.1em;
+}
+
+.doctor-history{
+    margin:0;
+}
+
+.doctor-history div{
+    display:grid;
+    grid-template-columns:105px minmax(0,1fr);
+    gap:14px;
+    padding:12px 0;
+    border-bottom:1px solid #dce8f1;
+}
+
+.doctor-history div:last-child{
+    border-bottom:0;
+}
+
+.doctor-history dt{
+    color:#245d8d;
+    font-weight:700;
+}
+
+.doctor-history dd{
+    margin:0;
+    line-height:1.75;
+}
+
+.doctor-membership{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+
+.doctor-membership li{
+    padding:12px 0 12px 18px;
+    border-bottom:1px solid #dce8f1;
+    line-height:1.7;
+    position:relative;
+}
+
+.doctor-membership li::before{
+    content:"";
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#2c79b9;
+    position:absolute;
+    left:0;
+    top:21px;
+}
+
+.doctor-membership li:last-child{
+    border-bottom:0;
+}
+
+@media(max-width:768px){
+    .doctor-introduction{
+        grid-template-columns:1fr;
+        gap:30px;
+        margin:38px auto 48px;
+    }
+
+    .doctor-portrait-panel{
+        width:min(100%,340px);
+        margin:0 auto;
+        padding:18px 18px 22px;
+    }
+
+    .doctor-greeting{
+        padding-top:0;
+    }
+
+    .doctor-greeting h2{
+        font-size:22px;
+        line-height:1.7;
+    }
+
+    .doctor-greeting p:not(.doctor-greeting-label){
+        font-size:15px;
+        line-height:1.95;
+    }
+
+    .doctor-career-grid{
+        grid-template-columns:1fr;
+        gap:24px;
+    }
+
+    .doctor-career-panel{
+        padding:24px 20px;
+    }
+
+    .doctor-history div{
+        grid-template-columns:1fr;
+        gap:4px;
+    }
+}
+
+/* ======================
+共通クリニック案内
+====================== */
+
+.clinic-info{
+    margin-top:90px;
+    padding:64px 0 52px;
+    background:
+        linear-gradient(135deg,rgba(229,244,247,.88),rgba(247,251,250,.98)),
+        url("clinic.webp") center / cover;
+    border-top:1px solid #d7e8e9;
+}
+
+.clinic-info .container{
+    padding:38px;
+    border-radius:18px;
+    background:rgba(255,255,255,.96);
+    box-shadow:0 16px 42px rgba(43,92,97,.12);
+}
+
+.clinic-info-heading{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:28px;
+    padding-bottom:28px;
+    border-bottom:1px solid #dce9e9;
+}
+
+.clinic-info-brand{
+    display:flex;
+    align-items:center;
+    gap:24px;
+    min-width:0;
+}
+
+.clinic-info-brand img{
+    width:230px;
+    height:auto;
+    object-fit:contain;
+}
+
+.clinic-info-kicker{
+    margin:0 0 7px;
+    color:#547377;
+    font-size:13px;
+    letter-spacing:.08em;
+}
+
+.clinic-info h2{
+    margin:0 0 8px;
+    padding:0;
+    border:0;
+    color:#244d52;
+    font-size:clamp(22px,2.4vw,31px);
+    line-height:1.4;
+    text-align:left;
+}
+
+.clinic-info h2::after{
+    display:none;
+}
+
+.clinic-info address{
+    color:#51666a;
+    font-size:14px;
+    font-style:normal;
+}
+
+.clinic-info-tel{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-width:260px;
+    padding:15px 22px;
+    border:1px solid #90bdc0;
+    border-radius:12px;
+    background:#f4fbfb;
+    color:#1f6168;
+    text-decoration:none;
+    transition:transform .2s ease,box-shadow .2s ease,background .2s ease;
+}
+
+.clinic-info-tel:hover{
+    transform:translateY(-2px);
+    background:#ebf7f7;
+    box-shadow:0 8px 20px rgba(44,105,111,.14);
+}
+
+.clinic-info-tel span{
+    font-size:12px;
+    letter-spacing:.06em;
+}
+
+.clinic-info-tel strong{
+    font-size:23px;
+    letter-spacing:.03em;
+}
+
+.clinic-info-grid{
+    display:grid;
+    grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr);
+    gap:32px;
+    align-items:stretch;
+    padding-top:32px;
+}
+
+.clinic-info-details h3{
+    margin:0 0 15px;
+    color:#244d52;
+    font-size:20px;
+}
+
+.clinic-info-schedule-scroll{
+    overflow-x:auto;
+    border:1px solid #d8e5e6;
+    border-radius:10px;
+    background:#fff;
+}
+
+.clinic-info-schedule{
+    width:100%;
+    min-width:540px;
+    border-collapse:collapse;
+    font-size:14px;
+    text-align:center;
+}
+
+.clinic-info-schedule th,
+.clinic-info-schedule td{
+    padding:11px 8px;
+    border-right:1px solid #dfeaea;
+    border-bottom:1px solid #dfeaea;
+    white-space:nowrap;
+}
+
+.clinic-info-schedule tr:last-child th,
+.clinic-info-schedule tr:last-child td{
+    border-bottom:0;
+}
+
+.clinic-info-schedule th:last-child,
+.clinic-info-schedule td:last-child{
+    border-right:0;
+}
+
+.clinic-info-schedule thead th{
+    background:#e8f3f4;
+    color:#315c61;
+    font-weight:700;
+}
+
+.clinic-info-schedule tbody th{
+    background:#f7fafa;
+    color:#3d5659;
+    font-weight:600;
+}
+
+.clinic-info-closed{
+    margin:13px 0 18px;
+    color:#526568;
+    font-size:14px;
+}
+
+.clinic-info-access-button{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:44px;
+    padding:10px 24px;
+    border-radius:999px;
+    background:#2d747a;
+    color:#fff;
+    font-size:14px;
+    font-weight:700;
+    text-decoration:none;
+}
+
+.clinic-info-access-button::after{
+    content:"→";
+    margin-left:10px;
+}
+
+.clinic-info-map{
+    min-height:270px;
+    overflow:hidden;
+    border-radius:12px;
+    background:#dfe9e9;
+}
+
+.clinic-info-map iframe{
+    display:block;
+    width:100%;
+    height:100%;
+    min-height:270px;
+    border:0;
+}
+
+.clinic-info-route{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin:25px 0 0;
+    padding:0;
+    list-style:none;
+}
+
+.clinic-info-route li{
+    padding:15px 17px;
+    border-radius:9px;
+    background:#f4f8f8;
+    color:#475d60;
+    font-size:14px;
+    line-height:1.7;
+}
+
+.clinic-info-route strong{
+    display:block;
+    margin-bottom:2px;
+    color:#2d747a;
+    font-size:13px;
+    letter-spacing:.08em;
+}
+
+@media(max-width:768px){
+    .clinic-info{
+        margin-top:60px;
+        padding:36px 0 28px;
+    }
+
+    .clinic-info .container{
+        width:calc(100% - 28px);
+        padding:24px 18px;
+        border-radius:14px;
+    }
+
+    .clinic-info-heading,
+    .clinic-info-brand{
+        align-items:flex-start;
+        flex-direction:column;
+        gap:14px;
+    }
+
+    .clinic-info-heading{
+        padding-bottom:22px;
+    }
+
+    .clinic-info-brand img{
+        width:min(230px,78vw);
+    }
+
+    .clinic-info-kicker{
+        font-size:11px;
+    }
+
+    .clinic-info address{
+        font-size:13px;
+    }
+
+    .clinic-info-tel{
+        width:100%;
+        min-width:0;
+    }
+
+    .clinic-info-grid{
+        grid-template-columns:1fr;
+        gap:24px;
+        padding-top:24px;
+    }
+
+    .clinic-info-schedule-scroll{
+        margin-right:-4px;
+    }
+
+    .clinic-info-schedule{
+        font-size:13px;
+    }
+
+    .clinic-info-map,
+    .clinic-info-map iframe{
+        min-height:240px;
+    }
+
+    .clinic-info-route{
+        grid-template-columns:1fr;
+        gap:8px;
+        margin-top:18px;
+    }
+}
+
 @media(prefers-reduced-motion:reduce){
     *,
     *::before,
