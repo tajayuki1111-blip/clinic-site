@@ -9,9 +9,12 @@
 content="width=device-width, initial-scale=1.0">
 
 <meta name="theme-color" content="#ffffff">
-<link rel="icon"href="favicon.png">
+<link rel="icon" href="favicon-64.png" sizes="64x64">
 <meta name="description"
 content="なかい内科血管外科クリニック院長紹介。循環器専門医として高血圧・不整脈・下肢静脈瘤治療に対応しております。">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<link rel="canonical" href="https://ynakai-clinic.com/doctor.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Physician","name":"中井 康成","url":"https://ynakai-clinic.com/doctor.html","image":"https://ynakai-clinic.com/doctor.webp","medicalSpecialty":["循環器内科","血管外科","内科"],"honorificSuffix":"医学博士","worksFor":{"@type":"MedicalClinic","@id":"https://ynakai-clinic.com/#clinic","name":"なかい内科血管外科クリニック","url":"https://ynakai-clinic.com/","telephone":"+81-72-873-2700","address":{"@type":"PostalAddress","postalCode":"574-0014","addressRegion":"大阪府","addressLocality":"大東市","streetAddress":"寺川3丁目9-16","addressCountry":"JP"}}}</script>
   
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NK74HRTVZN"></script>
@@ -46,7 +49,10 @@ header
 <img
 src="logo.png"
 class="header-logo"
-alt="なかい内科血管外科クリニック">
+alt="なかい内科血管外科クリニック"
+width="310"
+height="65"
+decoding="async">
 
 </a>
 
@@ -108,7 +114,10 @@ class="sp-tel-link">
 </div>
 
 <button class="menu-btn"
-onclick="document.body.classList.toggle('menu-open')">
+type="button"
+aria-label="メニューを開閉"
+aria-expanded="false"
+onclick="const open=document.body.classList.toggle('menu-open');this.setAttribute('aria-expanded',String(open))">
 
 <span></span>
 <span></span>
@@ -126,9 +135,9 @@ main
 
 <main class="container">
 
-<h2>
+<h1 class="page-title">
 医師紹介
-</h2>
+</h1>
 
 <!-- ======================
 doctor profile
@@ -141,8 +150,12 @@ doctor profile
 <div class="doctor-photo">
 
 <img
-src="doctor.jpg"
-alt="中井康成">
+src="doctor.webp"
+alt="院長 中井康成"
+width="240"
+height="179"
+loading="lazy"
+decoding="async">
 
 </div>
 

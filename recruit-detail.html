@@ -12,10 +12,15 @@ content="width=device-width, initial-scale=1.0">
 content="#ffffff">
 
 <link rel="icon"
-href="favicon.png">
+href="favicon-64.png"
+sizes="64x64">
 
 <meta name="description"
 content="なかい内科血管外科クリニックのスタッフ募集情報です。">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<link rel="canonical" id="canonical-url" href="https://ynakai-clinic.com/recruit-detail.html">
+<link rel="preconnect" href="https://nakai-clinic.microcms.io" crossorigin>
+<script type="application/ld+json" id="recruit-structured-data"></script>
 
 <!-- Google tag (gtag.js) -->
 
@@ -58,7 +63,10 @@ class="logo-link">
 <img
 src="logo.png"
 class="header-logo"
-alt="なかい内科血管外科クリニック">
+alt="なかい内科血管外科クリニック"
+width="310"
+height="65"
+decoding="async">
 
 </a>
 
@@ -124,7 +132,10 @@ class="sp-tel-link">
 </div>
 
 <button class="menu-btn"
-onclick="document.body.classList.toggle('menu-open')">
+type="button"
+aria-label="メニューを開閉"
+aria-expanded="false"
+onclick="const open=document.body.classList.toggle('menu-open');this.setAttribute('aria-expanded',String(open))">
 
 <span></span>
 <span></span>
@@ -138,9 +149,9 @@ onclick="document.body.classList.toggle('menu-open')">
 
 <main class="container">
 
-<h2>
+<div class="section-label">
 スタッフ募集
-</h2>
+</div>
 
 <div class="news-page-box"
 id="recruit-detail">
@@ -240,14 +251,50 @@ return res.json();
 })
 .then(recruit => {
 
+const plainTitle = String(recruit.title || "スタッフ募集").replace(/<[^>]*>/g, "").trim();
+const bodyText = String(recruit.body || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+const canonicalUrl = new URL("https://ynakai-clinic.com/recruit-detail.html");
+canonicalUrl.searchParams.set("id", recruitId);
+
+document.title = `${plainTitle} | なかい内科血管外科クリニック`;
+document.querySelector('meta[name="description"]').setAttribute(
+"content",
+(bodyText || `${plainTitle}の募集情報です。`).slice(0, 120)
+);
+document.getElementById("canonical-url").setAttribute("href", canonicalUrl.href);
+document.getElementById("recruit-structured-data").textContent = JSON.stringify({
+"@context":"https://schema.org",
+"@type":"JobPosting",
+"title":plainTitle,
+"description":bodyText,
+"datePosted":recruit.publishedAt,
+"hiringOrganization":{
+"@type":"MedicalClinic",
+"@id":"https://ynakai-clinic.com/#clinic",
+"name":"なかい内科血管外科クリニック",
+"sameAs":"https://ynakai-clinic.com/"
+},
+"jobLocation":{
+"@type":"Place",
+"address":{
+"@type":"PostalAddress",
+"postalCode":"574-0014",
+"addressRegion":"大阪府",
+"addressLocality":"大東市",
+"streetAddress":"寺川3丁目9-16",
+"addressCountry":"JP"
+}
+}
+});
+
 recruitDetail.innerHTML =
 `
 
 <div class="news-item">
 
-<h3 class="news-detail-title">
+<h1 class="news-detail-title">
 ${recruit.title}
-</h3>
+</h1>
 
 <div class="news-content">
 ${recruit.body}

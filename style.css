@@ -190,6 +190,11 @@ hero
     z-index:2;
 }
 
+h1.hero-message{
+    margin:0;
+    font-size:inherit;
+}
+
 .hero-box{
     display:inline-block;
     background:#2c79b9;
@@ -2342,4 +2347,48 @@ PC natural balance
         height:390px;
     }
 
+}
+
+/* ======================
+SEO / accessibility
+====================== */
+
+h1.page-title{
+    text-align:center;
+    color:#2c79b9;
+    font-size:32px;
+    font-weight:700;
+    letter-spacing:3px;
+    margin-top:58px;
+    margin-bottom:38px;
+    position:relative;
+    font-family:"Yu Mincho","Hiragino Mincho ProN",serif;
+}
+
+h1.page-title::after{
+    content:"";
+    width:70px;
+    height:2px;
+    background:#2c79b9;
+    position:absolute;
+    left:50%;
+    bottom:-18px;
+    transform:translateX(-50%);
+}
+
+.section-label{
+    color:#2c79b9;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-align:center;
+    margin:24px 0 14px;
+}
+
+@media(max-width:768px){
+    h1.page-title{
+        font-size:26px;
+        letter-spacing:2px;
+        margin-top:32px;
+        margin-bottom:32px;
+    }
 }

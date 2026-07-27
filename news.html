@@ -5,9 +5,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#ffffff">
-<link rel="icon"href="favicon.png">
+<link rel="icon" href="favicon-64.png" sizes="64x64">
 <meta name="description"
 content="なかい内科血管外科クリニックからのお知らせ一覧です。休診情報や診療案内などをご案内しております。">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<link rel="canonical" href="https://ynakai-clinic.com/news.html">
+<link rel="preconnect" href="https://nakai-clinic.microcms.io" crossorigin>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"なかい内科血管外科クリニックからのお知らせ","url":"https://ynakai-clinic.com/news.html","isPartOf":{"@type":"WebSite","name":"なかい内科血管外科クリニック","url":"https://ynakai-clinic.com/"}}</script>
   
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NK74HRTVZN"></script>
@@ -30,7 +34,7 @@ content="なかい内科血管外科クリニックからのお知らせ一覧�
 <div class="container header-inner">
 
 <a href="/" class="logo-link">
-<img src="logo.png" class="header-logo" alt="なかい内科血管外科クリニック">
+<img src="logo.png" class="header-logo" alt="なかい内科血管外科クリニック" width="310" height="65" decoding="async">
 </a>
 
 <div class="header-right">
@@ -62,7 +66,10 @@ content="なかい内科血管外科クリニックからのお知らせ一覧�
 </div>
 
 <button class="menu-btn"
-onclick="document.body.classList.toggle('menu-open')">
+type="button"
+aria-label="メニューを開閉"
+aria-expanded="false"
+onclick="const open=document.body.classList.toggle('menu-open');this.setAttribute('aria-expanded',String(open))">
 
 <span></span>
 <span></span>
@@ -76,7 +83,7 @@ onclick="document.body.classList.toggle('menu-open')">
 
 <main class="container">
 
-<h2>お知らせ</h2>
+<h1 class="page-title">お知らせ</h1>
 
 <div class="news-page-box" id="news-list">
 
