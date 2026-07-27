@@ -3358,6 +3358,20 @@ main dd{
     }
 }
 
+/* スマホメニューをヘッダー直下へ隙間なく接続 */
+@media(max-width:768px){
+    body{
+        padding-top:69px;
+    }
+
+    nav{
+        top:0;
+        height:100vh;
+        height:100dvh;
+        padding-top:69px;
+    }
+}
+
 @media(prefers-reduced-motion:reduce){
     *,
     *::before,
