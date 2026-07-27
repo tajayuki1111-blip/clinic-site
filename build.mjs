@@ -204,7 +204,7 @@ gtag('js', new Date());
 gtag('config', 'G-NK74HRTVZN');
 </script>
 <title>${escapeHtml(title)}</title>
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/style.css?v=20260728d">
 </head>
 <body>
 <header>
@@ -429,7 +429,7 @@ function legacyRedirectHtml(kind) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,follow">
 <title>${label}ページへ移動します｜${CLINIC_NAME}</title>
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/style.css?v=20260728d">
 </head>
 <body>
 <main class="container not-found">
