@@ -416,7 +416,8 @@ doctor
     border:1px solid #c8dff1;
 }
 
-.doctor-box h3{
+.doctor-box h3,
+.doctor-box h2{
     color:#2c79b9;
     font-size:24px;
     margin-top:0;
@@ -1190,7 +1191,8 @@ gallery card natural final
 医師紹介 経歴・所属 復元
 ====================== */
 
-.doctor-box h3 span{
+.doctor-box h3 span,
+.doctor-box h2 span{
     font-size:14px;
     margin-left:10px;
     color:#6b87a3;
@@ -2170,7 +2172,8 @@ PC compact balance
         padding:18px 20px !important;
     }
 
-    .gallery-text h3{
+.gallery-text h3,
+.gallery-text h2{
         font-size:20px;
         margin-bottom:12px;
     }
@@ -2337,7 +2340,8 @@ PC natural balance
         padding:24px !important;
     }
 
-    .gallery-text h3{
+    .gallery-text h3,
+    .gallery-text h2{
         font-size:24px;
     }
 
@@ -2386,9 +2390,326 @@ h1.page-title::after{
 
 @media(max-width:768px){
     h1.page-title{
-        font-size:26px;
-        letter-spacing:2px;
+        font-size:23px;
+        line-height:1.55;
+        letter-spacing:1px;
         margin-top:32px;
         margin-bottom:32px;
+        padding:0 4px;
+    }
+}
+
+.seo-intro{
+    max-width:900px;
+    margin:0 auto 36px;
+    padding:22px 26px;
+    border-left:4px solid #2c79b9;
+    background:#f5faff;
+    line-height:2;
+}
+
+.page-index{
+    max-width:960px;
+    margin:0 auto 48px;
+    padding:26px 30px;
+    border:1px solid #d7e8f6;
+    border-radius:14px;
+    background:#fff;
+}
+
+.page-index h2{
+    margin-top:0;
+}
+
+.page-index ul{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px 24px;
+    margin:0;
+    padding-left:22px;
+}
+
+.page-index a,
+.medical-content-section a,
+.medical-note a,
+.reference-section a,
+.supervisor-box a{
+    color:#1769aa;
+    text-decoration:underline;
+    text-underline-offset:3px;
+}
+
+.medical-content-section,
+.medical-note,
+.reference-section,
+.supervisor-box,
+.faq-section{
+    max-width:960px;
+    margin:0 auto 38px;
+    padding:28px 32px;
+    border:1px solid #dce8f1;
+    border-radius:16px;
+    background:#fff;
+    box-shadow:0 8px 24px rgba(34,92,136,.06);
+}
+
+.medical-content-section h2,
+.medical-note h2,
+.reference-section h2,
+.supervisor-box h2,
+.faq-section h2{
+    margin-top:0;
+}
+
+.medical-content-section h3{
+    margin-top:26px;
+    color:#245d8d;
+    font-size:20px;
+}
+
+.medical-content-section[id]{
+    scroll-margin-top:110px;
+}
+
+.medical-content-section p,
+.medical-note p,
+.reference-section p,
+.supervisor-box p{
+    line-height:2;
+}
+
+.medical-caution{
+    margin-top:22px;
+    padding:18px 20px;
+    border-left:4px solid #c95c4b;
+    background:#fff7f5;
+}
+
+.symptom-check-list{
+    margin:16px 0;
+    padding-left:1.4em;
+    line-height:1.9;
+}
+
+.symptom-check-list li + li{
+    margin-top:8px;
+}
+
+.editorial-meta{
+    max-width:900px;
+    margin:-14px auto 34px;
+    padding:15px 20px;
+    border-radius:10px;
+    background:#f7f7f7;
+    color:#4b4b4b;
+    font-size:14px;
+}
+
+.editorial-meta p{
+    margin:4px 0;
+}
+
+.editorial-meta a{
+    color:#1769aa;
+}
+
+.faq-section details{
+    border-top:1px solid #dce8f1;
+    padding:18px 0;
+}
+
+.faq-section details:last-child{
+    border-bottom:1px solid #dce8f1;
+}
+
+.faq-section summary{
+    cursor:pointer;
+    color:#245d8d;
+    font-weight:700;
+    line-height:1.6;
+}
+
+.faq-section details p{
+    margin:14px 0 0;
+    line-height:1.9;
+}
+
+.reference-section ul{
+    padding-left:1.4em;
+    line-height:1.8;
+}
+
+.reference-section li + li{
+    margin-top:10px;
+}
+
+.supervisor-box{
+    border:2px solid #9fc5e4;
+    background:#f8fcff;
+}
+
+.related-pages{
+    max-width:960px;
+    margin:48px auto;
+    padding:28px 32px;
+    border-radius:16px;
+    background:#edf6fc;
+}
+
+.related-pages h2{
+    margin-top:0;
+}
+
+.related-pages ul{
+    display:grid;
+    gap:12px;
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+
+.related-pages a{
+    display:block;
+    padding:14px 18px;
+    border-radius:9px;
+    background:#fff;
+    color:#1769aa;
+    font-weight:700;
+    text-decoration:none;
+}
+
+.related-pages a:hover,
+.related-pages a:focus-visible{
+    background:#dceefb;
+    text-decoration:underline;
+}
+
+.home-services{
+    margin:52px auto;
+}
+
+.service-link-grid{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:16px;
+}
+
+.service-link-grid a{
+    display:flex;
+    min-height:130px;
+    flex-direction:column;
+    justify-content:center;
+    gap:8px;
+    padding:22px;
+    border:1px solid #cfe2f2;
+    border-radius:14px;
+    background:#fff;
+    color:#245d8d;
+    text-decoration:none;
+    box-shadow:0 8px 22px rgba(34,92,136,.06);
+}
+
+.service-link-grid a:hover,
+.service-link-grid a:focus-visible{
+    border-color:#2c79b9;
+    transform:translateY(-2px);
+}
+
+.service-link-grid strong{
+    font-size:19px;
+}
+
+.service-link-grid span{
+    color:#444;
+    font-size:14px;
+    line-height:1.7;
+}
+
+.not-found{
+    max-width:760px;
+    margin:70px auto;
+    padding:48px 30px;
+    text-align:center;
+}
+
+.not-found p{
+    line-height:1.9;
+}
+
+.footer-links{
+    margin-bottom:10px;
+}
+
+.footer-links a{
+    color:inherit;
+    text-decoration:underline;
+    text-underline-offset:3px;
+}
+
+@media(max-width:768px){
+    .seo-intro,
+    .medical-content-section,
+    .medical-note,
+    .reference-section,
+    .supervisor-box,
+    .faq-section,
+    .related-pages,
+    .page-index{
+        padding:22px 18px;
+    }
+
+    .seo-intro{
+        font-size:15px;
+        line-height:1.85;
+    }
+
+    .medical-content-section h2,
+    .medical-note h2,
+    .reference-section h2,
+    .supervisor-box h2,
+    .faq-section h2,
+    .related-pages h2,
+    .page-index h2{
+        font-size:21px;
+        line-height:1.55;
+    }
+
+    .medical-content-section h3{
+        font-size:18px;
+        line-height:1.6;
+    }
+
+    .editorial-meta{
+        margin-top:-8px;
+        padding:14px 16px;
+    }
+
+    .faq-section summary{
+        font-size:16px;
+    }
+
+    .page-index ul,
+    .service-link-grid{
+        grid-template-columns:1fr;
+    }
+
+    .service-link-grid a{
+        min-height:auto;
+    }
+
+    .related-pages a{
+        padding:14px 15px;
+        line-height:1.65;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    *,
+    *::before,
+    *::after{
+        scroll-behavior:auto !important;
+        transition-duration:.01ms !important;
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
     }
 }
