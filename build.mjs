@@ -257,7 +257,7 @@ const clinicInfo = `
 <table class="clinic-info-schedule">
 <thead>
 <tr>
-<th scope="col">診療時間</th>
+<th scope="col">診療<span class="clinic-info-mobile-break"><br></span>時間</th>
 <th scope="col">月</th>
 <th scope="col">火</th>
 <th scope="col">水</th>
@@ -269,11 +269,11 @@ const clinicInfo = `
 </thead>
 <tbody>
 <tr>
-<th scope="row">9:00〜12:00</th>
+<th scope="row">9:00〜<span class="clinic-info-mobile-break"><br></span>12:00</th>
 <td>○</td><td>○</td><td>○</td><td>×</td><td>○</td><td>○</td><td>×</td>
 </tr>
 <tr>
-<th scope="row">16:00〜18:00</th>
+<th scope="row">16:00〜<span class="clinic-info-mobile-break"><br></span>18:00</th>
 <td>○</td><td>○</td><td>○</td><td>×</td><td>○</td><td>×</td><td>×</td>
 </tr>
 </tbody>

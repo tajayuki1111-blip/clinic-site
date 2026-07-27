@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap");
+
 *{
     box-sizing:border-box;
 }
@@ -3205,6 +3207,154 @@ Doctor introduction
         grid-template-columns:1fr;
         gap:8px;
         margin-top:18px;
+    }
+}
+
+/* ======================
+読みやすさ・スマホ表示の最終調整
+====================== */
+
+body{
+    font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",Meiryo,sans-serif;
+    font-size:16px;
+    line-height:1.875;
+    letter-spacing:.05em;
+    color:#333;
+}
+
+h1.page-title,
+h2{
+    font-family:"Noto Serif JP","Yu Mincho","Hiragino Mincho ProN",serif;
+}
+
+main p,
+main li,
+main dt,
+main dd{
+    font-size:16px !important;
+    line-height:1.875 !important;
+    letter-spacing:.05em;
+}
+
+.gallery-text h2{
+    margin:0 0 24px !important;
+    padding:0 0 13px;
+    color:#245d8d;
+    font-size:24px;
+    line-height:1.5;
+    letter-spacing:.08em;
+}
+
+.gallery-text h2::after{
+    width:48px;
+    bottom:0;
+}
+
+.gallery-text p{
+    color:#333;
+    font-size:16px !important;
+    line-height:1.875 !important;
+}
+
+.medical-box h2{
+    margin:0 0 16px;
+    color:#245d8d;
+    font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif;
+    font-size:24px;
+    line-height:1.55;
+    letter-spacing:.05em;
+    text-align:left;
+}
+
+.medical-box h2::after{
+    display:none;
+}
+
+.clinic-info h2{
+    white-space:nowrap;
+    letter-spacing:0;
+}
+
+.clinic-info-mobile-break{
+    display:none;
+}
+
+@media(max-width:768px){
+    main p,
+    main li,
+    main dt,
+    main dd{
+        font-size:16px !important;
+        line-height:1.875 !important;
+    }
+
+    .gallery-text h2{
+        margin-bottom:22px !important;
+        padding-bottom:12px;
+        font-size:22px;
+    }
+
+    .medical-box h2{
+        margin-bottom:14px;
+        font-size:21px;
+    }
+
+    .clinic-info .container{
+        width:calc(100% - 20px);
+        padding:22px 12px;
+    }
+
+    .clinic-info h2{
+        font-size:clamp(15px,4.3vw,20px);
+        line-height:1.45;
+    }
+
+    .clinic-info-schedule-scroll{
+        width:100%;
+        margin-right:0;
+        overflow-x:hidden;
+    }
+
+    .clinic-info-schedule{
+        width:100%;
+        min-width:0;
+        table-layout:fixed;
+        font-size:10.5px;
+        letter-spacing:0;
+    }
+
+    .clinic-info-schedule th,
+    .clinic-info-schedule td{
+        padding:9px 1px;
+        white-space:normal;
+    }
+
+    .clinic-info-schedule thead th:first-child,
+    .clinic-info-schedule tbody th{
+        width:62px;
+    }
+
+    .clinic-info-mobile-break{
+        display:inline;
+    }
+}
+
+@media(max-width:380px){
+    .clinic-info-kicker{
+        letter-spacing:0;
+    }
+
+    .clinic-info h2{
+        font-size:15px;
+    }
+
+    .clinic-info-schedule{
+        font-size:10px;
+    }
+
+    .clinic-info-schedule thead th:first-child,
+    .clinic-info-schedule tbody th{
+        width:58px;
     }
 }
 
