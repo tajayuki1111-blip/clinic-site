@@ -539,7 +539,7 @@ const clinicInfo = `
 
 <div class="clinic-info-map">
 <iframe
-src="https://www.google.com/maps?q=大阪府大東市寺川3丁目9-16&amp;output=embed"
+src="https://www.google.com/maps?q=34.7110173,135.6428162&amp;z=16&amp;output=embed&amp;hl=ja"
 loading="lazy"
 title="${CLINIC_NAME}周辺地図"
 referrerpolicy="no-referrer-when-downgrade"
