@@ -3433,10 +3433,10 @@ main dd{
     }
 
     nav{
-        top:0;
-        height:100vh;
-        height:100dvh;
-        padding-top:69px;
+        top:69px;
+        height:calc(100vh - 69px);
+        height:calc(100dvh - 69px);
+        padding-top:0;
     }
 }
 
