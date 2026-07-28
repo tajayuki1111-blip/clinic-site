@@ -784,6 +784,8 @@ smartphone
         overflow-y:auto;
         z-index:9998;
         gap:0;
+        padding-right:15px;
+        padding-left:15px;
     }
 
     body.menu-open nav{
@@ -792,10 +794,15 @@ smartphone
 
     nav a{
         width:100%;
-        padding:14px 16px;
+        min-height:60px;
+        padding:14px 10px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
         text-align:center;
-        font-size:17px;
-        border-bottom:1px solid #eef5fb;
+        font-size:18px;
+        line-height:1.7;
+        border-bottom:2px dotted #d7e4ee;
     }
     nav a:first-child{
     margin-top:0;
