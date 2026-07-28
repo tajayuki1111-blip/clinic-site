@@ -103,8 +103,15 @@ for (const file of htmlFiles) {
   if (/<script\b[^>]*\ssrc=["']https:\/\/www\.googletagmanager\.com\/gtag\/js/i.test(html)) {
     errors.push(`${relative}: Google Analytics is loaded before the shared delay loader`);
   }
-  if (/<iframe\b[^>]*\ssrc=["']https:\/\/www\.google\.com\/maps/i.test(html)) {
-    errors.push(`${relative}: Google Maps iframe is not click-to-load`);
+  const mapIframes =
+    html.match(/<iframe\b[^>]*\ssrc=["']https:\/\/www\.google\.com\/maps[^>]*>/gi) || [];
+  for (const iframe of mapIframes) {
+    if (!/\sloading=["']lazy["']/i.test(iframe)) {
+      errors.push(`${relative}: Google Maps iframe is missing loading="lazy"`);
+    }
+    if (!/\stitle=["'][^"']+["']/i.test(iframe)) {
+      errors.push(`${relative}: Google Maps iframe is missing an accessible title`);
+    }
   }
   if (/style\.css\?v=20260728[eh]\b/i.test(html)) {
     errors.push(`${relative}: stale stylesheet cache key remains`);

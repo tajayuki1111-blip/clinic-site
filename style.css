@@ -2406,46 +2406,6 @@ h1.page-title::after{
     }
 }
 
-/* Google Mapsは利用者が選択したときだけ読み込む */
-.home-map,
-.map,
-.clinic-info-map{
-    position:relative;
-}
-
-.map-load-button{
-    position:absolute;
-    top:50%;
-    left:50%;
-    z-index:2;
-    min-width:160px;
-    min-height:48px;
-    padding:10px 22px;
-    border:2px solid #2c79b9;
-    border-radius:999px;
-    color:#1769aa;
-    background:rgba(255,255,255,.96);
-    box-shadow:0 8px 24px rgba(34,92,136,.16);
-    font:inherit;
-    font-weight:700;
-    cursor:pointer;
-    transform:translate(-50%,-50%);
-}
-
-.map-load-button:hover{
-    background:#eef7fd;
-}
-
-.map-load-button:focus-visible{
-    outline:3px solid #ffb74d;
-    outline-offset:3px;
-}
-
-.map-load-button:disabled{
-    cursor:wait;
-    opacity:.9;
-}
-
 .seo-intro{
     max-width:900px;
     margin:0 auto 36px;
@@ -2972,16 +2932,16 @@ Doctor introduction
     margin-top:90px;
     padding:64px 0 52px;
     background:
-        linear-gradient(135deg,rgba(229,244,247,.88),rgba(247,251,250,.98)),
+        linear-gradient(135deg,rgba(226,240,252,.9),rgba(247,251,255,.98)),
         url("clinic.webp") center / cover;
-    border-top:1px solid #d7e8e9;
+    border-top:1px solid #d7e8f6;
 }
 
 .clinic-info .container{
     padding:38px;
     border-radius:18px;
     background:rgba(255,255,255,.96);
-    box-shadow:0 16px 42px rgba(43,92,97,.12);
+    box-shadow:0 16px 42px rgba(34,92,136,.12);
 }
 
 .clinic-info-heading{
@@ -2990,7 +2950,7 @@ Doctor introduction
     justify-content:space-between;
     gap:28px;
     padding-bottom:28px;
-    border-bottom:1px solid #dce9e9;
+    border-bottom:1px solid #dce8f1;
 }
 
 .clinic-info-brand{
@@ -3008,7 +2968,7 @@ Doctor introduction
 
 .clinic-info-kicker{
     margin:0 0 7px;
-    color:#547377;
+    color:#55738d;
     font-size:13px;
     letter-spacing:.08em;
 }
@@ -3017,7 +2977,7 @@ Doctor introduction
     margin:0 0 8px;
     padding:0;
     border:0;
-    color:#244d52;
+    color:#245d8d;
     font-size:clamp(22px,2.4vw,31px);
     line-height:1.4;
     text-align:left;
@@ -3028,7 +2988,7 @@ Doctor introduction
 }
 
 .clinic-info address{
-    color:#51666a;
+    color:#516779;
     font-size:14px;
     font-style:normal;
 }
@@ -3040,18 +3000,18 @@ Doctor introduction
     justify-content:center;
     min-width:260px;
     padding:15px 22px;
-    border:1px solid #90bdc0;
+    border:1px solid #9fc4e3;
     border-radius:12px;
-    background:#f4fbfb;
-    color:#1f6168;
+    background:#f4f9fd;
+    color:#1769aa;
     text-decoration:none;
     transition:transform .2s ease,box-shadow .2s ease,background .2s ease;
 }
 
 .clinic-info-tel:hover{
     transform:translateY(-2px);
-    background:#ebf7f7;
-    box-shadow:0 8px 20px rgba(44,105,111,.14);
+    background:#eaf4fb;
+    box-shadow:0 8px 20px rgba(44,121,185,.16);
 }
 
 .clinic-info-tel span{
@@ -3074,13 +3034,13 @@ Doctor introduction
 
 .clinic-info-details h3{
     margin:0 0 15px;
-    color:#244d52;
+    color:#245d8d;
     font-size:20px;
 }
 
 .clinic-info-schedule-scroll{
     overflow-x:auto;
-    border:1px solid #d8e5e6;
+    border:1px solid #d8e6f1;
     border-radius:10px;
     background:#fff;
 }
@@ -3096,8 +3056,8 @@ Doctor introduction
 .clinic-info-schedule th,
 .clinic-info-schedule td{
     padding:11px 8px;
-    border-right:1px solid #dfeaea;
-    border-bottom:1px solid #dfeaea;
+    border-right:1px solid #dfeaf3;
+    border-bottom:1px solid #dfeaf3;
     white-space:nowrap;
 }
 
@@ -3112,20 +3072,20 @@ Doctor introduction
 }
 
 .clinic-info-schedule thead th{
-    background:#e8f3f4;
-    color:#315c61;
+    background:#e8f2fb;
+    color:#245d8d;
     font-weight:700;
 }
 
 .clinic-info-schedule tbody th{
-    background:#f7fafa;
-    color:#3d5659;
+    background:#f7fafd;
+    color:#3e566b;
     font-weight:600;
 }
 
 .clinic-info-closed{
     margin:13px 0 18px;
-    color:#526568;
+    color:#526779;
     font-size:14px;
 }
 
@@ -3136,7 +3096,7 @@ Doctor introduction
     min-height:44px;
     padding:10px 24px;
     border-radius:999px;
-    background:#2d747a;
+    background:#2c79b9;
     color:#fff;
     font-size:14px;
     font-weight:700;
@@ -3152,7 +3112,7 @@ Doctor introduction
     min-height:270px;
     overflow:hidden;
     border-radius:12px;
-    background:#dfe9e9;
+    background:#dfeaf3;
 }
 
 .clinic-info-map iframe{
@@ -3175,8 +3135,8 @@ Doctor introduction
 .clinic-info-route li{
     padding:15px 17px;
     border-radius:9px;
-    background:#f4f8f8;
-    color:#475d60;
+    background:#f4f8fc;
+    color:#475f73;
     font-size:14px;
     line-height:1.7;
 }
@@ -3184,7 +3144,7 @@ Doctor introduction
 .clinic-info-route strong{
     display:block;
     margin-bottom:2px;
-    color:#2d747a;
+    color:#2c79b9;
     font-size:13px;
     letter-spacing:.08em;
 }

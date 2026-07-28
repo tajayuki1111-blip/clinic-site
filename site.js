@@ -23,28 +23,6 @@
     window.gtag("config", analyticsId, { anonymize_ip: true });
   }
 
-  function bindDeferredMaps() {
-    document.querySelectorAll("iframe[data-map-src]").forEach((frame) => {
-      const button = frame.parentElement?.querySelector(".map-load-button");
-      if (!button) return;
-
-      button.addEventListener("click", () => {
-        if (!frame.dataset.mapSrc) return;
-        button.disabled = true;
-        button.textContent = "地図を読み込み中…";
-        frame.addEventListener(
-          "load",
-          () => {
-            button.hidden = true;
-          },
-          { once: true }
-        );
-        frame.src = frame.dataset.mapSrc;
-        frame.removeAttribute("data-map-src");
-      });
-    });
-  }
-
   function closeMenu() {
     document.body.classList.remove("menu-open");
     document.querySelector(".menu-btn")?.setAttribute("aria-expanded", "false");
@@ -61,7 +39,6 @@
     );
   }
 
-  bindDeferredMaps();
   document.querySelectorAll("header nav a").forEach((link) => {
     link.addEventListener("click", closeMenu);
   });
