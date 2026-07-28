@@ -7,6 +7,8 @@ const errors = [];
 const indexablePages = [];
 const titles = new Map();
 const descriptions = new Map();
+const pageData = new Map();
+const inboundLinks = new Map();
 
 async function walk(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -45,14 +47,20 @@ const htmlFiles = files.filter((file) => file.endsWith(".html"));
 for (const file of htmlFiles) {
   const relative = path.relative(root, file).replaceAll("\\", "/");
   const html = await readFile(file, "utf8");
-  const noindex = /<meta\s+name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html);
+  const robotsTags = [...html.matchAll(/<meta\s+name=["']robots["'][^>]*>/gi)];
+  const descriptionTags = [...html.matchAll(/<meta\s+name=["']description["'][^>]*>/gi)];
+  const canonicalTags = [...html.matchAll(/<link\s+rel=["']canonical["'][^>]*>/gi)];
+  const noindex = robotsTags.some((match) => /\bnoindex\b/i.test(attr(match[0], "content")));
   const title = text(html.match(/<title>([\s\S]*?)<\/title>/i)?.[1] || "");
-  const description = attr(html.match(/<meta\s+name=["']description["'][^>]*>/i)?.[0] || "", "content");
-  const canonical = attr(html.match(/<link\s+rel=["']canonical["'][^>]*>/i)?.[0] || "", "href");
+  const description = attr(descriptionTags[0]?.[0] || "", "content");
+  const canonical = attr(canonicalTags[0]?.[0] || "", "href");
   const h1Count = (html.match(/<h1\b/gi) || []).length;
   const headings = [...html.matchAll(/<h([1-6])\b[^>]*>/gi)].map((match) => Number(match[1]));
 
   if (!title) errors.push(`${relative}: missing title`);
+  if (robotsTags.length > 1) errors.push(`${relative}: multiple robots meta tags`);
+  if (descriptionTags.length > 1) errors.push(`${relative}: multiple meta descriptions`);
+  if (canonicalTags.length > 1) errors.push(`${relative}: multiple canonical links`);
   if (h1Count !== 1) errors.push(`${relative}: expected exactly one H1, found ${h1Count}`);
   for (let index = 1; index < headings.length; index += 1) {
     if (headings[index] > headings[index - 1] + 1) {
@@ -73,7 +81,13 @@ for (const file of htmlFiles) {
       continue;
     }
     try {
-      JSON.parse(json);
+      const parsed = JSON.parse(json);
+      if (parsed?.["@context"] !== "https://schema.org") {
+        errors.push(`${relative}: JSON-LD is missing the Schema.org context`);
+      }
+      if (!parsed?.["@type"] && !Array.isArray(parsed?.["@graph"])) {
+        errors.push(`${relative}: JSON-LD is missing @type or @graph`);
+      }
     } catch (error) {
       errors.push(`${relative}: invalid JSON-LD (${error.message})`);
     }
@@ -85,6 +99,23 @@ for (const file of htmlFiles) {
 
   if (/http:\/\/ynakai-clinic\.com/i.test(html)) {
     errors.push(`${relative}: HTTP clinic URL remains`);
+  }
+  if (/<script\b[^>]*\ssrc=["']https:\/\/www\.googletagmanager\.com\/gtag\/js/i.test(html)) {
+    errors.push(`${relative}: Google Analytics is loaded before the shared delay loader`);
+  }
+  if (/<iframe\b[^>]*\ssrc=["']https:\/\/www\.google\.com\/maps/i.test(html)) {
+    errors.push(`${relative}: Google Maps iframe is not click-to-load`);
+  }
+  if (/style\.css\?v=20260728[eh]\b/i.test(html)) {
+    errors.push(`${relative}: stale stylesheet cache key remains`);
+  }
+  if (/^(news|recruit)\//.test(relative)) {
+    if (/class=["'][^"']*\bnav-menu\b/i.test(html) || /\bmenu-overlay\b/i.test(html)) {
+      errors.push(`${relative}: generated page uses the obsolete mobile navigation`);
+    }
+    if (!/body\.classList\.toggle\(["']menu-open["']\)/.test(html)) {
+      errors.push(`${relative}: generated page is missing the shared mobile menu state`);
+    }
   }
 
   if (!noindex) {
@@ -99,10 +130,26 @@ for (const file of htmlFiles) {
     recordUnique(descriptions, description, relative, "description");
   }
 
+  pageData.set(relative, { canonical, html, noindex });
+
   for (const match of html.matchAll(/<a\b[^>]*href=(["'])(.*?)\1/gi)) {
     const href = match[2].trim();
-    if (!href || href.startsWith("#") || /^(https?:|mailto:|tel:|javascript:|data:)/i.test(href)) continue;
-    const urlPath = href.split("#")[0].split("?")[0];
+    if (!href || href.startsWith("#") || /^(mailto:|tel:|javascript:|data:)/i.test(href)) continue;
+
+    let internalHref = href;
+    if (/^https?:/i.test(href)) {
+      let absolute;
+      try {
+        absolute = new URL(href);
+      } catch {
+        errors.push(`${relative}: invalid URL ${href}`);
+        continue;
+      }
+      if (absolute.origin !== siteUrl) continue;
+      internalHref = `${absolute.pathname}${absolute.search}${absolute.hash}`;
+    }
+
+    const urlPath = internalHref.split("#")[0].split("?")[0];
     if (!urlPath) continue;
     let target;
     if (urlPath.startsWith("/")) target = path.join(root, urlPath.slice(1));
@@ -110,6 +157,11 @@ for (const file of htmlFiles) {
     if (urlPath.endsWith("/") || target === root) target = path.join(target, "index.html");
     try {
       await access(target);
+      const targetRelative = path.relative(root, target).replaceAll("\\", "/");
+      if (!targetRelative.startsWith("../") && targetRelative !== relative) {
+        if (!inboundLinks.has(targetRelative)) inboundLinks.set(targetRelative, new Set());
+        inboundLinks.get(targetRelative).add(relative);
+      }
     } catch {
       errors.push(`${relative}: broken internal link ${href}`);
     }
@@ -117,11 +169,56 @@ for (const file of htmlFiles) {
 }
 
 const sitemap = await readFile(path.join(root, "sitemap.xml"), "utf8");
-const sitemapUrls = new Set([...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]));
+const sitemapEntries = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => ({
+  loc: match[1].match(/<loc>(.*?)<\/loc>/)?.[1] || "",
+  lastmod: match[1].match(/<lastmod>(.*?)<\/lastmod>/)?.[1] || ""
+}));
+const sitemapUrls = new Set();
+for (const entry of sitemapEntries) {
+  if (!entry.loc) {
+    errors.push("sitemap.xml: URL entry is missing loc");
+    continue;
+  }
+  if (sitemapUrls.has(entry.loc)) errors.push(`sitemap.xml: duplicate URL ${entry.loc}`);
+  sitemapUrls.add(entry.loc);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(entry.lastmod)
+    || Number.isNaN(new Date(`${entry.lastmod}T00:00:00Z`).getTime())) {
+    errors.push(`sitemap.xml: invalid lastmod for ${entry.loc}`);
+  }
+
+  let sitemapUrl;
+  try {
+    sitemapUrl = new URL(entry.loc);
+  } catch {
+    errors.push(`sitemap.xml: invalid URL ${entry.loc}`);
+    continue;
+  }
+  if (sitemapUrl.origin !== siteUrl || sitemapUrl.search || sitemapUrl.hash) {
+    errors.push(`sitemap.xml: URL must be a clean clinic URL (${entry.loc})`);
+    continue;
+  }
+  let targetRelative = decodeURIComponent(sitemapUrl.pathname.replace(/^\//, ""));
+  if (!targetRelative || targetRelative.endsWith("/")) targetRelative += "index.html";
+  const targetPage = pageData.get(targetRelative);
+  if (!targetPage) {
+    errors.push(`sitemap.xml: URL has no generated HTML (${entry.loc})`);
+  } else if (targetPage.noindex || targetPage.canonical !== entry.loc) {
+    errors.push(`sitemap.xml: URL is not indexable with a self canonical (${entry.loc})`);
+  }
+}
 for (const relative of indexablePages) {
   const canonical = expectedCanonical(relative);
   if (!sitemapUrls.has(canonical)) errors.push(`${relative}: missing from sitemap.xml`);
+  if (relative !== "index.html" && !inboundLinks.get(relative)?.size) {
+    errors.push(`${relative}: orphan indexable page has no internal link`);
+  }
 }
+
+const stylesheet = await readFile(path.join(root, "style.css"), "utf8");
+if (/fonts\.googleapis\.com|@import\s+url/i.test(stylesheet)) {
+  errors.push("style.css: render-blocking external font import remains");
+}
+await access(path.join(root, "site.js"));
 
 const robots = await readFile(path.join(root, "robots.txt"), "utf8");
 if (!robots.includes(`Sitemap: ${siteUrl}/sitemap.xml`)) {

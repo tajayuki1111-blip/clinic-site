@@ -1,14 +1,26 @@
-import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
+import { execFile } from "node:child_process";
+import { cp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { promisify } from "node:util";
 
 const ROOT = process.cwd();
 const OUT = path.join(ROOT, "_site");
 const SITE_URL = "https://ynakai-clinic.com";
 const CLINIC_NAME = "なかい内科血管外科クリニック";
+const ASSET_VERSION = createHash("sha256")
+  .update(await readFile(path.join(ROOT, "style.css")))
+  .update(await readFile(path.join(ROOT, "site.js")))
+  .digest("hex")
+  .slice(0, 12);
 const MICROCMS_API_KEY = process.env.MICROCMS_API_KEY;
+const MICROCMS_FIXTURE_FILE = process.env.MICROCMS_FIXTURE_FILE;
+const ALLOW_CMS_CONTENT_DROP = process.env.ALLOW_CMS_CONTENT_DROP === "true";
+const CMS_DROP_GUARD_REQUIRED = process.env.CMS_DROP_GUARD_REQUIRED === "true";
+const execFileAsync = promisify(execFile);
 
-if (!MICROCMS_API_KEY) {
-  throw new Error("MICROCMS_API_KEY is required.");
+if (!MICROCMS_API_KEY && !MICROCMS_FIXTURE_FILE) {
+  throw new Error("MICROCMS_API_KEY or MICROCMS_FIXTURE_FILE is required.");
 }
 
 const publishFiles = [
@@ -22,6 +34,7 @@ const publishFiles = [
   "404.html",
   "news.html",
   "style.css",
+  "site.js",
   "robots.txt",
   "CNAME",
   ".nojekyll",
@@ -37,15 +50,15 @@ const publishFiles = [
   "varix03.webp"
 ];
 
-const stablePages = [
-  { path: "/", lastmod: "2026-07-28", priority: "1.0" },
-  { path: "/medical.html", lastmod: "2026-07-28", priority: "0.9" },
-  { path: "/varix.html", lastmod: "2026-07-28", priority: "0.9" },
-  { path: "/doctor.html", lastmod: "2026-07-28", priority: "0.8" },
-  { path: "/gallery.html", lastmod: "2026-07-28", priority: "0.6" },
-  { path: "/news.html", lastmod: "2026-07-28", priority: "0.7" },
-  { path: "/access.html", lastmod: "2026-07-28", priority: "0.9" },
-  { path: "/privacy.html", lastmod: "2026-07-28", priority: "0.3" }
+const stablePageDefinitions = [
+  { path: "/", file: "index.html", fallbackLastmod: "2026-07-28", priority: "1.0" },
+  { path: "/medical.html", file: "medical.html", fallbackLastmod: "2026-07-28", priority: "0.9" },
+  { path: "/varix.html", file: "varix.html", fallbackLastmod: "2026-07-28", priority: "0.9" },
+  { path: "/doctor.html", file: "doctor.html", fallbackLastmod: "2026-07-28", priority: "0.8" },
+  { path: "/gallery.html", file: "gallery.html", fallbackLastmod: "2026-07-28", priority: "0.6" },
+  { path: "/news.html", file: "news.html", fallbackLastmod: "2026-07-28", priority: "0.7" },
+  { path: "/access.html", file: "access.html", fallbackLastmod: "2026-07-28", priority: "0.9" },
+  { path: "/privacy.html", file: "privacy.html", fallbackLastmod: "2026-07-28", priority: "0.3" }
 ];
 
 const escapeHtml = (value = "") =>
@@ -67,10 +80,10 @@ const stripHtml = (value = "") =>
 
 const safeJson = (value) => JSON.stringify(value).replaceAll("<", "\\u003c");
 
-const toDate = (value) => {
-  if (!value) return "2026-07-28";
+const toDate = (value, label = "date") => {
+  if (!value) throw new Error(`${label} is required.`);
   const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "2026-07-28";
+  if (Number.isNaN(date.getTime())) throw new Error(`${label} is invalid: ${value}`);
   return new Intl.DateTimeFormat("en-CA", {
     timeZone: "Asia/Tokyo",
     year: "numeric",
@@ -78,6 +91,80 @@ const toDate = (value) => {
     day: "2-digit"
   }).format(date);
 };
+
+const itemDateValue = (item) =>
+  item.revisedAt || item.updatedAt || item.publishedAt || item.createdAt;
+
+const wait = (milliseconds) =>
+  new Promise((resolve) => setTimeout(resolve, milliseconds));
+
+function validateCollectionItems(endpoint, contents, expectedTotal = contents?.length) {
+  if (!Array.isArray(contents)) {
+    throw new Error(`microCMS ${endpoint}: contents must be an array.`);
+  }
+  if (!Number.isInteger(expectedTotal) || expectedTotal < 0) {
+    throw new Error(`microCMS ${endpoint}: totalCount must be a non-negative integer.`);
+  }
+
+  const ids = new Set();
+  for (const [index, item] of contents.entries()) {
+    if (!item || typeof item !== "object" || Array.isArray(item)) {
+      throw new Error(`microCMS ${endpoint}[${index}]: item must be an object.`);
+    }
+    if (typeof item.id !== "string" || !/^[A-Za-z0-9_-]+$/.test(item.id)) {
+      throw new Error(`microCMS ${endpoint}[${index}]: invalid id.`);
+    }
+    if (ids.has(item.id)) {
+      throw new Error(`microCMS ${endpoint}: duplicate id ${item.id}.`);
+    }
+    ids.add(item.id);
+    if (typeof item.title !== "string" || !stripHtml(item.title)) {
+      throw new Error(`microCMS ${endpoint}[${index}]: title is required.`);
+    }
+    toDate(itemDateValue(item), `microCMS ${endpoint}[${index}] date`);
+  }
+}
+
+async function fetchJsonWithRetry(url, endpoint) {
+  const maxAttempts = 3;
+  let lastError;
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000);
+    try {
+      const response = await fetch(url, {
+        headers: { "X-MICROCMS-API-KEY": MICROCMS_API_KEY },
+        signal: controller.signal
+      });
+
+      if (response.ok) return await response.json();
+
+      const retryable = response.status === 408
+        || response.status === 429
+        || response.status >= 500;
+      if (!retryable) {
+        const error = new Error(`microCMS ${endpoint} request failed: ${response.status}`);
+        error.nonRetryable = true;
+        throw error;
+      }
+
+      const retryAfter = Number(response.headers.get("retry-after"));
+      lastError = new Error(`microCMS ${endpoint} temporary failure: ${response.status}`);
+      if (attempt < maxAttempts) {
+        await wait(Number.isFinite(retryAfter) ? retryAfter * 1000 : attempt * 500);
+      }
+    } catch (error) {
+      if (error.nonRetryable) throw error;
+      lastError = error;
+      if (attempt < maxAttempts) await wait(attempt * 500);
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  throw new Error(`microCMS ${endpoint} failed after 3 attempts: ${lastError?.message || "unknown error"}`);
+}
 
 const displayDate = (value) => {
   const date = new Date(value);
@@ -91,32 +178,198 @@ const displayDate = (value) => {
 };
 
 async function fetchCollection(endpoint) {
+  if (MICROCMS_FIXTURE_FILE) {
+    const fixture = JSON.parse(await readFile(path.resolve(ROOT, MICROCMS_FIXTURE_FILE), "utf8"));
+    const contents = fixture?.[endpoint];
+    validateCollectionItems(endpoint, contents);
+    return contents;
+  }
+
   const all = [];
+  const ids = new Set();
   let offset = 0;
   const limit = 100;
+  let totalCount;
 
   while (true) {
     const url = new URL(`https://nakai-clinic.microcms.io/api/v1/${endpoint}`);
     url.searchParams.set("limit", String(limit));
     url.searchParams.set("offset", String(offset));
     url.searchParams.set("orders", "-publishedAt");
-    const response = await fetch(url, {
-      headers: { "X-MICROCMS-API-KEY": MICROCMS_API_KEY }
-    });
-
-    if (!response.ok) {
-      throw new Error(`microCMS ${endpoint} request failed: ${response.status}`);
+    const data = await fetchJsonWithRetry(url, endpoint);
+    if (!data || typeof data !== "object" || Array.isArray(data)) {
+      throw new Error(`microCMS ${endpoint}: response must be an object.`);
+    }
+    if (!Array.isArray(data.contents)) {
+      throw new Error(`microCMS ${endpoint}: contents must be an array.`);
+    }
+    if (!Number.isInteger(data.totalCount) || data.totalCount < 0) {
+      throw new Error(`microCMS ${endpoint}: invalid totalCount.`);
+    }
+    if (totalCount === undefined) totalCount = data.totalCount;
+    if (data.totalCount !== totalCount) {
+      throw new Error(`microCMS ${endpoint}: totalCount changed during pagination.`);
     }
 
-    const data = await response.json();
-    const contents = Array.isArray(data.contents) ? data.contents : [];
+    const contents = data.contents;
+    validateCollectionItems(endpoint, contents, data.totalCount);
+    for (const item of contents) {
+      if (ids.has(item.id)) throw new Error(`microCMS ${endpoint}: duplicate id ${item.id}.`);
+      ids.add(item.id);
+    }
     all.push(...contents);
     offset += contents.length;
 
-    if (offset >= Number(data.totalCount || 0) || contents.length === 0) break;
+    if (offset >= totalCount) break;
+    if (contents.length === 0) {
+      throw new Error(`microCMS ${endpoint}: pagination ended before totalCount.`);
+    }
   }
 
+  if (all.length !== totalCount) {
+    throw new Error(`microCMS ${endpoint}: expected ${totalCount} items, received ${all.length}.`);
+  }
   return all;
+}
+
+async function fetchText(url) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10000);
+  try {
+    const response = await fetch(url, { signal: controller.signal });
+    if (!response.ok) throw new Error(`${url} returned ${response.status}`);
+    return await response.text();
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+async function previousCmsState() {
+  if (MICROCMS_FIXTURE_FILE) return null;
+
+  try {
+    const manifest = JSON.parse(await fetchText(`${SITE_URL}/cms-manifest.json`));
+    if (!Array.isArray(manifest.newsIds) || !Array.isArray(manifest.recruitIds)) {
+      throw new Error("invalid CMS manifest");
+    }
+    return {
+      newsIds: new Set(manifest.newsIds),
+      recruitIds: new Set(manifest.recruitIds)
+    };
+  } catch (manifestError) {
+    try {
+      const sitemap = await fetchText(`${SITE_URL}/sitemap.xml`);
+      const ids = (kind) => new Set(
+        [...sitemap.matchAll(new RegExp(`<loc>${SITE_URL}/${kind}/([^<]+)\\.html</loc>`, "g"))]
+          .map((match) => decodeURIComponent(match[1]))
+      );
+      return { newsIds: ids("news"), recruitIds: ids("recruit") };
+    } catch (sitemapError) {
+      if (CMS_DROP_GUARD_REQUIRED) {
+        throw new Error(`CMS drop guard could not read the live baseline: ${sitemapError.message}`);
+      }
+      console.warn(`CMS drop guard skipped: ${manifestError.message}; ${sitemapError.message}`);
+      return null;
+    }
+  }
+}
+
+function assertSafeContentChange(label, previousIds, items) {
+  if (!previousIds?.size || ALLOW_CMS_CONTENT_DROP) return;
+
+  const nextIds = new Set(items.map((item) => item.id));
+  const removed = [...previousIds].filter((id) => !nextIds.has(id));
+  const removalRatio = removed.length / previousIds.size;
+  const completeRemoval = nextIds.size === 0;
+  const largeReplacement = removed.length >= 2 && removalRatio >= 0.5;
+
+  if (completeRemoval || largeReplacement) {
+    throw new Error(
+      `microCMS ${label}: blocked unexpected content drop `
+      + `(${previousIds.size} previous, ${nextIds.size} current, ${removed.length} removed). `
+      + "Use ALLOW_CMS_CONTENT_DROP=true only for an intentional bulk change."
+    );
+  }
+}
+
+function latestModified(items, fallback) {
+  if (!items.length) return fallback;
+  return items
+    .map((item, index) => toDate(itemDateValue(item), `item[${index}] date`))
+    .sort()
+    .at(-1);
+}
+
+async function sourceLastmod(file, fallback) {
+  try {
+    const { stdout } = await execFileAsync(
+      "git",
+      ["log", "-1", "--format=%cI", "--", file],
+      { cwd: ROOT }
+    );
+    return stdout.trim() ? toDate(stdout.trim(), `${file} git date`) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+async function stablePagesForBuild(news, recruits, previous) {
+  const pages = await Promise.all(stablePageDefinitions.map(async (page) => ({
+    ...page,
+    lastmod: await sourceLastmod(page.file, page.fallbackLastmod)
+  })));
+
+  const byPath = new Map(pages.map((page) => [page.path, page]));
+  const home = byPath.get("/");
+  const newsIndex = byPath.get("/news.html");
+  const homeItems = [...news.slice(0, 3), ...recruits.slice(0, 3)];
+  home.lastmod = [home.lastmod, latestModified(homeItems, home.lastmod)].sort().at(-1);
+  newsIndex.lastmod = [
+    newsIndex.lastmod,
+    latestModified(news, newsIndex.lastmod)
+  ].sort().at(-1);
+
+  if (previous) {
+    const changed = (kind, items) => {
+      const previousIds = previous[`${kind}Ids`];
+      const nextIds = new Set(items.map((item) => item.id));
+      return previousIds.size !== nextIds.size
+        || [...previousIds].some((id) => !nextIds.has(id));
+    };
+    const today = toDate(new Date(), "build date");
+    if (changed("news", news) || changed("recruit", recruits)) home.lastmod = today;
+    if (changed("news", news)) newsIndex.lastmod = today;
+  }
+
+  return pages;
+}
+
+async function writeDeploymentManifest() {
+  async function walk(directory) {
+    const entries = await readdir(directory, { withFileTypes: true });
+    const files = [];
+    for (const entry of entries) {
+      const full = path.join(directory, entry.name);
+      if (entry.isDirectory()) files.push(...await walk(full));
+      else if (entry.name !== "deployment-manifest.json") files.push(full);
+    }
+    return files;
+  }
+
+  const hash = createHash("sha256");
+  const files = (await walk(OUT)).sort();
+  for (const file of files) {
+    const relative = path.relative(OUT, file).replaceAll("\\", "/");
+    hash.update(relative);
+    hash.update("\0");
+    hash.update(await readFile(file));
+    hash.update("\0");
+  }
+  await writeFile(
+    path.join(OUT, "deployment-manifest.json"),
+    `${JSON.stringify({ sha256: hash.digest("hex") })}\n`,
+    "utf8"
+  );
 }
 
 function replaceBetween(html, marker, replacement) {
@@ -130,6 +383,12 @@ function replaceBetween(html, marker, replacement) {
   return `${html.slice(0, startIndex + start.length)}\n${replacement}\n${html.slice(endIndex)}`;
 }
 
+function normalizeAssetVersions(html) {
+  return html
+    .replace(/(style\.css\?v=)[^"'&<>\s]+/g, `$1${ASSET_VERSION}`)
+    .replace(/(site\.js\?v=)[^"'&<>\s]+/g, `$1${ASSET_VERSION}`);
+}
+
 function removeMicroCmsClient(html) {
   return html
     .replace(/<link rel="preconnect" href="https:\/\/nakai-clinic\.microcms\.io" crossorigin>\s*/g, "")
@@ -141,7 +400,7 @@ function topNewsHtml(news) {
   return news.slice(0, 3).map((item) => `
 <a href="/news/${encodeURIComponent(item.id)}.html" class="top-news-link">
   <div class="top-news-item">
-    <time class="news-date" datetime="${toDate(item.publishedAt)}">${escapeHtml(displayDate(item.publishedAt))}</time>
+    <time class="news-date" datetime="${toDate(item.publishedAt || item.createdAt)}">${escapeHtml(displayDate(item.publishedAt || item.createdAt))}</time>
     <div class="top-news-title">${escapeHtml(stripHtml(item.title))}</div>
     <div class="top-news-arrow" aria-hidden="true">›</div>
   </div>
@@ -167,7 +426,7 @@ function newsListHtml(news) {
   return news.map((item, index) => `
 <a href="/news/${encodeURIComponent(item.id)}.html" class="news-list-link">
   <div class="news-row ${index % 2 === 0 ? "news-row-blue" : "news-row-white"}">
-    <time class="news-date" datetime="${toDate(item.publishedAt)}">${escapeHtml(displayDate(item.publishedAt))}</time>
+    <time class="news-date" datetime="${toDate(item.publishedAt || item.createdAt)}">${escapeHtml(displayDate(item.publishedAt || item.createdAt))}</time>
     <div class="news-title" style="font-weight:normal;">${escapeHtml(stripHtml(item.title))}</div>
     <div class="news-arrow" aria-hidden="true">›</div>
   </div>
@@ -196,15 +455,9 @@ function siteHeader({ title, description, canonical, type = "article", image = `
 <meta name="twitter:card" content="summary_large_image">
 <link rel="alternate" hreflang="ja-JP" href="${escapeHtml(canonical)}">
 <script type="application/ld+json">${safeJson(schema)}</script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-NK74HRTVZN"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-NK74HRTVZN');
-</script>
+<script src="/site.js?v=${ASSET_VERSION}" defer data-ga-id="G-NK74HRTVZN"></script>
 <title>${escapeHtml(title)}</title>
-<link rel="stylesheet" href="/style.css?v=20260728e">
+<link rel="stylesheet" href="/style.css?v=${ASSET_VERSION}">
 </head>
 <body>
 <header>
@@ -214,21 +467,22 @@ gtag('config', 'G-NK74HRTVZN');
 </a>
 <div class="header-right">
 <div class="header-tel"><a href="tel:0728732700"><span class="tel-icon">☎</span>072-873-2700</a></div>
-<button class="menu-btn" type="button" aria-label="メニューを開閉" aria-expanded="false"><span></span><span></span><span></span></button>
-</div>
-</div>
-<nav class="nav-menu" aria-label="メインメニュー">
-<div class="nav-inner">
+<nav aria-label="メインメニュー">
 <a href="/">ホーム</a>
 <a href="/medical.html">診療内容</a>
-<a href="/varix.html">下肢静脈瘤</a>
+<a href="/varix.html">下肢静脈瘤について</a>
 <a href="/doctor.html">医師紹介</a>
 <a href="/gallery.html">院内紹介</a>
 <a href="/news.html">お知らせ</a>
-<a href="/access.html">アクセス</a>
-</div>
+<a href="/access.html">診療時間・アクセス</a>
+<a href="tel:0728732700" class="sp-tel-link"><span class="sp-tel-icon">☎</span>072-873-2700</a>
 </nav>
-<div class="menu-overlay"></div>
+</div>
+<button class="menu-btn" type="button" aria-label="メニューを開閉" aria-expanded="false"
+onclick="const open=document.body.classList.toggle('menu-open');this.setAttribute('aria-expanded',String(open))">
+<span></span><span></span><span></span>
+</button>
+</div>
 </header>`;
 }
 
@@ -285,12 +539,14 @@ const clinicInfo = `
 
 <div class="clinic-info-map">
 <iframe
-src="https://www.google.com/maps?q=大阪府大東市寺川3丁目9-16&amp;output=embed"
+data-map-src="https://www.google.com/maps?q=大阪府大東市寺川3丁目9-16&amp;output=embed"
 loading="lazy"
 title="${CLINIC_NAME}周辺地図"
 referrerpolicy="no-referrer-when-downgrade"
 allowfullscreen>
 </iframe>
+<button class="map-load-button" type="button">地図を表示</button>
+<noscript><p><a href="https://www.google.com/maps/search/?api=1&amp;query=大阪府大東市寺川3丁目9-16" target="_blank" rel="noopener noreferrer">Googleマップで開く</a></p></noscript>
 </div>
 </div>
 
@@ -310,19 +566,6 @@ const siteFooter = `${clinicInfo}
 </div>
 </footer>
 <div class="fixed-call"><a href="tel:0728732700">☎ 072-873-2700</a></div>
-<script>
-const menuButton = document.querySelector(".menu-btn");
-const navigation = document.querySelector(".nav-menu");
-const overlay = document.querySelector(".menu-overlay");
-function toggleMenu(){
-  const isOpen = navigation.classList.toggle("active");
-  menuButton.classList.toggle("active", isOpen);
-  overlay.classList.toggle("active", isOpen);
-  menuButton.setAttribute("aria-expanded", String(isOpen));
-}
-menuButton.addEventListener("click", toggleMenu);
-overlay.addEventListener("click", toggleMenu);
-</script>
 </body>
 </html>`;
 
@@ -429,7 +672,7 @@ function legacyRedirectHtml(kind) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,follow">
 <title>${label}ページへ移動します｜${CLINIC_NAME}</title>
-<link rel="stylesheet" href="/style.css?v=20260728e">
+<link rel="stylesheet" href="/style.css?v=${ASSET_VERSION}">
 </head>
 <body>
 <main class="container not-found">
@@ -447,17 +690,17 @@ location.replace(destination);
 </html>`;
 }
 
-function sitemapXml(news, recruits) {
+function sitemapXml(stablePages, news, recruits) {
   const urls = [
     ...stablePages,
     ...news.map((item) => ({
       path: `/news/${encodeURIComponent(item.id)}.html`,
-      lastmod: toDate(item.revisedAt || item.updatedAt || item.publishedAt),
+      lastmod: toDate(itemDateValue(item), `news ${item.id} date`),
       priority: "0.6"
     })),
     ...recruits.map((item) => ({
       path: `/recruit/${encodeURIComponent(item.id)}.html`,
-      lastmod: toDate(item.revisedAt || item.updatedAt || item.publishedAt),
+      lastmod: toDate(itemDateValue(item), `recruit ${item.id} date`),
       priority: "0.4"
     }))
   ];
@@ -475,6 +718,15 @@ ${body}
 `;
 }
 
+const previous = await previousCmsState();
+const [news, recruits] = await Promise.all([
+  fetchCollection("news"),
+  fetchCollection("recruit")
+]);
+assertSafeContentChange("news", previous?.newsIds, news);
+assertSafeContentChange("recruit", previous?.recruitIds, recruits);
+const stablePages = await stablePagesForBuild(news, recruits, previous);
+
 await rm(OUT, { recursive: true, force: true });
 await mkdir(OUT, { recursive: true });
 
@@ -484,16 +736,12 @@ for (const file of publishFiles) {
 
 for (const file of publishFiles.filter((file) => file.endsWith(".html"))) {
   const destination = path.join(OUT, file);
-  const html = await readFile(destination, "utf8");
+  let html = normalizeAssetVersions(await readFile(destination, "utf8"));
   if (!html.includes('class="clinic-info"')) {
-    await writeFile(destination, html.replace("</main>", `</main>${clinicInfo}`), "utf8");
+    html = html.replace("</main>", `</main>${clinicInfo}`);
   }
+  await writeFile(destination, html, "utf8");
 }
-
-const [news, recruits] = await Promise.all([
-  fetchCollection("news"),
-  fetchCollection("recruit")
-]);
 
 let home = await readFile(path.join(OUT, "index.html"), "utf8");
 home = replaceBetween(home, "TOP_NEWS", topNewsHtml(news));
@@ -504,6 +752,10 @@ await writeFile(path.join(OUT, "index.html"), home, "utf8");
 let newsIndex = await readFile(path.join(OUT, "news.html"), "utf8");
 newsIndex = replaceBetween(newsIndex, "NEWS_LIST", newsListHtml(news));
 newsIndex = removeMicroCmsClient(newsIndex);
+newsIndex = newsIndex.replace(
+  /("dateModified":")\d{4}-\d{2}-\d{2}(")/,
+  `$1${stablePages.find((page) => page.path === "/news.html").lastmod}$2`
+);
 await writeFile(path.join(OUT, "news.html"), newsIndex, "utf8");
 
 await mkdir(path.join(OUT, "news"), { recursive: true });
@@ -526,6 +778,15 @@ for (const item of recruits) {
 
 await writeFile(path.join(OUT, "news-detail.html"), legacyRedirectHtml("news"), "utf8");
 await writeFile(path.join(OUT, "recruit-detail.html"), legacyRedirectHtml("recruit"), "utf8");
-await writeFile(path.join(OUT, "sitemap.xml"), sitemapXml(news, recruits), "utf8");
+await writeFile(path.join(OUT, "sitemap.xml"), sitemapXml(stablePages, news, recruits), "utf8");
+await writeFile(
+  path.join(OUT, "cms-manifest.json"),
+  `${JSON.stringify({
+    newsIds: news.map((item) => item.id),
+    recruitIds: recruits.map((item) => item.id)
+  })}\n`,
+  "utf8"
+);
+await writeDeploymentManifest();
 
 console.log(`Built ${stablePages.length} stable pages, ${news.length} news pages, and ${recruits.length} recruit pages.`);

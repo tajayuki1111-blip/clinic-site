@@ -20,7 +20,6 @@ content="大阪府大東市寺川の内科・循環器内科・血管外科。�
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <link rel="canonical" href="https://ynakai-clinic.com/">
 <link rel="preload" as="image" href="clinic.webp" type="image/webp" fetchpriority="high">
-<link rel="preconnect" href="https://nakai-clinic.microcms.io" crossorigin>
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:site_name" content="なかい内科血管外科クリニック">
@@ -33,32 +32,14 @@ content="大阪府大東市寺川の内科・循環器内科・血管外科。�
 <link rel="alternate" hreflang="ja-JP" href="https://ynakai-clinic.com/">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://ynakai-clinic.com/#website","name":"なかい内科血管外科クリニック","url":"https://ynakai-clinic.com/","inLanguage":"ja-JP","publisher":{"@id":"https://ynakai-clinic.com/#clinic"}},{"@type":"MedicalClinic","@id":"https://ynakai-clinic.com/#clinic","name":"なかい内科血管外科クリニック","url":"https://ynakai-clinic.com/","logo":"https://ynakai-clinic.com/logo.png","image":"https://ynakai-clinic.com/clinic.webp","telephone":"+81-72-873-2700","description":"大阪府大東市寺川の内科・循環器内科・血管外科クリニック","address":{"@type":"PostalAddress","postalCode":"574-0014","addressRegion":"大阪府","addressLocality":"大東市","streetAddress":"寺川3丁目9-16","addressCountry":"JP"},"medicalSpecialty":["内科","循環器内科","血管外科"],"employee":{"@id":"https://ynakai-clinic.com/doctor.html#physician"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Friday"],"opens":"09:00","closes":"12:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Friday"],"opens":"16:00","closes":"18:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"12:00"}]},{"@type":"Physician","@id":"https://ynakai-clinic.com/doctor.html#physician","name":"中井 康成","url":"https://ynakai-clinic.com/doctor.html","medicalSpecialty":["循環器内科","血管外科","内科"],"worksFor":{"@id":"https://ynakai-clinic.com/#clinic"}}]}</script>
   
-<!-- Google Analytics: first paintを妨げないよう、操作時または読み込み完了後に遅延読込 -->
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-function loadAnalytics(){
-  if (window.googleAnalyticsLoaded) return;
-  window.googleAnalyticsLoaded = true;
-  const script = document.createElement('script');
-  script.async = true;
-  script.src = 'https://www.googletagmanager.com/gtag/js?id=G-NK74HRTVZN';
-  document.head.appendChild(script);
-  gtag('js', new Date());
-  gtag('config', 'G-NK74HRTVZN', { 'anonymize_ip': true });
-}
-['pointerdown','keydown','touchstart'].forEach(eventName => {
-  window.addEventListener(eventName, loadAnalytics, { once:true, passive:true });
-});
-window.addEventListener('load', () => window.setTimeout(loadAnalytics, 8000), { once:true });
-</script>
+<script src="site.js?v=20260728i" defer data-ga-id="G-NK74HRTVZN"></script>
 
 <title>
 大東市寺川の内科・循環器内科・血管外科｜なかい内科血管外科クリニック
 </title>
 
 <link rel="stylesheet"
-href="style.css?v=20260728h">
+href="style.css?v=20260728i">
 
 </head>
 
@@ -415,12 +396,14 @@ class="more-btn">
 <div class="home-map">
 
 <iframe
-src="https://www.google.com/maps?q=大阪府大東市寺川3丁目9-16&amp;output=embed"
+data-map-src="https://www.google.com/maps?q=大阪府大東市寺川3丁目9-16&amp;output=embed"
 loading="lazy"
 title="なかい内科血管外科クリニック周辺地図"
 referrerpolicy="no-referrer-when-downgrade"
 allowfullscreen>
 </iframe>
+<button class="map-load-button" type="button">地図を表示</button>
+<noscript><p><a href="https://www.google.com/maps/search/?api=1&amp;query=大阪府大東市寺川3丁目9-16" target="_blank" rel="noopener noreferrer">Googleマップで開く</a></p></noscript>
 
 </div>
 
