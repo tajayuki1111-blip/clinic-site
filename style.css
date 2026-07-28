@@ -3279,6 +3279,59 @@ main dd{
     display:none;
 }
 
+.privacy-policy-list{
+    max-width:960px;
+    margin:0 auto 38px;
+    padding:28px 32px;
+    border:1px solid #dce8f1;
+    border-radius:16px;
+    background:#fff;
+    box-shadow:0 8px 24px rgba(34,92,136,.06);
+}
+
+.privacy-policy-list dt{
+    position:relative;
+    margin:0 0 20px;
+    padding-left:24px;
+    color:#333;
+    font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif;
+    font-size:20px;
+    font-weight:500;
+    line-height:1.875;
+    letter-spacing:.05em;
+    text-align:left;
+}
+
+.privacy-policy-list dt::before{
+    content:"";
+    position:absolute;
+    top:50%;
+    left:0;
+    width:16px;
+    height:16px;
+    background:#ffb74d;
+    transform:translateY(-50%);
+}
+
+.privacy-policy-list dd{
+    margin:0;
+    padding:0;
+}
+
+.privacy-policy-list p{
+    margin:0 0 18px;
+}
+
+.privacy-policy-list p:last-child{
+    margin-bottom:0;
+}
+
+.privacy-policy-list a{
+    color:#1769aa;
+    text-decoration:underline;
+    text-underline-offset:3px;
+}
+
 @media(max-width:768px){
     main p,
     main li,
@@ -3336,6 +3389,21 @@ main dd{
 
     .clinic-info-mobile-break{
         display:inline;
+    }
+
+    .privacy-policy-list{
+        padding:22px 18px;
+    }
+
+    .privacy-policy-list dt{
+        margin-bottom:16px;
+        padding-left:22px;
+        font-size:18px;
+    }
+
+    .privacy-policy-list dt::before{
+        width:14px;
+        height:14px;
     }
 }
 
