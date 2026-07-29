@@ -3,6 +3,7 @@ import { execFile } from "node:child_process";
 import { cp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { promisify } from "node:util";
+import sanitizeHtml from "sanitize-html";
 
 const ROOT = process.cwd();
 const OUT = path.join(ROOT, "_site");
@@ -77,6 +78,110 @@ const stripHtml = (value = "") =>
     .replace(/&nbsp;/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+
+const safeColorPattern = /^#(?:[0-9a-f]{3}|[0-9a-f]{4}|[0-9a-f]{6}|[0-9a-f]{8})$|^rgba?\(\s*(?:\d{1,3}%?\s*,\s*){2}\d{1,3}%?(?:\s*,\s*(?:0|1|0?\.\d+|\d{1,3}%))?\s*\)$/i;
+const safeHeadingIdPattern = /^h[0-9a-f]{8,64}$/i;
+
+const sanitizeHeading = (tagName, attribs) => {
+  const next = { ...attribs };
+  if (!safeHeadingIdPattern.test(next.id || "")) delete next.id;
+  return { tagName, attribs: next };
+};
+
+const sanitizeLink = (tagName, attribs) => {
+  const next = { ...attribs };
+  const rel = new Set(
+    String(next.rel || "")
+      .toLowerCase()
+      .split(/\s+/)
+      .filter((value) => ["nofollow", "ugc", "sponsored"].includes(value))
+  );
+
+  if (next.target === "_blank") {
+    rel.add("noopener");
+    rel.add("noreferrer");
+  } else {
+    delete next.target;
+  }
+
+  if (rel.size) next.rel = [...rel].join(" ");
+  else delete next.rel;
+
+  return { tagName, attribs: next };
+};
+
+const isSafeImageSource = (value = "") => {
+  const source = String(value).trim();
+  if (source.startsWith("/") && !source.startsWith("//")) return true;
+
+  try {
+    return new URL(source).protocol === "https:";
+  } catch {
+    return false;
+  }
+};
+
+const sanitizeRichHtml = (value = "") =>
+  sanitizeHtml(String(value), {
+    allowedTags: [
+      "p", "br", "h2", "h3", "h4", "h5", "hr", "blockquote", "pre", "div",
+      "strong", "em", "u", "s", "sup", "sub", "code", "span",
+      "ul", "ol", "li",
+      "table", "thead", "tbody", "tfoot", "tr", "th", "td",
+      "figure", "figcaption", "img", "a"
+    ],
+    allowedAttributes: {
+      p: ["style"],
+      h2: ["id", "style"],
+      h3: ["id", "style"],
+      h4: ["id", "style"],
+      h5: ["id", "style"],
+      figure: ["style"],
+      span: ["style"],
+      a: ["href", "target", "rel", "title", "data-embed-type", "data-mime-type"],
+      img: ["src", "alt", "width", "height", "loading", "decoding"],
+      th: ["colspan", "rowspan", "scope"],
+      td: ["colspan", "rowspan"],
+      ol: ["start"],
+      code: ["class"],
+      div: ["data-filename"]
+    },
+    allowedStyles: {
+      "*": {
+        color: [safeColorPattern],
+        "background-color": [safeColorPattern],
+        "font-size": [/^(?:[5-9]\d|[12]\d{2}|300)%$/, /^(?:0\.75|1|1\.5|2\.5)em$/],
+        "text-align": [/^(?:start|end|left|center|right|justify)$/],
+        "padding-left": [/^(?:0|3em|6em|9em|12em)$/]
+      }
+    },
+    allowedSchemes: ["http", "https", "mailto", "tel"],
+    allowedSchemesAppliedToAttributes: ["href", "src"],
+    allowProtocolRelative: false,
+    transformTags: {
+      h2: sanitizeHeading,
+      h3: sanitizeHeading,
+      h4: sanitizeHeading,
+      h5: sanitizeHeading,
+      a: sanitizeLink,
+      code: (tagName, attribs) => {
+        const next = { ...attribs };
+        if (!/^language-[a-z0-9_-]+$/i.test(next.class || "")) delete next.class;
+        return { tagName, attribs: next };
+      }
+    },
+    exclusiveFilter: (frame) =>
+      frame.tag === "img" && !isSafeImageSource(frame.attribs.src),
+    enforceHtmlBoundary: true
+  });
+
+const sanitizeCollection = (endpoint, items) =>
+  items.map((item, index) => {
+    if (item.body != null && typeof item.body !== "string") {
+      throw new Error(`microCMS ${endpoint}[${index}]: body must be a string.`);
+    }
+    return { ...item, body: sanitizeRichHtml(item.body || "") };
+  });
 
 const safeJson = (value) => JSON.stringify(value).replaceAll("<", "\\u003c");
 
@@ -717,10 +822,12 @@ ${body}
 }
 
 const previous = await previousCmsState();
-const [news, recruits] = await Promise.all([
+const [rawNews, rawRecruits] = await Promise.all([
   fetchCollection("news"),
   fetchCollection("recruit")
 ]);
+const news = sanitizeCollection("news", rawNews);
+const recruits = sanitizeCollection("recruit", rawRecruits);
 assertSafeContentChange("news", previous?.newsIds, news);
 assertSafeContentChange("recruit", previous?.recruitIds, recruits);
 const stablePages = await stablePagesForBuild(news, recruits, previous);
