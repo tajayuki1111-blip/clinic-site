@@ -1,0 +1,15 @@
+{
+  "news": [
+    {
+      "id": "invalid-body",
+      "title": "Invalid body test",
+      "body": {
+        "html": "<p>This must be rejected.</p>"
+      },
+      "createdAt": "2026-07-27T00:00:00.000Z",
+      "publishedAt": "2026-07-27T00:00:00.000Z"
+    }
+  ],
+  "recruit": []
+}
+
