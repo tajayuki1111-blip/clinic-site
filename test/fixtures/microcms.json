@@ -8,6 +8,15 @@
       "publishedAt": "2026-07-27T00:00:00.000Z",
       "updatedAt": "2026-07-27T00:00:00.000Z",
       "revisedAt": "2026-07-27T00:00:00.000Z"
+    },
+    {
+      "id": "security-news",
+      "title": "News security compatibility test",
+      "body": "<h2 id=\"h12345678\">Safe heading</h2><p style=\"text-align: start; position: fixed\">Safe <strong>formatting</strong> <span style=\"color: #123456; background-image: url(javascript:alert(1))\">color</span></p><a href=\"javascript&#x3A;alert(1)\" onclick=\"alert(1)\">unsafe link</a><a href=\"https://example.com/\" target=\"_blank\">safe link</a><img src=\"https://images.microcms-assets.io/assets/test.png\" alt=\"test\" onerror=\"alert(1)\"><script>alert(1)</script><iframe srcdoc=\"<script>alert(1)</script>\">unsafe frame</iframe>",
+      "createdAt": "2026-07-27T00:00:00.000Z",
+      "publishedAt": "2026-07-27T00:00:00.000Z",
+      "updatedAt": "2026-07-27T00:00:00.000Z",
+      "revisedAt": "2026-07-27T00:00:00.000Z"
     }
   ],
   "recruit": [
@@ -15,6 +24,15 @@
       "id": "test-recruit-1",
       "title": "テスト用の募集",
       "body": "<p>公開ビルド検証用の募集です。</p>",
+      "createdAt": "2026-07-26T00:00:00.000Z",
+      "publishedAt": "2026-07-26T00:00:00.000Z",
+      "updatedAt": "2026-07-26T00:00:00.000Z",
+      "revisedAt": "2026-07-26T00:00:00.000Z"
+    },
+    {
+      "id": "security-recruit",
+      "title": "Recruit security compatibility test",
+      "body": "<p style=\"text-align: start\">Safe <strong>formatting</strong></p><a href=\"javascript:alert(1)\" onclick=\"alert(1)\">unsafe link</a><img src=\"data:image/svg+xml,<svg onload=alert(1)>\" onerror=\"alert(1)\"><object data=\"https://example.com/\">unsafe object</object><style>body{display:none}</style>",
       "createdAt": "2026-07-26T00:00:00.000Z",
       "publishedAt": "2026-07-26T00:00:00.000Z",
       "updatedAt": "2026-07-26T00:00:00.000Z",
