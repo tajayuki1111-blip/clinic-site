@@ -28,6 +28,47 @@ if (valid.code !== 0) {
   throw new Error(`Valid fixture failed:\n${valid.stderr}`);
 }
 
+async function articleBody(kind, id) {
+  const html = await readFile(path.join(root, "_site", kind, `${id}.html`), "utf8");
+  const match = html.match(/<div class="news-content"[^>]*>([\s\S]*?)<\/div>\s*<div class="back-news-area">/);
+  if (!match) throw new Error(`Could not find generated body for ${kind}/${id}.`);
+  return match[1];
+}
+
+const newsBody = await articleBody("news", "security-news");
+const recruitBody = await articleBody("recruit", "security-recruit");
+
+for (const [label, body] of [["news", newsBody], ["recruit", recruitBody]]) {
+  for (const pattern of [
+    /<script/i,
+    /<style/i,
+    /<iframe/i,
+    /<object/i,
+    /\son\w+\s*=/i,
+    /javascript\s*:/i,
+    /data\s*:/i,
+    /position\s*:/i,
+    /background-image\s*:/i
+  ]) {
+    if (pattern.test(body)) {
+      throw new Error(`${label} body retained unsafe markup: ${pattern}`);
+    }
+  }
+  if (!body.includes("<strong>formatting</strong>")) {
+    throw new Error(`${label} body lost safe rich-text formatting.`);
+  }
+  if (!/text-align:\s*start/.test(body)) {
+    throw new Error(`${label} body lost its safe text alignment.`);
+  }
+}
+
+if (!newsBody.includes('src="https://images.microcms-assets.io/assets/test.png"')) {
+  throw new Error("A safe HTTPS image was removed.");
+}
+if (!/target="_blank"[^>]*rel="[^"]*noopener[^"]*noreferrer/.test(newsBody)) {
+  throw new Error("A new-window link was not protected with noopener/noreferrer.");
+}
+
 const manifestPath = path.join(root, "_site", "deployment-manifest.json");
 const before = await readFile(manifestPath, "utf8");
 const invalid = await runBuild("test/fixtures/invalid-microcms.json");
@@ -41,6 +82,18 @@ if (!invalid.stderr.includes("contents must be an array")) {
 }
 if (before !== after) {
   throw new Error("A rejected microCMS response changed the existing output.");
+}
+
+const invalidBody = await runBuild("test/fixtures/invalid-body.json");
+const afterInvalidBody = await readFile(manifestPath, "utf8");
+if (invalidBody.code === 0) {
+  throw new Error("A non-string microCMS body unexpectedly passed.");
+}
+if (!invalidBody.stderr.includes("body must be a string")) {
+  throw new Error(`Invalid body failed for the wrong reason:\n${invalidBody.stderr}`);
+}
+if (before !== afterInvalidBody) {
+  throw new Error("A rejected microCMS body changed the existing output.");
 }
 
 console.log("Build safety test passed.");
