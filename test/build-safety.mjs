@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import { readFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import path from "node:path";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -27,6 +27,13 @@ const valid = await runBuild("test/fixtures/microcms.json");
 if (valid.code !== 0) {
   throw new Error(`Valid fixture failed:\n${valid.stderr}`);
 }
+
+const canonicalFavicon = await readFile(path.join(root, "_site", "favicon-64.png"));
+const legacyFavicon = await readFile(path.join(root, "_site", "favicon.png"));
+if (!canonicalFavicon.equals(legacyFavicon)) {
+  throw new Error("Legacy favicon URL does not serve the canonical clinic icon.");
+}
+await access(path.join(root, "_site", "favicon.ico"));
 
 async function articleBody(kind, id) {
   const html = await readFile(path.join(root, "_site", kind, `${id}.html`), "utf8");
