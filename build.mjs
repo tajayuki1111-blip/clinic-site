@@ -40,6 +40,7 @@ const publishFiles = [
   "CNAME",
   ".nojekyll",
   "favicon-64.png",
+  "favicon.ico",
   "logo.png",
   "clinic.webp",
   "doctor.webp",
@@ -545,7 +546,7 @@ function siteHeader({ title, description, canonical, type = "article", image = `
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#ffffff">
-<link rel="icon" href="/favicon-64.png" sizes="64x64">
+<link rel="icon" href="/favicon-64.png" type="image/png" sizes="64x64">
 <meta name="description" content="${escapeHtml(description)}">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <link rel="canonical" href="${escapeHtml(canonical)}">
@@ -773,6 +774,7 @@ function legacyRedirectHtml(kind) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/favicon-64.png" type="image/png" sizes="64x64">
 <meta name="robots" content="noindex,follow">
 <title>${label}ページへ移動します｜${CLINIC_NAME}</title>
 <link rel="stylesheet" href="/style.css?v=${ASSET_VERSION}">
@@ -838,6 +840,7 @@ await mkdir(OUT, { recursive: true });
 for (const file of publishFiles) {
   await cp(path.join(ROOT, file), path.join(OUT, file), { recursive: true });
 }
+await cp(path.join(ROOT, "favicon-64.png"), path.join(OUT, "favicon.png"));
 
 for (const file of publishFiles.filter((file) => file.endsWith(".html"))) {
   const destination = path.join(OUT, file);

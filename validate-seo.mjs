@@ -50,6 +50,9 @@ for (const file of htmlFiles) {
   const robotsTags = [...html.matchAll(/<meta\s+name=["']robots["'][^>]*>/gi)];
   const descriptionTags = [...html.matchAll(/<meta\s+name=["']description["'][^>]*>/gi)];
   const canonicalTags = [...html.matchAll(/<link\s+rel=["']canonical["'][^>]*>/gi)];
+  const faviconTags = [...html.matchAll(/<link\b[^>]*>/gi)]
+    .map((match) => match[0])
+    .filter((tag) => attr(tag, "rel").split(/\s+/).includes("icon"));
   const noindex = robotsTags.some((match) => /\bnoindex\b/i.test(attr(match[0], "content")));
   const title = text(html.match(/<title>([\s\S]*?)<\/title>/i)?.[1] || "");
   const description = attr(descriptionTags[0]?.[0] || "", "content");
@@ -61,6 +64,17 @@ for (const file of htmlFiles) {
   if (robotsTags.length > 1) errors.push(`${relative}: multiple robots meta tags`);
   if (descriptionTags.length > 1) errors.push(`${relative}: multiple meta descriptions`);
   if (canonicalTags.length > 1) errors.push(`${relative}: multiple canonical links`);
+  if (faviconTags.length !== 1) {
+    errors.push(`${relative}: expected exactly one favicon link, found ${faviconTags.length}`);
+  } else {
+    const favicon = faviconTags[0];
+    if (attr(favicon, "href") !== "/favicon-64.png") {
+      errors.push(`${relative}: favicon must use the stable root URL /favicon-64.png`);
+    }
+    if (attr(favicon, "type") !== "image/png" || attr(favicon, "sizes") !== "64x64") {
+      errors.push(`${relative}: favicon type or dimensions are missing`);
+    }
+  }
   if (h1Count !== 1) errors.push(`${relative}: expected exactly one H1, found ${h1Count}`);
   for (let index = 1; index < headings.length; index += 1) {
     if (headings[index] > headings[index - 1] + 1) {
@@ -226,6 +240,20 @@ if (/fonts\.googleapis\.com|@import\s+url/i.test(stylesheet)) {
   errors.push("style.css: render-blocking external font import remains");
 }
 await access(path.join(root, "site.js"));
+
+const favicon = await readFile(path.join(root, "favicon-64.png"));
+const pngSignature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
+if (!favicon.subarray(0, 8).equals(pngSignature)) {
+  errors.push("favicon-64.png: invalid PNG signature");
+} else {
+  const width = favicon.readUInt32BE(16);
+  const height = favicon.readUInt32BE(20);
+  if (width !== height || width < 48) {
+    errors.push(`favicon-64.png: expected a square icon of at least 48px, found ${width}x${height}`);
+  }
+}
+await access(path.join(root, "favicon.png"));
+await access(path.join(root, "favicon.ico"));
 
 const robots = await readFile(path.join(root, "robots.txt"), "utf8");
 if (!robots.includes(`Sitemap: ${siteUrl}/sitemap.xml`)) {

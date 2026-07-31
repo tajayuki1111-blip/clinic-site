@@ -45,6 +45,15 @@ const sitemap = await sitemapResponse.text();
 const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
 if (!urls.length) errors.push("sitemap.xml contains no URLs");
 
+const homeResponse = await fetchWithRetry(baseUrl);
+const homeHtml = await homeResponse.text();
+const faviconTag = homeHtml.match(/<link\b[^>]*\brel=["']icon["'][^>]*>/i)?.[0] || "";
+if (attr(faviconTag, "href") !== "/favicon-64.png"
+  || attr(faviconTag, "type") !== "image/png"
+  || attr(faviconTag, "sizes") !== "64x64") {
+  errors.push("homepage favicon declaration is missing or invalid");
+}
+
 for (const url of urls) {
   const response = await fetchWithRetry(url);
   const html = await response.text();
@@ -79,9 +88,19 @@ if (httpResponse.status !== 200 || httpResponse.url !== `${baseUrl.origin}/`) {
   errors.push(`HTTP canonical redirect failed (${httpResponse.status} ${httpResponse.url})`);
 }
 
-for (const asset of ["/style.css", "/site.js"]) {
+for (const asset of ["/style.css", "/site.js", "/favicon-64.png", "/favicon.png", "/favicon.ico"]) {
   const response = await fetchWithRetry(new URL(asset, baseUrl));
   if (response.status !== 200) errors.push(`${asset} returned ${response.status}`);
+  if (asset.startsWith("/favicon") && !response.headers.get("content-type")?.startsWith("image/")) {
+    errors.push(`${asset} returned an invalid content type`);
+  }
+}
+
+const googlebotIconResponse = await fetchWithRetry(new URL("/favicon-64.png", baseUrl), {
+  headers: { "user-agent": "Googlebot-Image/1.0" }
+});
+if (googlebotIconResponse.status !== 200) {
+  errors.push(`Googlebot-Image favicon request returned ${googlebotIconResponse.status}`);
 }
 
 if (errors.length) {
