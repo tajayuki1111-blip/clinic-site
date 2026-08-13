@@ -3,15 +3,38 @@ import { execFile } from "node:child_process";
 import { cp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { promisify } from "node:util";
+import CleanCSS from "clean-css";
 import sanitizeHtml from "sanitize-html";
 
 const ROOT = process.cwd();
 const OUT = path.join(ROOT, "_site");
 const SITE_URL = "https://ynakai-clinic.com";
 const CLINIC_NAME = "なかい内科血管外科クリニック";
+const SOURCE_STYLESHEET = await readFile(path.join(ROOT, "style.css"), "utf8");
+const minifiedStylesheet = new CleanCSS({
+  level: {
+    1: {
+      all: false,
+      removeWhitespace: true,
+      specialComments: 0
+    },
+    2: false
+  },
+  rebase: false
+}).minify(SOURCE_STYLESHEET);
+const stylesheetIssues = [...minifiedStylesheet.errors, ...minifiedStylesheet.warnings];
+if (stylesheetIssues.length) {
+  throw new Error(`CSS minification failed: ${stylesheetIssues.join("; ")}`);
+}
+const BUILT_STYLESHEET = `${minifiedStylesheet.styles}\n`;
+const OPTIMIZED_LOGO = Buffer.from(
+  (await readFile(path.join(ROOT, "logo.webp.b64"), "utf8")).trim(),
+  "base64"
+);
+const SITE_SCRIPT = await readFile(path.join(ROOT, "site.js"));
 const ASSET_VERSION = createHash("sha256")
-  .update(await readFile(path.join(ROOT, "style.css")))
-  .update(await readFile(path.join(ROOT, "site.js")))
+  .update(BUILT_STYLESHEET)
+  .update(SITE_SCRIPT)
   .digest("hex")
   .slice(0, 12);
 const MICROCMS_API_KEY = process.env.MICROCMS_API_KEY;
@@ -858,7 +881,16 @@ await mkdir(OUT, { recursive: true });
 for (const file of publishFiles) {
   await cp(path.join(ROOT, file), path.join(OUT, file), { recursive: true });
 }
+
+function useOptimizedLogo(html) {
+  return html.replace(
+    /(<img\b[^>]*\bsrc=)(["'])\/?logo\.png\2/gi,
+    "$1$2/logo.webp$2"
+  );
+}
 await cp(path.join(ROOT, "favicon-64.png"), path.join(OUT, "favicon.png"));
+await writeFile(path.join(OUT, "logo.webp"), OPTIMIZED_LOGO);
+await writeFile(path.join(OUT, "style.css"), BUILT_STYLESHEET, "utf8");
 
 for (const file of publishFiles.filter((file) => file.endsWith(".html"))) {
   const destination = path.join(OUT, file);
@@ -866,6 +898,7 @@ for (const file of publishFiles.filter((file) => file.endsWith(".html"))) {
   if (!html.includes('class="clinic-info"')) {
     html = html.replace("</main>", `</main>${clinicInfo}`);
   }
+  html = useOptimizedLogo(html);
   await writeFile(destination, html, "utf8");
 }
 
@@ -888,7 +921,7 @@ await mkdir(path.join(OUT, "news"), { recursive: true });
 for (const item of news) {
   await writeFile(
     path.join(OUT, "news", `${item.id}.html`),
-    newsArticleHtml(item),
+    useOptimizedLogo(newsArticleHtml(item)),
     "utf8"
   );
 }
@@ -897,13 +930,13 @@ await mkdir(path.join(OUT, "recruit"), { recursive: true });
 for (const item of recruits) {
   await writeFile(
     path.join(OUT, "recruit", `${item.id}.html`),
-    recruitArticleHtml(item),
+    useOptimizedLogo(recruitArticleHtml(item)),
     "utf8"
   );
 }
 
-await writeFile(path.join(OUT, "news-detail.html"), legacyRedirectHtml("news"), "utf8");
-await writeFile(path.join(OUT, "recruit-detail.html"), legacyRedirectHtml("recruit"), "utf8");
+await writeFile(path.join(OUT, "news-detail.html"), useOptimizedLogo(legacyRedirectHtml("news")), "utf8");
+await writeFile(path.join(OUT, "recruit-detail.html"), useOptimizedLogo(legacyRedirectHtml("recruit")), "utf8");
 await writeFile(path.join(OUT, "sitemap.xml"), sitemapXml(stablePages, news, recruits), "utf8");
 await writeFile(
   path.join(OUT, "cms-manifest.json"),

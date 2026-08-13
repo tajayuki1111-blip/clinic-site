@@ -99,6 +99,29 @@ if (!canonicalFavicon.equals(legacyFavicon)) {
 }
 await access(path.join(root, "_site", "favicon.ico"));
 
+const sourceStylesheet = await readFile(path.join(root, "style.css"), "utf8");
+const builtStylesheet = await readFile(path.join(root, "_site", "style.css"), "utf8");
+if (builtStylesheet.length >= sourceStylesheet.length * 0.9) {
+  throw new Error("Built stylesheet was not safely minified.");
+}
+if (!builtStylesheet.includes(".hero{position:relative")) {
+  throw new Error("Minified stylesheet lost a critical hero rule.");
+}
+
+const builtHome = await readFile(path.join(root, "_site", "index.html"), "utf8");
+if (!builtHome.includes('src="/logo.webp"')) {
+  throw new Error("Generated pages do not use the optimized WebP logo.");
+}
+
+const logoPng = await readFile(path.join(root, "_site", "logo.png"));
+const logoWebp = await readFile(path.join(root, "_site", "logo.webp"));
+if (logoWebp.subarray(0, 4).toString("ascii") !== "RIFF" || logoWebp.subarray(8, 12).toString("ascii") !== "WEBP") {
+  throw new Error("logo.webp is not a valid WebP asset.");
+}
+if (logoWebp.length >= logoPng.length) {
+  throw new Error("Optimized logo is not smaller than its PNG source.");
+}
+
 async function articleBody(kind, id) {
   const html = await readFile(path.join(root, "_site", kind, `${id}.html`), "utf8");
   const match = html.match(/<div class="news-content"[^>]*>([\s\S]*?)<\/div>\s*<div class="back-news-area">/);
