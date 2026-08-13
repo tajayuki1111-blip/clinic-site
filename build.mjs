@@ -18,6 +18,7 @@ const MICROCMS_API_KEY = process.env.MICROCMS_API_KEY;
 const MICROCMS_FIXTURE_FILE = process.env.MICROCMS_FIXTURE_FILE;
 const ALLOW_CMS_CONTENT_DROP = process.env.ALLOW_CMS_CONTENT_DROP === "true";
 const CMS_DROP_GUARD_REQUIRED = process.env.CMS_DROP_GUARD_REQUIRED === "true";
+const REQUIRE_COMPLETE_GIT_HISTORY = process.env.REQUIRE_COMPLETE_GIT_HISTORY === "true";
 const execFileAsync = promisify(execFile);
 
 if (!MICROCMS_API_KEY && !MICROCMS_FIXTURE_FILE) {
@@ -417,6 +418,21 @@ async function sourceLastmod(file, fallback) {
     return stdout.trim() ? toDate(stdout.trim(), `${file} git date`) : fallback;
   } catch {
     return fallback;
+  }
+}
+
+async function assertCompleteGitHistory() {
+  if (!REQUIRE_COMPLETE_GIT_HISTORY) return;
+
+  const { stdout } = await execFileAsync(
+    "git",
+    ["rev-parse", "--is-shallow-repository"],
+    { cwd: ROOT }
+  );
+  if (stdout.trim() === "true") {
+    throw new Error(
+      "Complete Git history is required to calculate trustworthy sitemap lastmod values."
+    );
   }
 }
 
@@ -825,6 +841,7 @@ ${body}
 }
 
 const previous = await previousCmsState();
+await assertCompleteGitHistory();
 const [rawNews, rawRecruits] = await Promise.all([
   fetchCollection("news"),
   fetchCollection("recruit")
