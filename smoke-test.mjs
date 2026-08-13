@@ -1,5 +1,6 @@
 const baseUrl = new URL(process.argv[2] || "https://ynakai-clinic.com/");
 const errors = [];
+const verificationFile = "google1434e5acf9306ed2.html";
 
 const wait = (milliseconds) =>
   new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -101,6 +102,13 @@ const googlebotIconResponse = await fetchWithRetry(new URL("/favicon-64.png", ba
 });
 if (googlebotIconResponse.status !== 200) {
   errors.push(`Googlebot-Image favicon request returned ${googlebotIconResponse.status}`);
+}
+
+const verificationResponse = await fetchWithRetry(new URL(`/${verificationFile}`, baseUrl));
+const verificationContent = await verificationResponse.text();
+if (verificationResponse.status !== 200
+  || verificationContent.trim() !== `google-site-verification: ${verificationFile}`) {
+  errors.push(`/${verificationFile} is missing or has invalid content`);
 }
 
 if (errors.length) {

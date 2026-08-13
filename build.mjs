@@ -39,6 +39,7 @@ const publishFiles = [
   "robots.txt",
   "CNAME",
   ".nojekyll",
+  "google1434e5acf9306ed2.html",
   "favicon-64.png",
   "favicon.ico",
   "logo.png",

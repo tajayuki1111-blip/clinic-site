@@ -3,6 +3,8 @@ import path from "node:path";
 
 const root = path.resolve(process.argv[2] || "_site");
 const siteUrl = "https://ynakai-clinic.com";
+const verificationFile = "google1434e5acf9306ed2.html";
+const verificationContent = `google-site-verification: ${verificationFile}`;
 const errors = [];
 const indexablePages = [];
 const titles = new Map();
@@ -42,7 +44,17 @@ function recordUnique(map, value, relative, label) {
 }
 
 const files = await walk(root);
-const htmlFiles = files.filter((file) => file.endsWith(".html"));
+const htmlFiles = files.filter(
+  (file) => file.endsWith(".html") && path.basename(file) !== verificationFile
+);
+
+const actualVerificationContent = await readFile(
+  path.join(root, verificationFile),
+  "utf8"
+);
+if (actualVerificationContent.trim() !== verificationContent) {
+  errors.push(`${verificationFile}: verification token does not match`);
+}
 
 for (const file of htmlFiles) {
   const relative = path.relative(root, file).replaceAll("\\", "/");
