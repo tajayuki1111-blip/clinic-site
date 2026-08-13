@@ -33,6 +33,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          # build.mjs derives each stable page's sitemap lastmod from Git.
+          # A shallow checkout makes every file look as if HEAD changed it.
+          fetch-depth: 0
 
       - name: Use Node.js 22
         uses: actions/setup-node@v4
@@ -60,6 +64,8 @@ jobs:
         run: node build.mjs
         env:
           MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
+          CMS_DROP_GUARD_REQUIRED: "true"
+          REQUIRE_COMPLETE_GIT_HISTORY: "true"
           ALLOW_CMS_CONTENT_DROP: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_cms_content_drop && 'true' || 'false' }}
 
       - name: Validate SEO and internal links
