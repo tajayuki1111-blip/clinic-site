@@ -1,8 +1,10 @@
-import { spawn } from "node:child_process";
+import { execFile, spawn } from "node:child_process";
 import { access, readFile } from "node:fs/promises";
 import path from "node:path";
+import { promisify } from "node:util";
 
 const root = path.resolve(import.meta.dirname, "..");
+const execFileAsync = promisify(execFile);
 
 function runBuild(fixture) {
   return new Promise((resolve) => {
@@ -11,7 +13,8 @@ function runBuild(fixture) {
       env: {
         ...process.env,
         MICROCMS_API_KEY: "",
-        MICROCMS_FIXTURE_FILE: fixture
+        MICROCMS_FIXTURE_FILE: fixture,
+        REQUIRE_COMPLETE_GIT_HISTORY: "true"
       },
       stdio: ["ignore", "pipe", "pipe"]
     });
@@ -26,6 +29,67 @@ function runBuild(fixture) {
 const valid = await runBuild("test/fixtures/microcms.json");
 if (valid.code !== 0) {
   throw new Error(`Valid fixture failed:\n${valid.stderr}`);
+}
+
+const workflow = await readFile(
+  path.join(root, ".github", "workflows", "pages.yml"),
+  "utf8"
+);
+const firstCheckoutStep = workflow.match(
+  /- name: Checkout[\s\S]*?(?=\n\s{6}- name:)/
+)?.[0] || "";
+const fixtureBuildStep = workflow.match(
+  /- name: Build static site from fixture[\s\S]*?(?=\n\s{6}- name:)/
+)?.[0] || "";
+const productionBuildStep = workflow.match(
+  /- name: Build static site from microCMS[\s\S]*?(?=\n\s{6}- name:)/
+)?.[0] || "";
+
+if (!/fetch-depth:\s*0\b/.test(firstCheckoutStep)) {
+  throw new Error("The production build must check out complete Git history for sitemap lastmod.");
+}
+if (!/CMS_DROP_GUARD_REQUIRED:\s*["']true["']/.test(productionBuildStep)) {
+  throw new Error("The production microCMS build must fail closed when its live baseline is unavailable.");
+}
+if (/CMS_DROP_GUARD_REQUIRED/.test(fixtureBuildStep)) {
+  throw new Error("The pull-request fixture build must not require the live CMS drop guard.");
+}
+if (!/REQUIRE_COMPLETE_GIT_HISTORY:\s*["']true["']/.test(productionBuildStep)) {
+  throw new Error("The production build must reject incomplete Git history.");
+}
+
+const sitemap = await readFile(path.join(root, "_site", "sitemap.xml"), "utf8");
+const sitemapLastmods = new Map(
+  [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => [
+    match[1].match(/<loc>(.*?)<\/loc>/)?.[1],
+    match[1].match(/<lastmod>(.*?)<\/lastmod>/)?.[1]
+  ])
+);
+const stablePages = [
+  ["index.html", "https://ynakai-clinic.com/"],
+  ["medical.html", "https://ynakai-clinic.com/medical.html"],
+  ["varix.html", "https://ynakai-clinic.com/varix.html"],
+  ["doctor.html", "https://ynakai-clinic.com/doctor.html"],
+  ["gallery.html", "https://ynakai-clinic.com/gallery.html"],
+  ["news.html", "https://ynakai-clinic.com/news.html"],
+  ["access.html", "https://ynakai-clinic.com/access.html"],
+  ["privacy.html", "https://ynakai-clinic.com/privacy.html"]
+];
+
+for (const [file, url] of stablePages) {
+  const { stdout } = await execFileAsync(
+    "git",
+    ["log", "-1", "--format=%cs", "--", file],
+    { cwd: root }
+  );
+  const expectedLastmod = stdout.trim();
+  const actualLastmod = sitemapLastmods.get(url);
+  if (!expectedLastmod || actualLastmod !== expectedLastmod) {
+    throw new Error(
+      `${file}: sitemap lastmod ${actualLastmod || "missing"} does not match `
+      + `the file's actual Git change date ${expectedLastmod || "missing"}.`
+    );
+  }
 }
 
 const canonicalFavicon = await readFile(path.join(root, "_site", "favicon-64.png"));
