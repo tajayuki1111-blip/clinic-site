@@ -32,6 +32,16 @@ function attr(tag, name) {
   return match ? match[2] : "";
 }
 
+function schemaTypes(node) {
+  const value = node?.["@type"];
+  return Array.isArray(value) ? value : value ? [value] : [];
+}
+
+function isIsoDateTimeWithTimezone(value) {
+  return typeof value === "string"
+    && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})$/.test(value);
+}
+
 function expectedCanonical(relative) {
   if (relative === "index.html") return `${siteUrl}/`;
   return `${siteUrl}/${relative.replaceAll("\\", "/")}`;
@@ -113,6 +123,20 @@ for (const file of htmlFiles) {
       }
       if (!parsed?.["@type"] && !Array.isArray(parsed?.["@graph"])) {
         errors.push(`${relative}: JSON-LD is missing @type or @graph`);
+      }
+      const graph = Array.isArray(parsed?.["@graph"]) ? parsed["@graph"] : [parsed];
+      for (const node of graph) {
+        if (!schemaTypes(node).includes("ProfilePage")) continue;
+        if (node.dateModified && !isIsoDateTimeWithTimezone(node.dateModified)) {
+          errors.push(`${relative}: ProfilePage dateModified must be an ISO 8601 DateTime with timezone`);
+        }
+
+        const entityId = node.mainEntity?.["@id"];
+        const entity = entityId ? graph.find((candidate) => candidate?.["@id"] === entityId) : node.mainEntity;
+        const entityTypes = schemaTypes(entity);
+        if (!entityTypes.includes("Person") && !entityTypes.includes("Organization")) {
+          errors.push(`${relative}: ProfilePage mainEntity must include Person or Organization`);
+        }
       }
     } catch (error) {
       errors.push(`${relative}: invalid JSON-LD (${error.message})`);
