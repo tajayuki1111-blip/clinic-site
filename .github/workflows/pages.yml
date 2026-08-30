@@ -26,13 +26,14 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: read
     outputs:
       changed: ${{ steps.changes.outputs.changed }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           persist-credentials: false
           # build.mjs derives each stable page's sitemap lastmod from Git.
@@ -40,7 +41,7 @@ jobs:
           fetch-depth: 0
 
       - name: Use Node.js 22
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: "22"
           cache: npm
@@ -78,7 +79,7 @@ jobs:
         shell: bash
         run: |
           echo "changed=true" >> "$GITHUB_OUTPUT"
-          if curl --fail --silent --show-error \
+          if curl --fail --silent --show-error --connect-timeout 10 --max-time 30 \
             "https://ynakai-clinic.com/deployment-manifest.json" \
             --output /tmp/live-deployment-manifest.json; then
             if cmp --silent _site/deployment-manifest.json /tmp/live-deployment-manifest.json; then
@@ -88,7 +89,7 @@ jobs:
 
       - name: Upload GitHub Pages artifact
         if: steps.changes.outputs.changed == 'true'
-        uses: actions/upload-pages-artifact@v5
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
         with:
           path: ./_site
 
@@ -97,6 +98,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs: build
     if: needs.build.outputs.changed == 'true'
     permissions:
@@ -105,26 +107,27 @@ jobs:
       id-token: write
     steps:
       - name: Configure GitHub Pages
-        uses: actions/configure-pages@v6
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
 
       - name: Deploy GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5
 
   verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: read
     needs: [build, deploy]
     if: always() && needs.build.result == 'success' && (needs.deploy.result == 'success' || needs.deploy.result == 'skipped')
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           persist-credentials: false
 
       - name: Use Node.js 22
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: "22"
 
