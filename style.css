@@ -3314,7 +3314,7 @@ main dd{
     left:0;
     width:16px;
     height:16px;
-    background:#ffb74d;
+    background:#2c79b9;
     transform:translateY(-50%);
 }
 
@@ -3447,18 +3447,6 @@ main dd{
     .menu-btn{
         position:relative;
         z-index:10000;
-    }
-
-    body.menu-open::before{
-        content:"";
-        position:fixed;
-        top:8px;
-        left:5px;
-        z-index:20000;
-        width:248px;
-        height:52px;
-        background:url("/logo.png") left center / contain no-repeat;
-        pointer-events:none;
     }
 
     nav{
