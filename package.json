@@ -6,6 +6,8 @@
     "node": ">=22"
   },
   "scripts": {
+    "audit:prod": "npm audit --omit=dev --audit-level=high",
+    "build": "node build.mjs",
     "test": "node test/build-safety.mjs",
     "validate": "node validate-seo.mjs _site"
   },

@@ -39,4 +39,4 @@ jobs:
         run: npm ci --ignore-scripts --no-audit --no-fund
 
       - name: Fail on high or critical dependency vulnerabilities
-        run: npm audit --omit=dev --audit-level=high
+        run: npm run audit:prod

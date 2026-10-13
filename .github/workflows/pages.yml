@@ -50,20 +50,20 @@ jobs:
         run: npm ci --ignore-scripts --no-audit --no-fund
 
       - name: Test microCMS build safeguards
-        run: node test/build-safety.mjs
+        run: npm test
 
       - name: Build static site from fixture
         if: github.event_name == 'pull_request'
         shell: bash
         run: |
           test -z "${MICROCMS_API_KEY+x}"
-          node build.mjs
+          npm run build
         env:
           MICROCMS_FIXTURE_FILE: test/fixtures/microcms.json
 
       - name: Build static site from microCMS
         if: github.event_name != 'pull_request'
-        run: node build.mjs
+        run: npm run build
         env:
           MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
           CMS_DROP_GUARD_REQUIRED: "true"
@@ -71,7 +71,7 @@ jobs:
           ALLOW_CMS_CONTENT_DROP: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_cms_content_drop && 'true' || 'false' }}
 
       - name: Validate SEO and internal links
-        run: node validate-seo.mjs _site
+        run: npm run validate
 
       - name: Check whether published output changed
         id: changes
