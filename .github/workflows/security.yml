@@ -1,6 +1,13 @@
 name: Dependency security audit
 
 on:
+  push:
+    branches: ["main"]
+    paths:
+      - "package.json"
+      - "package-lock.json"
+      - ".github/dependabot.yml"
+      - ".github/workflows/security.yml"
   pull_request:
     branches: ["main"]
     paths:
