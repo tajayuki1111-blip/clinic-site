@@ -40,10 +40,10 @@ jobs:
           # A shallow checkout makes every file look as if HEAD changed it.
           fetch-depth: 0
 
-      - name: Use Node.js 22
+      - name: Use Node.js 22.23.4
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
-          node-version: "22"
+          node-version: "22.23.4"
           cache: npm
 
       - name: Install dependencies
@@ -126,10 +126,10 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Use Node.js 22
+      - name: Use Node.js 22.23.4
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
-          node-version: "22"
+          node-version: "22.23.4"
 
       - name: Verify production responses
         run: node smoke-test.mjs https://ynakai-clinic.com/
